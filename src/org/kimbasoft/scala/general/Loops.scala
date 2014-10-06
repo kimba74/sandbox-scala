@@ -12,6 +12,11 @@ object Loops {
     for (i <- 1 to 9)
     println(s"$i.> Iteration")
 
+    // Empty for loop (?)
+    println("-- Empty For Loop ------------------")
+    for (_ <- 1 to 9)
+      println("empty> iteration")
+
     // Foreach loop over collection
     println("-- For-Each Loop -------------------")
     val str = Array[String]("This", "is", "a", "String", "array")
