@@ -20,7 +20,7 @@ object MethodDeclaration {
    */
   def functionA2(name:String): String = {
       "Hello " + name
-    }
+  }
 
   /**
    * Since this function is very simple and consists only of a single expression rather than
