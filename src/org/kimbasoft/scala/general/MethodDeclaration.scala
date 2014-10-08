@@ -8,7 +8,7 @@ package org.kimbasoft.scala.general
 object MethodDeclaration {
 
   /**
-   * Fully fledged function declaration return type (: String), body ({...}), and return statement.
+   * Fully fledged function declaration with return type (: String), body ({...}), and return statement.
    */
   def functionA1(name:String): String = {
     return "Hello " + name
