@@ -60,8 +60,10 @@ object MethodDeclaration {
   /**
    * ...then implement a second function, "overloading" the first but not accepting any parameters.
    * This function will then call the first, more elaborate function with a default value as parameter.
+   * (Example where an overloaded function needs to specify a result type since it cannot safely be
+   * inferred by the overloading function call)
    */
-  def functionC1 = functionC1("world")
+  def functionC1: String = functionC1("world")
 
   /**
    * Scala lets the developer specify sensitive default values for parameter, which will be used in case
