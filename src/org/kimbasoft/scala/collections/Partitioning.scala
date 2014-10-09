@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.general
+package org.kimbasoft.scala.collections
 
 /**
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
@@ -16,4 +16,13 @@ object Partitioning {
     println("-- Adults -----------------")
     for (a <- adults) println(a)
   }
+}
+
+class Person(name: String, age: Int) {
+
+  def getName = name
+
+  def getAge = age
+
+  override def toString: String = name + "(" + age + ")"
 }
