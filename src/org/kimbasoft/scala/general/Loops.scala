@@ -10,7 +10,7 @@ object Loops {
     // Regular For loop (from 1 - 9)
     println("-- For Loop ------------------------")
     for (i <- 1 to 9)
-    println(s"$i.> Iteration")
+      println(s"$i.> Iteration")
 
     // Empty for loop (?)
     println("-- Empty For Loop ------------------")
@@ -22,5 +22,8 @@ object Loops {
     val str = Array[String]("This", "is", "a", "String", "array")
     for (s <- str)
       println(s"item> $s")
+
+    // Simplified foreach loop over same collection. Suitable for singe statement bodied loops.
+    str.foreach(printf("item> %s%n", _))
   }
 }
