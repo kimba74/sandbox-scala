@@ -12,9 +12,9 @@ object Partitioning {
     val (minors, adults) = people partition(_.getAge < 18)
 
     println("-- Minors -----------------")
-    for (m <- minors) println(m)
+    minors foreach println
     println("-- Adults -----------------")
-    for (a <- adults) println(a)
+    adults foreach println
   }
 }
 
