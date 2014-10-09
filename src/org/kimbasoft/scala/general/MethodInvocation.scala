@@ -5,7 +5,7 @@ package org.kimbasoft.scala.general
  *
  * @since 1.0
  */
-object MethodCalling {
+object MethodInvocation {
 
   def toCollection(str: String): Seq[String] = str.split(' ')
 
