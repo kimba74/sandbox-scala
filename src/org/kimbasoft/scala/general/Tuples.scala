@@ -9,14 +9,14 @@ object Tuples {
 
   /**
    * Defining a Tuple as return type is simply done by setting the functions
-   * return type to a Tuple definition, e.g. (Int, String, Double, Boolean)
+   * return type to a Tuple definition, e.g. "(Int, String, Double, Boolean)"
    */
   def createTuple(int:Int, dbl:Double, str:String): (Int, Double, String) = (int, dbl, str)
 
   /**
    * Passing a Tuple to a function as parameter is as simple as setting it
    * as return type for a function. We just have to define a function parameter
-   * and set its type tu a Tuple definition, e.g. (String, Int, Int, Boolean)
+   * and set its type tu a Tuple definition, e.g. "(String, Int, Int, Boolean)"
    */
   def printTuple(tuple: (Int, Double, String)) = println(tuple)
 

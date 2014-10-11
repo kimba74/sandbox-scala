@@ -9,8 +9,8 @@ object OptionUsage {
 
   /**
    * A function definition (with pattern matching) that accepts any object and
-   * returns a Some(String) object if the parameter is of type String or a
-   * None object is the parameter is something else
+   * returns a "Some(String)" object if the parameter is of type String or a
+   * "None" object is the parameter is something else
    */
   def evaluate(obj:Any): Option[String] = {
     obj match {
@@ -46,7 +46,7 @@ object OptionUsage {
     println("Down : " + control.getOrElse("Down" , "Oops!"))
     println("Right: " + control.getOrElse("Right", "Oops!"))
     println("Left : " + control.getOrElse("Left" , "Oops!"))
-    println("North: " + control.getOrElse("North", "Oops!"))
+    println("North: " + control.getOrElse("North", "Oops!")) // Will return "Oops!"
 
     /* Calling the custom method evaluate(Any) and receiving the Option sub-class */
     println("-- Calling custom function ---------")
