@@ -5,7 +5,7 @@ package org.kimbasoft.scala.java
  *
  * @since 1.0
  */
-object Coexistence {
+object CoexistenceScala {
 
   def main(args: Array[String]) {
     val java = new HelloWorldJava
