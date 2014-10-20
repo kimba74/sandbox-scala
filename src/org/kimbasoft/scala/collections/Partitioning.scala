@@ -7,7 +7,14 @@ package org.kimbasoft.scala.collections
 object Partitioning {
 
   def main(args: Array[String]) {
-    val people = Array[Person](new Person("Steffen", 40), new Person("Jennifer", 40), new Person("Mattes", 4))
+
+    class Person1(name:String, age:Int) {
+      def getName = name
+      def getAge = age
+      override def toString: String = name + "(" + age + ")"
+    }
+
+    val people = Array(new Person1("Steffen", 40), new Person1("Jennifer", 40), new Person1("Mattes", 4))
 
     val (minors, adults) = people partition(_.getAge < 18)
 
@@ -18,11 +25,3 @@ object Partitioning {
   }
 }
 
-class Person(name: String, age: Int) {
-
-  def getName = name
-
-  def getAge = age
-
-  override def toString: String = name + "(" + age + ")"
-}
