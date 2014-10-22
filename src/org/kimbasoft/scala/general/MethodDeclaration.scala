@@ -41,13 +41,18 @@ object MethodDeclaration {
   def functionA4(name:String) = "Hello " + name
 
   /**
-   * Shortened declaration of a function that does not have any parameters.
+   * Shortened declaration of a function that does not have any parameters. When declaring a function
+   * with empty parentheses the caller can choose between calling the function with or without parentheses
+   * as well:
+   *    functionB1()   or   functionB1
    */
   def functionB1() = "Hello world"
 
   /**
    * Since the function does not have any parameters Scala does not require the developers to provide
-   * empty braces. We therefore drop the braces to further simplify the function definition.
+   * empty braces. We therefore drop the braces to further simplify the function definition. When declaring
+   * a function without parentheses the caller can only call the function without specifying parentheses:
+   *    functionB2
    */
   def functionB2 = "Hello world"
 
