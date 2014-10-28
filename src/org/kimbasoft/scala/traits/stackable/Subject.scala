@@ -1,5 +1,7 @@
 package org.kimbasoft.scala.traits.stackable
 
+import scala.language.reflectiveCalls
+
 /**
  * Missing documentation. 
  *
@@ -7,7 +9,7 @@ package org.kimbasoft.scala.traits.stackable
  * @since 1.0
  */
 trait Subject {
-  type Observer = { def notify(subject: Any)}
+  type Observer = { def notify(subject: Any) }
 
   private var observers = List[Observer]()
 

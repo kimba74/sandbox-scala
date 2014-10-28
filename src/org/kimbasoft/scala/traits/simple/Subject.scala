@@ -1,5 +1,7 @@
 package org.kimbasoft.scala.traits.simple
 
+import scala.language.reflectiveCalls
+
 /**
  * Missing documentation. 
  *
@@ -14,5 +16,4 @@ trait Subject {
   def addObserver(observer: Observer) = observers ::= observer
 
   def notifyObservers() = observers foreach (_.notify(this))
-
 }
