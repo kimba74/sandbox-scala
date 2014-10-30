@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.general
+package org.kimbasoft.scala.methods
 
 /**
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
