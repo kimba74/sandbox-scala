@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.traits.simple
+package org.kimbasoft.scala.oo.traits.simple
 
 import scala.language.reflectiveCalls
 

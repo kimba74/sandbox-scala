@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.traits.stackable
+package org.kimbasoft.scala.oo.traits.stackable
 
 /**
  * Missing documentation. 

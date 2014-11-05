@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.traits.stackable
+package org.kimbasoft.scala.oo.traits.simple
 
 /**
  * Missing documentation. 
@@ -7,9 +7,9 @@ package org.kimbasoft.scala.traits.stackable
  * @since 1.0
  */
 class ClickCountObserver {
-  var count = 0
+  var counter = 0
 
   def notify(subject: Any) = {
-    count += 1
+    counter += 1
   }
 }

@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.traits.construction
+package org.kimbasoft.scala.oo.traits.construction
 
 /**
  * Missing documentation
