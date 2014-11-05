@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.methods
+package org.kimbasoft.scala.oo.methods
 
 /**
  * Missing documentation
