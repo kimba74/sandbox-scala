@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.collections
+package org.kimbasoft.scala.datastructs.collections
 
 /**
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>

@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.codingstyle.oo
+package org.kimbasoft.scala.codingstyle.oo.classes
 
 /**
  * Case classes are best when used as immutable Value Objects.

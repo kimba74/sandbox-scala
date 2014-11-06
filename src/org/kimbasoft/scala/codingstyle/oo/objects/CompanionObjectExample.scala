@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.codingstyle.oo
+package org.kimbasoft.scala.codingstyle.oo.objects
 
 /**
  * Missing documentation

@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.codingstyle.oo
+package org.kimbasoft.scala.codingstyle.oo.classes
 
 /**
  * If a class is marked 'sealed' then all of its possible subclasses
