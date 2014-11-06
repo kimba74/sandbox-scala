@@ -5,7 +5,7 @@ package org.kimbasoft.scala.codingstyle.oo
  *
  * @since 1.0
  */
-object Linearisation {
+object Linearization {
 
   /**
    * The algorithm for the linearization of inheritance is defined as follows:
