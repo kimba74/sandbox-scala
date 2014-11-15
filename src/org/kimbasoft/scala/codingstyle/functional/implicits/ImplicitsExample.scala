@@ -2,6 +2,7 @@ package org.kimbasoft.scala.codingstyle.functional.implicits
 
 import ImplicitArguments._
 import ImplicitConversions._
+import ImplicitEvidence.Processor
 
 /**
  * Missing documentation
@@ -25,6 +26,11 @@ object ImplicitsExample {
     println("-- Implicit Conversions ----------------------")
     println("Hello Implicit Class".decorate('<', '>'))
     println("Hello Implicit Method".fillBlanks('_'))
+
+    println("-- Implicit Evidence -------------------------")
+    println(Processor("Hello World").process)
+    // println(Processor(125000).process)    // Will not compile because no "evidence" that Int is String
+
   }
 
 }
