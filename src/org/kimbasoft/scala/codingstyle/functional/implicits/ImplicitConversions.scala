@@ -14,7 +14,7 @@ object ImplicitConversions {
     def fillBlanks(filler: Char) = str.replace(' ', filler)
   }
 
-  implicit def createWrapper(str: String) = new MyOtherStringWrapper(str)
+  implicit def createWrapper(str: String): MyOtherStringWrapper = new MyOtherStringWrapper(str)
 
   /**
    * Implicit classes introduced in Scala 2.10
