@@ -2,7 +2,8 @@ package org.kimbasoft.scala.codingstyle.functional.implicits
 
 import ImplicitArguments._
 import ImplicitConversions._
-import ImplicitEvidence.Processor
+import ImplicitEvidence._
+import ImplicitTypeErasure._
 
 /**
  * Missing documentation
@@ -30,6 +31,10 @@ object ImplicitsExample {
     println("-- Implicit Evidence -------------------------")
     println(Processor("Hello World").process)
     // println(Processor(125000).process)    // Will not compile because no "evidence" that Int is String
+
+    println("-- Implicit Type Erasure ---------------------")
+    SeqPrinter.print(List(1, 2, 3, 4, 5, 6))
+    SeqPrinter.print(List("A", "B", "C", "D", "E", "F"))
 
   }
 
