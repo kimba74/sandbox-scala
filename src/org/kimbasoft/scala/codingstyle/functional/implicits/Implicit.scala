@@ -10,7 +10,7 @@ import ImplicitTypeErasure._
  *
  * @since 1.0
  */
-object ImplicitsExample {
+object Implicit {
 
   def calcSimple(amount: Float)(implicit rate: Float) = amount * rate
 
@@ -32,7 +32,7 @@ object ImplicitsExample {
     println(Processor("Hello World").process)
     // println(Processor(125000).process)    // Will not compile because no "evidence" that Int is String
 
-    println("-- Implicit Type Erasure ---------------------")
+    println("-- Implicit Prevent Type Erasure -------------")
     SeqPrinter.print(List(1, 2, 3, 4, 5, 6))
     SeqPrinter.print(List("A", "B", "C", "D", "E", "F"))
 
