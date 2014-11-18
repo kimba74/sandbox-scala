@@ -15,6 +15,8 @@ object UseCase2 {
     def |[R](f: V => R) = f(value)
   }
 
+  def backwards(value: String) = value.reverse
+
   def debug(value: String) = { println("Debug: " + value); value }
 
   def decorate(value: String) = "<" + value + ">"
@@ -25,7 +27,7 @@ object UseCase2 {
 
 
   def main(args: Array[String]) {
-    val v = "Hello World" | debug | decorate | debug | fillBlanks | debug | uppercase | debug
+    val v = "Hello World" | debug | backwards | debug | decorate | debug | fillBlanks | debug | uppercase | debug
     println(v)
   }
 }
