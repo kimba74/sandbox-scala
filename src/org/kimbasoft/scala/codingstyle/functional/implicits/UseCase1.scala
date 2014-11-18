@@ -6,7 +6,7 @@ package org.kimbasoft.scala.codingstyle.functional.implicits
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object UseCase {
+object UseCase1 {
 
   class Person(val name: String, val age: Int, val height: Double)
 
