@@ -10,11 +10,17 @@ import scala.language.implicitConversions
  */
 object ImplicitConversions {
 
+  /**
+   * Implicit Conversion before Scala 2.10
+   * An implicit method is being used as a factory method creating
+   * an instance of the wrapper class
+   */
+  implicit def createWrapper(str: String): MyOtherStringWrapper = new MyOtherStringWrapper(str)
+
   class MyOtherStringWrapper(str: String) {
     def fillBlanks(filler: Char) = str.replace(' ', filler)
   }
 
-  implicit def createWrapper(str: String): MyOtherStringWrapper = new MyOtherStringWrapper(str)
 
   /**
    * Implicit classes introduced in Scala 2.10
