@@ -1,5 +1,7 @@
 package org.kimbasoft.scala.codingstyle.functional
 
+import scala.util.control.TailCalls._
+
 /**
  * Missing documentation
  *
@@ -72,6 +74,13 @@ object RecursiveLoops {
     fact(i, 1)
   }
 
+  /**
+   *
+   */
+  def isEven(lst: List[Int]): TailRec[Boolean] = if (lst.isEmpty) done(true) else tailcall(isOdd(lst.tail))
+
+  def isOdd(lst: List[Int]): TailRec[Boolean] = if (lst.isEmpty) done(false) else tailcall(isEven(lst.tail))
+
   def main(args: Array[String]) {
     println("-- Imperative Loop -----------------")
     for (i <- 1 to 10) println(i +": " + factorialI(i))
@@ -79,5 +88,7 @@ object RecursiveLoops {
     for (i <- 1 to 10) println(i +": " + factorialR(i))
     println("-- Tail Recursive Loop -------------")
     for (i <- 1 to 10) println(i +": " + factorialT(i))
+    println("-- Trampoline Tail Calls -----------")
+    for (i <- 1 to 10) println(i +" is even? " + isEven((1 to i).toList).result)
   }
 }
