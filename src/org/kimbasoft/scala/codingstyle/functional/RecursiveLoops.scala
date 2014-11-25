@@ -75,10 +75,21 @@ object RecursiveLoops {
   }
 
   /**
-   *
+   * Method A of a two method "trampoline" Tail Call. This method will take a list of integers.
+   * If the list is empty it will call the TailCalls.done() method with 'true'. This will return
+   * a TalCalls.TailRec object with a Boolean 'true' as it's content (similar to Option Some).
+   * Should the list however still have elements left, it will remove the first element and send
+   * the list's tail to the isOdd() method for processing.
    */
   def isEven(lst: List[Int]): TailRec[Boolean] = if (lst.isEmpty) done(true) else tailcall(isOdd(lst.tail))
 
+  /**
+   * Method B of a two method "trampoline" Tail Call. This method will take a list of integers.
+   * If the list is empty it will call the TailCalls.done() method with 'false'. This will return
+   * a TalCalls.TailRec object with a Boolean 'false' as it's content (similar to Option Some).
+   * Should the list however still have elements left, it will remove the first element and send
+   * the list's tail to the isEven() method for processing.
+   */
   def isOdd(lst: List[Int]): TailRec[Boolean] = if (lst.isEmpty) done(false) else tailcall(isEven(lst.tail))
 
   def main(args: Array[String]) {
@@ -88,6 +99,16 @@ object RecursiveLoops {
     for (i <- 1 to 10) println(i +": " + factorialR(i))
     println("-- Tail Recursive Loop -------------")
     for (i <- 1 to 10) println(i +": " + factorialT(i))
+
+    /* This is a rather crude demonstration of a trampoline Tail Calls but it demonstrates the
+     * See-Saw effect between two methods and the use of the functionality provided in the
+     * TailCalls object and it's sub-classes. These two methods don't really determine if a
+     * number is even or odd but bounce the list around until no element is left in it and then
+     * return their specific TailRec object. The done() method is a convenience method for
+     * creating a TailRec object with the appropriate content. Also belonging to the TailCalls
+     * object the tailCalls() method takes an expression that needs to be evaluated and returns
+     * the TailRec object representing the result.
+     */
     println("-- Trampoline Tail Calls -----------")
     for (i <- 1 to 10) println(i +" is even? " + isEven((1 to i).toList).result)
   }
