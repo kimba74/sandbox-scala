@@ -15,14 +15,36 @@ object Currying {
 
   def concat2(s1: String) = (s2: String) => s1 + s2
 
+  /**
+   * Currying example of a function with three parameter lists, each
+   * containing a single parameter.
+   */
   def concatLong1(s1: String)(s2: String)(s3: String) = s1 + s2 + s3
 
+  /**
+   * Same as concatLong1() but different notation. This form concatenates
+   * multiple functions:
+   *
+   *    f(String) = ((String) => ((String) => ...))
+   */
   def concatLong2(s1: String) = (s2: String) => (s3: String) => s1 + s2 +s3
 
   def concatNormal(s1: String, s2: String) = s1 + s2
 
   def multiplier(i: Int)(factor: Int) = i * factor
 
+  /**
+   * Use Case of a curried function. This function takes a Boolean condition
+   * and a function. It will loop tail recursively and execute the higher
+   * function until the condition returns 'false'.
+   * See "CallBy" example for explanation of the 'condition' expression.
+   */
+  def myWhile(condition: => Boolean)(f: => Unit): Unit = {
+    if (condition) {
+      f
+      myWhile(condition)(f)
+    }
+  }
 
   def main(args: Array[String]) {
     // Normal invocation of curried functions
@@ -78,5 +100,14 @@ object Currying {
     val byTen  = multiplier(10) _
     println("5 * 2 = " + byFive(2))
     println("10 * 2 = " + byTen(2))
+
+    /* The function declared in the second parameter list can also be written/implemented
+     * in a code block {...} making the function call look more like a regular
+     * loop call. */
+    var count = 0
+    myWhile(count < 5){
+      println(count + ". iteration")
+      count += 1
+    }
   }
 }
