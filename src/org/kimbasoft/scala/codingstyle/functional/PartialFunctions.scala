@@ -20,7 +20,9 @@ object PartialFunctions {
     println(c2("Jennifer"))
 
     //--- Utilizing Trait PartialFunction ---
-    // Composing a new function 'tester' out of the two partial functions 'truthier' and 'fallback'
+    /* Composing a new function 'tester' out of the two partial functions 'truthier' and 'fallback'.
+     * The first PartialFunction (truthier) implements only a part of a pattern matching clause, the
+     * other part is being implemented by the second PartialFunction (fallback). */
     val truthier: PartialFunction[Boolean, String] = { case true => "truthful" }
     val fallback: PartialFunction[Boolean, String] = { case x => "sketchy" }
     val tester = truthier orElse fallback
