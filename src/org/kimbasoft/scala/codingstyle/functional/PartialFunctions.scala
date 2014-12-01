@@ -29,5 +29,19 @@ object PartialFunctions {
 
     println(tester(1 == 1))
     println(tester(2 + 2 == 5))
+
+    //--- Using multiple PartialFunction Trait implementations ---
+    val pf1: PartialFunction[Any,String] = { case i: Int     => "object " + i + " is an Int" }
+    val pf2: PartialFunction[Any,String] = { case d: Double  => "object " + d + " is a Double" }
+    val pf3: PartialFunction[Any,String] = { case b: Boolean => "object " + b + " is a Boolean" }
+    val pf4: PartialFunction[Any,String] = { case s: String  => "object \"" + s + "\" is a String" }
+    val pf5: PartialFunction[Any,String] = { case x => "object \"" + x + "\" of unknown type" }
+    val pf = pf1 orElse pf2 orElse pf3 orElse pf4 orElse pf5
+
+    println(pf("Hello World"))
+    println(pf(16))
+    println(pf(true))
+    println(pf(34.8))
+    println(pf(21.9F))
   }
 }
