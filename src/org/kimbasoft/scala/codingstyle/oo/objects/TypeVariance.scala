@@ -41,7 +41,7 @@ object TypeVariance {
   class UseCase[-T,+R] {
     def useF(in: T): R = {
       println("Received: " + in)
-      new R
+      (new C).asInstanceOf[R]
     }
   }
 
