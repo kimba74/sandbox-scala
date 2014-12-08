@@ -8,21 +8,21 @@ package org.kimbasoft.scala.codingstyle.oo.objects
  */
 object TypeBounds {
 
-  class CSuper {
-    def msuper = println("CSuper")
-  }
+  class CSuper
+  class C extends CSuper
+  class CSub extends C
 
-  class C extends CSuper {
-    def m = println("C")
-  }
 
-  class CSub extends C {
-    def msub = println("CSub")
-  }
+  class Boundaries[P1] {
+    /**
+     *
+     */
+    def upperBound[A<:P1](param: A) = println("Upper Bound: " + param.getClass)
 
-  class Boundaries[A] {
-    def process[B<:A](param: B) = println("Received: " + param)
-
+    /**
+     *
+     */
+    def lowerBound[B>:P1](param: B): B = { println("Lower Bound: " + param.getClass); param }
   }
 
 
@@ -35,14 +35,15 @@ object TypeBounds {
 
     /* Will Work:
      * */
-    bounds.process(csub)
+    bounds.upperBound(csub)
 
     /* Will Work:
      * */
-    bounds.process(c)
+    bounds.upperBound(c)
 
     /* Won't Work:
      * */
-//  bounds.process(csup)
+//  bounds.upperBound(csup)
+
   }
 }
