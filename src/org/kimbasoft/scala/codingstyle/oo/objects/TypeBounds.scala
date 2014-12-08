@@ -33,6 +33,8 @@ object TypeBounds {
 
     val bounds: Boundaries[C] = new Boundaries[C]
 
+    println("-- Upper Bounds ------------------------------")
+
     /* Will Work:
      * */
     bounds.upperBound(csub)
@@ -45,5 +47,18 @@ object TypeBounds {
      * */
 //  bounds.upperBound(csup)
 
+    println("-- Lower Bounds ------------------------------")
+
+    /* Will Work:
+     * */
+    val boundCSup: CSuper = bounds.lowerBound(new CSuper)
+
+    /* Will Work:
+     * */
+    val boundC: C = bounds.lowerBound(new C)
+
+    /* Won't Work:
+     * */
+//  val boundCSub: CSub = bounds.lowerBound(new CSub)
   }
 }
