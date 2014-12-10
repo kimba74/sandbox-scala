@@ -1,5 +1,7 @@
 package org.kimbasoft.scala.codingstyle.oo.objects
 
+import scala.language.implicitConversions
+
 /**
  * Missing documentation. 
  *
@@ -28,6 +30,17 @@ object TypeBounds {
     def decorate(obj: MySubCl): String = "Decorated MySubCl: " + obj.toString
   }
 
+  case class Wrapper(value: Any) {
+    def process: String = "--> " + value + " <--"
+  }
+
+  implicit def fromMySuper(my: MySuper): Wrapper = Wrapper(my)
+
+  implicit def fromMyClass(my: MyClass): Wrapper = Wrapper(my)
+
+  implicit def fromMySubCl(my: MySubCl): Wrapper = Wrapper(my)
+
+
   class Boundaries[P1] {
     /**
      *
@@ -40,9 +53,14 @@ object TypeBounds {
     def lowerBound[B>:P1](param: B): B = { println("Lower Bound: " + param.getClass); param }
 
     /**
-     *
+     * see Implicitly
      */
     def contextBound[C <: P1 : Decorator](obj: C): Unit = println(implicitly[Decorator[C]].decorate(obj))
+
+    /**
+     * see ImplicitConversions
+     */
+    def viewBound[D <: P1 <% Wrapper](param: D): Unit = println(param.process)
   }
 
 
@@ -94,5 +112,19 @@ object TypeBounds {
     /* Won't Work:
      * */
 //  bounds.contextBound(mySuper)
+
+    println("-- View Bounds -------------------------------")
+
+    /* Will Work:
+     * */
+    bounds.viewBound(mySubCl)
+
+    /* Will Work:
+     * */
+    bounds.viewBound(myClass)
+
+    /* Won't Work:
+     * */
+//  bounds.viewBound(mySuper)
   }
 }
