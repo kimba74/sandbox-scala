@@ -29,4 +29,10 @@ object ImplicitConversions {
     def decorate(head: Char, tail: Char) = head + str + tail
   }
 
+
+  def main(args: Array[String]) {
+    println("-- Implicit Conversions ----------------------")
+    println("Hello Implicit Class".decorate('<', '>'))
+    println("Hello Implicit Method".fillBlanks('_'))
+  }
 }

@@ -17,4 +17,10 @@ object ImplicitTypeErasure {
 
     def print(seq: Seq[String])(implicit ev: StringMarker.type) = println("String Seq : " + seq)
   }
+
+  def main(args: Array[String]) {
+    println("-- Implicit Prevent Type Erasure -------------")
+    SeqPrinter.print(List(1, 2, 3, 4, 5, 6))
+    SeqPrinter.print(List("A", "B", "C", "D", "E", "F"))
+  }
 }
