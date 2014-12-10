@@ -8,10 +8,25 @@ package org.kimbasoft.scala.codingstyle.oo.objects
  */
 object TypeBounds {
 
-  class CSuper
-  class C extends CSuper
-  class CSub extends C
+  class MySuper
+  class MyClass extends MySuper
+  class MySubCl extends MyClass
 
+  abstract class Decorator[T] {
+    def decorate(obj: T): String
+  }
+
+  implicit object MySuperDecorator extends Decorator[MySuper] {
+    def decorate(obj: MySuper): String = "Decorated MySuper: " + obj.toString
+  }
+
+  implicit object MyClassDecorator extends Decorator[MyClass] {
+    def decorate(obj: MyClass): String = "Decorated MyClass: " + obj.toString
+  }
+
+  implicit object MySubDecorator extends Decorator[MySubCl] {
+    def decorate(obj: MySubCl): String = "Decorated MySubCl: " + obj.toString
+  }
 
   class Boundaries[P1] {
     /**
@@ -23,42 +38,61 @@ object TypeBounds {
      *
      */
     def lowerBound[B>:P1](param: B): B = { println("Lower Bound: " + param.getClass); param }
+
+    /**
+     *
+     */
+    def contextBound[C <: P1 : Decorator](obj: C): Unit = println(implicitly[Decorator[C]].decorate(obj))
   }
 
 
   def main(args: Array[String]) {
-    val csup = new CSuper
-    val c = new C
-    val csub = new CSub
+    val mySuper = new MySuper
+    val myClass = new MyClass
+    val mySubCl = new MySubCl
 
-    val bounds: Boundaries[C] = new Boundaries[C]
+    val bounds: Boundaries[MyClass] = new Boundaries[MyClass]
 
     println("-- Upper Bounds ------------------------------")
 
     /* Will Work:
      * */
-    bounds.upperBound(csub)
+    bounds.upperBound(mySubCl)
 
     /* Will Work:
      * */
-    bounds.upperBound(c)
+    bounds.upperBound(myClass)
 
     /* Won't Work:
      * */
-//  bounds.upperBound(csup)
+//  bounds.upperBound(mySuper)
 
     println("-- Lower Bounds ------------------------------")
 
     /* Will Work:
      * */
-    val boundCSup: CSuper = bounds.lowerBound(new CSuper)
+    val boundSuper: MySuper = bounds.lowerBound(mySuper)
 
     /* Will Work:
      * */
-    val boundC: C = bounds.lowerBound(new C)
+    val boundClass: MyClass = bounds.lowerBound(myClass)
 
     /* Won't Work:
      * */
-//  val boundCSub: CSub = bounds.lowerBound(new CSub)
+//  val boundSubCl: MySubCl = bounds.lowerBound(mySubCl)
+
+    println("-- Context Bounds ----------------------------")
+
+    /* Will Work:
+     * */
+    bounds.contextBound(mySubCl)
+
+    /* Will Work:
+     * */
+    bounds.contextBound(myClass)
+
+    /* Won't Work:
+     * */
+//  bounds.contextBound(mySuper)
   }
 }
