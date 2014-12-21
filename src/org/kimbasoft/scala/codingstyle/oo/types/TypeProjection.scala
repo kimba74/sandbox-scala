@@ -28,5 +28,17 @@ object TypeProjection {
 
   def main(args: Array[String]) {
     val logger: MyService#Log = new ConsoleLogger // Type projection on concrete implementations using the # symbol
+
+    // Singleton Type
+    val myS1 = new MyService
+    val myS2 = new MyService
+
+    val l1 = myS1.logger
+    val l2 = myS2.logger
+    println(s"l1 = $l1")
+    println(s"l2 = $l2")
+
+    val l11: myS1.logger.type = myS1.logger
+//  val l12: myS1.logger.type = myS2.logger  // Will not compile because the Singleton Type differs
   }
 }
