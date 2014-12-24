@@ -43,22 +43,22 @@ object TypeBounds {
 
   class Boundaries[P1] {
     /**
-     *
+     * Upper Bound
      */
     def upperBound[A<:P1](param: A) = println("Upper Bound: " + param.getClass)
 
     /**
-     *
+     * Lower Bound
      */
     def lowerBound[B>:P1](param: B): B = { println("Lower Bound: " + param.getClass); param }
 
     /**
-     * see Implicitly
+     * Context Bound (see Implicitly)
      */
     def contextBound[C <: P1 : Decorator](obj: C): Unit = println(implicitly[Decorator[C]].decorate(obj))
 
     /**
-     * see ImplicitConversions
+     * View Bound (see ImplicitConversions)
      */
     def viewBound[D <: P1 <% Wrapper](param: D): Unit = println(param.process)
   }
