@@ -33,7 +33,7 @@ object ImplicitConversions {
    * Using implicit conversion inside a parametrized method is possible
    * due to the "View Bound" parameter A. In other words: a parameter can
    * only be passed to this method if a conversion from A to MyStringWrapper
-   * exists (if A is convertable to MyStringWrapper)
+   * exists (if A is convertible to MyStringWrapper)
    */
   def doDecorate[A <% MyStringWrapper](param: A, head: Char = '<', tail: Char = '>') = println(param.decorate(head, tail))
 
@@ -41,7 +41,7 @@ object ImplicitConversions {
    * Using implicit conversion inside a parametrized method is possible
    * due to the "View Bound" parameter A. In other words: a parameter can
    * only be passed to this method if a conversion from A to MyOtherStringWrapper
-   * exists (if A is convertable to MyOtherStringWrapper)
+   * exists (if A is convertible to MyOtherStringWrapper)
    */
   def doFillBlanks[A <% MyOtherStringWrapper](param: A, filler: Char = '+') = println(param.fillBlanks(filler))
 
