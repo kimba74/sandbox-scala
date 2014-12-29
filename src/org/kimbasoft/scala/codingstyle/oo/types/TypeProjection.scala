@@ -13,7 +13,7 @@ object TypeProjection {
   }
 
   class ConsoleLogger extends Logger {
-    override def log(message: String): Unit = println(s"log: $message")
+    def log(message: String): Unit = println(s"log: $message")
   }
 
   trait Service {
@@ -27,7 +27,16 @@ object TypeProjection {
   }
 
   def main(args: Array[String]) {
-    val logger: MyService#Log = new ConsoleLogger // Type projection on concrete implementations using the # symbol
+    // Type Projection (accessed via #)
+
+    /* Trying to project type Log from trait Service will not compile since the
+     * type is defined abstract and not yet defined. */
+//  val logger1: Service#Log = new ConsoleLogger
+
+    /* Projecting type Log from a concrete implementation of trait Service. This
+     * will work since the concrete implementation MyService defines the type to
+     * be ConsoleLogger, a sub-type of trait Logger. */
+    val logger2: MyService#Log = new ConsoleLogger
 
     // Singleton Type
     val myS1 = new MyService

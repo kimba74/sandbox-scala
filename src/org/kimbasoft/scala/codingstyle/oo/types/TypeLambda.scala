@@ -25,7 +25,7 @@ object TypeLambda {
     }
 
     implicit class MapFunctor[K,V1](mapKV1: Map[K,V1]) extends Functor[V1,({type l[a] = Map[K,a]})#l] {
-      override def map2[V2](f: V1 => V2): Map[K,V2] = mapKV1 map { case (k,v) => (k, f(v)) }
+      def map2[V2](f: V1 => V2): Map[K,V2] = mapKV1 map { case (k,v) => (k, f(v)) }
     }
   }
 
