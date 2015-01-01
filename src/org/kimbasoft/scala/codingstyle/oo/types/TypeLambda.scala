@@ -24,6 +24,11 @@ object TypeLambda {
       def map2[B](f: A => B): Option[B] = option map f
     }
 
+    /**
+     * Second parameter for Functor is a combination of a Structural Type and
+     * Type Projection to narrow down the two parameters of the Map to the one
+     * required by the Functor Trait.
+     */
     implicit class MapFunctor[K,V1](mapKV1: Map[K,V1]) extends Functor[V1,({type l[a] = Map[K,a]})#l] {
       def map2[V2](f: V1 => V2): Map[K,V2] = mapKV1 map { case (k,v) => (k, f(v)) }
     }
