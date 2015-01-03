@@ -16,11 +16,21 @@ object TypeProjection {
     def log(message: String): Unit = println(s"log: $message")
   }
 
+  /**
+   * Abstract Trait that defines an abstract type 'Log' to be a sub-type
+   * of 'Logger' and an abstract value 'logger' to be of type 'Log'.
+   */
   trait Service {
     type Log <: Logger
     val logger: Log
   }
 
+  /**
+   * Concrete implementation of the abstract Trait 'Service' that defines
+   * the type 'Log' to be 'ConsoleLogger' (which is a sub-type of abstract
+   * Trait 'Logger') and assigns a new instance of 'ConsoleLogger' to the
+   * value 'logger'
+   */
   class MyService extends Service {
     type Log = ConsoleLogger
     val logger: Log = new ConsoleLogger
