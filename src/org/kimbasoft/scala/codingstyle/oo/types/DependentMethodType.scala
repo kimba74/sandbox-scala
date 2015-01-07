@@ -15,6 +15,14 @@ object DependentMethodType {
   case class LocalResponse(statusCode: Int)
   case class RemoteResponse(message: String)
 
+  /**
+   * This sealed trait defines an abstract type called 'Response'. This type will
+   * then be used as parameter for the Future object returned by the 'work' method.
+   * It will also be used as "dependent" return value for the 'handle' method later
+   * on declared in the Service object thus allowing for dynamically defining the
+   * return type of the 'handle' method via the concrete implementation of this
+   * sealed trait.
+   */
   sealed trait Computation {
     type Response
     val work: Future[Response]
