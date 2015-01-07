@@ -48,7 +48,11 @@ object TypeProjection {
      * be ConsoleLogger, a sub-type of trait Logger. */
     val logger2: MyService#Log = new ConsoleLogger
 
-    // Singleton Type
+    /* Singleton Type
+     * Every object, even if created from the same class has it's own unique type.
+     * This is called a 'Singleton Type' i.e.: myS1.type != myS2.type
+     * The Singleton Type of an object can be accessed via the '.type' call on any object. 
+     */
     val myS1 = new MyService
     val myS2 = new MyService
 
