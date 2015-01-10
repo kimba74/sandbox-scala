@@ -17,7 +17,7 @@ object AkkaClient {
     val sys = ActorSystem("AkkaClient")
     system = Some(sys)
     val server = ServerActor.make(sys)
-    val numOfWorkers = sys.settings.config.getInt("server.numWorkers")
+    val numOfWorkers = 5 // sys.settings.config.getInt("server.numWorkers")
     server ! Start(numOfWorkers)
     processInput(server)
   }
@@ -41,7 +41,7 @@ object AkkaClient {
     def invalidInput(s: String) = println(s"Unrecognized command: $s")
     def invalidCommand(c: String) = println(s"Expected commands are 'c', 'r', 'u', and 'd'. Got: $c")
     def invalidNumber(s: String) = println(s"Expected a number. Got: $s")
-    def extpectedString(c: String) = println(s"Expected a string and a number after the command '$c'")
+    def expectedString(c: String) = println(s"Expected a string and a number after the command '$c'")
     def unexpectedString(c: String, n: Int) = println(s"Extra arguments after command and number '$c $n'")
     def finished(): Nothing = exit("Goodbye!", 0)
 
@@ -56,12 +56,14 @@ object AkkaClient {
         case "u" | "U" => server ! Update(n.toLong, s)
         case "r" | "R" => unexpectedString(c, n.toInt)
         case "d" | "D" => unexpectedString(c, n.toInt)
+        case _ => invalidCommand(c)
       }
       case charNumberRE(c,n) => c match {
         case "r" | "R" => server ! Read(n.toLong)
         case "d" | "D" => server ! Delete(n.toLong)
-        case "c" | "C" => extpectedString(c)
-        case "u" | "U" => extpectedString(c)
+        case "c" | "C" => expectedString(c)
+        case "u" | "U" => expectedString(c)
+        case _ => invalidCommand(c)
       }
       case "q" | "quit" | "exit" => finished()
       case string => invalidInput(string)
