@@ -26,7 +26,8 @@ class WorkerActor extends Actor {
     case Delete(key) =>
       datastore -= key
       sender ! Response(Success(s"$key deleted"))
-    case Crash(_) => throw WorkerActor.CrashException
+    case Crash(_) =>
+      throw WorkerActor.CrashException
     case DumpAll =>
       sender ! Response(Success(s"${self.path}: datastore = $datastore"))
   }
