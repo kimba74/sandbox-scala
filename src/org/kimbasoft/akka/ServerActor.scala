@@ -37,7 +37,7 @@ class ServerActor extends Actor {
   val initial: Receive = {
     case Start(numOfWorkers) =>
       workers = ((1 to numOfWorkers) map makeWorker).toVector
-      context become processRequests
+      context become processRequests // Switching the internal processing logic to 'processRequests'
   }
 
   val processRequests: Receive = {
