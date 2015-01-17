@@ -13,6 +13,8 @@ class MyActor extends Actor {
 
   /**
    * Method that defines the Supervisor Strategy for all Child Actors.
+   * The Supervisor Strategy defines how to handle crashes of the
+   * supervised Actor.
    */
   override def supervisorStrategy: SupervisorStrategy = {
     super.supervisorStrategy
