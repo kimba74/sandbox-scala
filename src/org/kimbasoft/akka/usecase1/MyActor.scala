@@ -1,7 +1,7 @@
 package org.kimbasoft.akka.usecase1
 
-import akka.actor.{SupervisorStrategy, Props, Actor}
-import akka.pattern.ask
+import akka.actor.SupervisorStrategy.{Restart, Resume}
+import akka.actor._
 
 /**
  * Missing documentation. 
@@ -16,8 +16,9 @@ class MyActor extends Actor {
    * The Supervisor Strategy defines how to handle crashes of the
    * supervised Actor.
    */
-  override def supervisorStrategy: SupervisorStrategy = {
-    super.supervisorStrategy
+  override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy(){
+    case MyActor.ProcessingException => Resume
+    case MyActor.GeneralException => Restart
   }
 
   /**
@@ -32,5 +33,9 @@ class MyActor extends Actor {
     case "Start" => context.actorOf(Props[MyActor], "Child")
     case _ =>
   }
+}
 
+object MyActor {
+  case object ProcessingException extends RuntimeException
+  case object GeneralException extends RuntimeException
 }
