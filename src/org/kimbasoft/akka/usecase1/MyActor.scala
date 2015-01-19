@@ -1,6 +1,6 @@
 package org.kimbasoft.akka.usecase1
 
-import akka.actor.SupervisorStrategy.{Restart, Resume}
+import akka.actor.SupervisorStrategy.{Stop, Restart, Resume}
 import akka.actor._
 
 /**
@@ -16,9 +16,12 @@ class MyActor extends Actor {
    * The Supervisor Strategy defines how to handle crashes of the
    * supervised Actor.
    */
-  override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy(){
+  override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy() {
+    /* Exception Objects can only be referenced directly (since there can only be one) */
     case MyActor.ProcessingException => Resume
     case MyActor.GeneralException => Restart
+    /* Exception Classes can be mapped to placeholders since there can be multiple instances */
+    case _ : MyActor.TestException => Stop
   }
 
   /**
@@ -36,6 +39,9 @@ class MyActor extends Actor {
 }
 
 object MyActor {
+  // Declaring Singleton Exception Objects (meant for generic exception flagging)
   case object ProcessingException extends RuntimeException
   case object GeneralException extends RuntimeException
+  // Declaring Regular Exception Objects (meant for situation specific flagging)
+  case class TestException(message: String) extends RuntimeException(message)
 }
