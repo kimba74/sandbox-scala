@@ -10,7 +10,7 @@ import akka.actor.{OneForOneStrategy, SupervisorStrategy, SupervisorStrategyConf
  * @since 1.0
  */
 class MyStrategyConfigurator extends SupervisorStrategyConfigurator {
-
+  /* Implementations of SupervisorStrategyConfigurator must be of type 'class' */
   def create(): SupervisorStrategy = OneForOneStrategy() {
     case MyActor.ProcessingException => Resume
     case MyActor.GeneralException => Restart
