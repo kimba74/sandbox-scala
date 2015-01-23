@@ -1,7 +1,8 @@
 package org.kimbasoft.akka.usecase1
 
-import akka.actor.SupervisorStrategy.{Stop, Restart, Resume}
+import akka.actor.SupervisorStrategy.{Restart, Resume, Stop}
 import akka.actor._
+import org.kimbasoft.akka.usecase1.MyActorMessages.{ProcessFactorial, ProcessSummation}
 
 /**
  * Missing documentation. 
@@ -33,7 +34,8 @@ class MyActor extends Actor {
     /* Creating an Actor of type 'MyActor' as sub-actor of this supervising Actor.
      * Child-Level Actors will be created via the actorOf() method of the ActorContext
      * found within the supervising Actor via the 'context' variable. */
-    case "Start" => context.actorOf(Props[MyActor], "Child")
+    case ProcessFactorial => //TODO: Process factorial of int list
+    case ProcessSummation => //TODO: Process summation of int list
     case _ =>
   }
 }
