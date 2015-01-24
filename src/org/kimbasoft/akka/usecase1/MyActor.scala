@@ -34,8 +34,10 @@ class MyActor extends Actor {
     /* Creating an Actor of type 'MyActor' as sub-actor of this supervising Actor.
      * Child-Level Actors will be created via the actorOf() method of the ActorContext
      * found within the supervising Actor via the 'context' variable. */
-    case ProcessFactorial => //TODO: Process factorial of int list
-    case ProcessSummation => //TODO: Process summation of int list
+    case ProcessFactorial(nums) =>
+    //TODO: Process factorial of int list
+    case ProcessSummation(nums) =>
+    //TODO: Process summation of int list
   }
 }
 
