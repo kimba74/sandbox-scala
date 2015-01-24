@@ -11,12 +11,9 @@ import scala.util.Try
 object MyActorMessages {
   // Main Trait for all Request type Messages
   sealed trait Request
-  case class ProcessFactorial(nums: List[Int]) extends Request
-  case class ProcessSummation(nums: List[Int]) extends Request
+  case class ProcessFactorial(nums: Seq[Int]) extends Request
+  case class ProcessSummation(nums: Seq[Int]) extends Request
 
   // Response Message
-  case class Response(result: Try[Int])
-
-  // Actor Control Messages
-  case class Start()
+  case class Response(result: Try[Int], nums: Seq[Int])
 }

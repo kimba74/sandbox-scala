@@ -36,7 +36,6 @@ class MyActor extends Actor {
      * found within the supervising Actor via the 'context' variable. */
     case ProcessFactorial => //TODO: Process factorial of int list
     case ProcessSummation => //TODO: Process summation of int list
-    case _ =>
   }
 }
 
