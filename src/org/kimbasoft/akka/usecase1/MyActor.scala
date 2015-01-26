@@ -35,9 +35,11 @@ class MyActor extends Actor {
      * Child-Level Actors will be created via the actorOf() method of the ActorContext
      * found within the supervising Actor via the 'context' variable. */
     case ProcessFactorial(nums) =>
-    //TODO: Process factorial of int list
+      //TODO: Process factorial of int list
+      // If list size is bigger than 3, split in half and hand to new MyActor instances
     case ProcessSummation(nums) =>
-    //TODO: Process summation of int list
+      //TODO: Process summation of int list
+      // If list size is bigger than 3, split in half and hand to new MyActor instances
   }
 }
 
