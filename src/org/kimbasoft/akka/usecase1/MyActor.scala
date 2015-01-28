@@ -2,7 +2,9 @@ package org.kimbasoft.akka.usecase1
 
 import akka.actor.SupervisorStrategy.{Restart, Resume, Stop}
 import akka.actor._
-import org.kimbasoft.akka.usecase1.MyActorMessages.{ProcessFactorial, ProcessSummation}
+import org.kimbasoft.akka.usecase1.MyActorMessages.{Response, ProcessFactorial, ProcessSummation}
+
+import scala.util.Success
 
 /**
  * Missing documentation. 
@@ -36,10 +38,28 @@ class MyActor extends Actor {
      * found within the supervising Actor via the 'context' variable. */
     case ProcessFactorial(nums) =>
       //TODO: Process factorial of int list
+      sender ! Response(Success(factorial(nums)), nums)
       // If list size is bigger than 3, split in half and hand to new MyActor instances
     case ProcessSummation(nums) =>
       //TODO: Process summation of int list
+      sender ! Response(Success(summation(nums)), nums)
       // If list size is bigger than 3, split in half and hand to new MyActor instances
+  }
+
+  private def factorial(nums: Seq[Int]): Int = {
+    def fact(value: Int, nums: Seq[Int]): Int = nums match {
+      case head :: tail => fact(value * head, tail)
+      case _ => value
+    }
+    fact(1,nums)
+  }
+
+  private def summation(nums: Seq[Int]): Int = {
+    def sum(value: Int, nums: Seq[Int]): Int = nums match {
+      case head :: tail => sum(value + head, tail)
+      case _ => value
+    }
+    sum(1, nums)
   }
 }
 
