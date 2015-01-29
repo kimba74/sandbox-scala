@@ -15,5 +15,5 @@ object MyActorMessages {
   case class ProcessSummation(nums: Seq[Int]) extends Request
 
   // Response Message
-  case class Response(result: Try[Int], nums: Seq[Int])
+  case class Response(result: Try[(Int,Seq[Int])])
 }

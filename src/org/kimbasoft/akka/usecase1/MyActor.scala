@@ -2,9 +2,10 @@ package org.kimbasoft.akka.usecase1
 
 import akka.actor.SupervisorStrategy.{Restart, Resume, Stop}
 import akka.actor._
+import org.kimbasoft.akka.usecase1.MyActor.ProcessingException
 import org.kimbasoft.akka.usecase1.MyActorMessages.{Response, ProcessFactorial, ProcessSummation}
 
-import scala.util.Success
+import scala.util.{Failure, Success}
 
 /**
  * Missing documentation. 
@@ -17,11 +18,15 @@ class MyActor extends Actor {
   /**
    * Method that defines the Supervisor Strategy for all Child Actors.
    * The Supervisor Strategy defines how to handle crashes of the
-   * supervised Actor.
+   * supervised Actor. Possible strategies are:
+   *    Resume   - Resumes Message processing for the failed Actor
+   *    Restart  - Discards the old Actor instance and replaces it with a new, then resumes message processing.
+   *    Stop     - Stops the failed Actor
+   *    Escalate - Escalates the problem to the next higher supervisor
    */
   override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy() {
     /* Exception Objects can only be referenced directly (since there can only be one) */
-    case MyActor.ProcessingException => Resume
+    case MyActor.ProcessingException => Stop
     case MyActor.GeneralException => Restart
     /* Exception Classes can be mapped to placeholders since there can be multiple instances */
     case _ : MyActor.TestException => Stop
@@ -38,12 +43,13 @@ class MyActor extends Actor {
      * found within the supervising Actor via the 'context' variable. */
     case ProcessFactorial(nums) =>
       //TODO: Process factorial of int list
-      sender ! Response(Success(factorial(nums)), nums)
+      sender ! Response(Success(factorial(nums), nums))
       // If list size is bigger than 3, split in half and hand to new MyActor instances
     case ProcessSummation(nums) =>
       //TODO: Process summation of int list
-      sender ! Response(Success(summation(nums)), nums)
+      sender ! Response(Success(summation(nums), nums))
       // If list size is bigger than 3, split in half and hand to new MyActor instances
+    case _ => sender ! Response(Failure(ProcessingException))
   }
 
   private def factorial(nums: Seq[Int]): Int = {
