@@ -1,6 +1,9 @@
 package org.kimbasoft.akka.usecase1
 
 import akka.actor._
+import scala.concurrent.duration._
+import akka.pattern._
+import akka.util.Timeout
 import org.kimbasoft.akka.usecase1.MyActorMessages.{ProcessSummation, ProcessFactorial}
 
 /**
@@ -30,9 +33,13 @@ object MyClient {
     val seq1 = Seq(1, 2, 3, 4, 5, 6)
     val seq2 = Seq(4, 5, 6, 7, 8, 9)
 
-    // Sending the sample data as payload of a message to the Actor
-    mainActor ! ProcessFactorial(seq1)
-    mainActor ! ProcessSummation(seq2)
+    /* Sending the sample data as payload of a message to the Actor and requesting a
+     * Future object so client can retrieve result later. ('ask' pattern) */
+    implicit val timeout = Timeout(2.seconds)
+    val f1 = mainActor ? ProcessFactorial(seq1)
+    val f2 = mainActor ? ProcessSummation(seq2)
+    println(f1.value)
+    println(f2.value)
   }
 
 }
