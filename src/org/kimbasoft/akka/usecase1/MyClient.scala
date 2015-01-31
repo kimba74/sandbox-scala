@@ -33,6 +33,12 @@ object MyClient {
     val seq1 = Seq(1, 2, 3, 4, 5, 6)
     val seq2 = Seq(4, 5, 6, 7, 8, 9)
 
+    /* Sending the sample data as payload of a message to the Actor fire-and-forget.
+     * Since the client is not an Actor itself it cannot receive the response message
+     * and the response will go to the dead-letter queue ('tell' pattern) */
+    mainActor ! ProcessFactorial(seq1)
+    mainActor ! ProcessSummation(seq2)
+
     /* Sending the sample data as payload of a message to the Actor and requesting a
      * Future object so client can retrieve result later. ('ask' pattern) */
     implicit val timeout = Timeout(2.seconds)
