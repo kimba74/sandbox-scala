@@ -25,7 +25,7 @@ object MyClient {
 
     /* Creating an Actor of type 'MyActor' in the previously created Actor System.
      * Top-Level Actors will be created via the actorOf() method of the Actor System. */
-    val mainActor = sys.actorOf(Props[MyActor], "MainActor")
+    val mainActor = sys.actorOf(Props[MyActor], "MyActor1")
 
     /* Creating some sample data for the Actor to process and then passing the content
      * as payload of a processing instruction message to the Actor. */
@@ -37,15 +37,15 @@ object MyClient {
      * Since the client is not an Actor itself it cannot receive the response message
      * and the response will go to the dead-letter queue ('tell' pattern) */
     mainActor ! ProcessFactorial(seq1)
-    mainActor ! ProcessSummation(seq2)
+    mainActor ! ProcessSummation(seq1)
 
     /* Sending the sample data as payload of a message to the Actor and requesting a
      * Future object so client can retrieve result later. ('ask' pattern) */
-    implicit val timeout = Timeout(2.seconds)
-    val f1 = mainActor ? ProcessFactorial(seq1)
+    implicit val timeout = Timeout(1.seconds)
+    val f1 = mainActor ? ProcessFactorial(seq2)
     val f2 = mainActor ? ProcessSummation(seq2)
-    println(f1.value)
-    println(f2.value)
+    println(s"isComplete: ${f1.isCompleted}; Value: ${f1.value}")
+    println(s"isComplete: ${f2.isCompleted}; Value: ${f2.value}")
   }
 
 }
