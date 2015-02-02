@@ -44,8 +44,13 @@ object MyClient {
     implicit val timeout = Timeout(1.seconds)
     val f1 = mainActor ? ProcessFactorial(seq2)
     val f2 = mainActor ? ProcessSummation(seq2)
-    println(s"isComplete: ${f1.isCompleted}; Value: ${f1.value}")
-    println(s"isComplete: ${f2.isCompleted}; Value: ${f2.value}")
+    // Process Future objects results
+    do {
+      if (f1.isCompleted)
+        println(s"Value: ${f1.value}")
+      if (f2.isCompleted)
+        println(s"Value: ${f2.value}")
+    } while (!f1.isCompleted && !f2.isCompleted)
   }
 
 }
