@@ -1,9 +1,9 @@
 package org.kimbasoft.akka.usecase1
 
-import akka.actor.SupervisorStrategy.{Restart, Resume, Stop}
+import akka.actor.SupervisorStrategy.{Restart, Stop}
 import akka.actor._
 import org.kimbasoft.akka.usecase1.MyActor.ProcessingException
-import org.kimbasoft.akka.usecase1.MyActorMessages.{Response, ProcessFactorial, ProcessSummation}
+import org.kimbasoft.akka.usecase1.MyActorMessages.{ProcessFactorial, ProcessSummation, Response}
 
 import scala.util.{Failure, Success}
 
