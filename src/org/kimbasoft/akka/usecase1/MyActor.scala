@@ -43,6 +43,15 @@ class MyActor extends Actor {
      * found within the supervising Actor via the 'context' variable. */
     case ProcessFactorial(nums) =>
       //TODO: Process factorial of int list
+/*
+      if (nums.size > 3) {
+        val (left, right) = nums partition (nums.indexOf(_) < nums.size / 2)
+        val worker1 = context.actorOf(Props[MyActor], "calc-1" )
+        val worker2 = context.actorOf(Props[MyActor], "calc-2" )
+        worker1 ! ProcessFactorial(left)
+        worker2 ! ProcessFactorial(right)
+      }
+*/
       sender ! Response(Success(factorial(nums), nums))
       // If list size is bigger than 3, split in half and hand to new MyActor instances
     case ProcessSummation(nums) =>
