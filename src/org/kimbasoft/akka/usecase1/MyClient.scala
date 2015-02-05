@@ -51,6 +51,10 @@ object MyClient {
       if (f2.isCompleted)
         println(s"Value: ${f2.value}")
     } while (!f1.isCompleted && !f2.isCompleted)
+
+
+    //**** INITIAL SPLIT EXAMPLE ****
+    val splitActor = sys.actorOf(Props[MySplitActor], "MainSplit")
   }
 
 }
