@@ -10,10 +10,15 @@ import scala.util.Try
  */
 object MyActorMessages {
   // Main Trait for all Request type Messages
-  sealed trait Request
-  case class ProcessFactorial(nums: Seq[Int]) extends Request
-  case class ProcessSummation(nums: Seq[Int]) extends Request
+  sealed trait ProcessRequest
+  case class ProcessFactorial(nums: Seq[Int]) extends ProcessRequest
+  case class ProcessSummation(nums: Seq[Int]) extends ProcessRequest
 
   // Response Message
-  case class Response(result: Try[(Int,Seq[Int])])
+  case class ProcessResponse(result: Try[(Int,Seq[Int])])
+
+  // Request Object for MySplitActor
+  case class SplitRequest(depth: Int)
+
+  case class SplitResponse(result: Try[String])
 }

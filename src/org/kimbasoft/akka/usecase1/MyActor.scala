@@ -3,7 +3,7 @@ package org.kimbasoft.akka.usecase1
 import akka.actor.SupervisorStrategy.{Restart, Stop}
 import akka.actor._
 import org.kimbasoft.akka.usecase1.MyActor.ProcessingException
-import org.kimbasoft.akka.usecase1.MyActorMessages.{ProcessFactorial, ProcessSummation, Response}
+import org.kimbasoft.akka.usecase1.MyActorMessages.{ProcessFactorial, ProcessSummation, ProcessResponse}
 
 import scala.util.{Failure, Success}
 
@@ -52,13 +52,13 @@ class MyActor extends Actor {
         worker2 ! ProcessFactorial(right)
       }
 */
-      sender ! Response(Success(factorial(nums), nums))
+      sender ! ProcessResponse(Success(factorial(nums), nums))
       // If list size is bigger than 3, split in half and hand to new MyActor instances
     case ProcessSummation(nums) =>
       //TODO: Process summation of int list
-      sender ! Response(Success(summation(nums), nums))
+      sender ! ProcessResponse(Success(summation(nums), nums))
       // If list size is bigger than 3, split in half and hand to new MyActor instances
-    case _ => sender ! Response(Failure(ProcessingException))
+    case _ => sender ! ProcessResponse(Failure(ProcessingException))
   }
 
   private def factorial(nums: Seq[Int]): Int = {
