@@ -1,6 +1,7 @@
 package org.kimbasoft.akka.usecase1
 
-import akka.actor.{Props, Actor}
+import akka.actor.SupervisorStrategy.Stop
+import akka.actor.{OneForOneStrategy, SupervisorStrategy, Props, Actor}
 import org.kimbasoft.akka.usecase1.MyActorMessages.{SplitResponse, SplitRequest}
 import org.kimbasoft.akka.usecase1.MySplitActor.InvalidRequestException
 
@@ -15,6 +16,10 @@ import scala.util.{Success, Failure}
 class MySplitActor extends Actor {
 
   var count = 1
+
+  override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy() {
+    case InvalidRequestException => Stop
+  }
 
   override def receive: Receive = {
     case SplitRequest(depth) =>
