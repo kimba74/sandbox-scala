@@ -22,10 +22,10 @@ class MySplitActor extends Actor {
   }
 
   override def receive: Receive = {
-    case SplitRequest(depth) =>
+    case SplitRequest(depth, message) =>
       if (depth > 0) {
-        context.actorOf(Props[MySplitActor], s"child$count-1") ! SplitRequest(depth - 1)
-        context.actorOf(Props[MySplitActor], s"child$count-2") ! SplitRequest(depth - 1)
+        context.actorOf(Props[MySplitActor], s"child$count-1") ! SplitRequest(depth - 1, message + "-1")
+        context.actorOf(Props[MySplitActor], s"child$count-2") ! SplitRequest(depth - 1, message + "-2")
         count += 1
       }
       else

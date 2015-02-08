@@ -18,7 +18,7 @@ object MyActorMessages {
   case class ProcessResponse(result: Try[(Int,Seq[Int])])
 
   // Request Object for MySplitActor
-  case class SplitRequest(depth: Int)
+  case class SplitRequest(depth: Int, message: String)
 
   case class SplitResponse(result: Try[String])
 }
