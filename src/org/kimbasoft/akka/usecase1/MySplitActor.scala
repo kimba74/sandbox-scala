@@ -1,7 +1,7 @@
 package org.kimbasoft.akka.usecase1
 
 import akka.actor.SupervisorStrategy.Stop
-import akka.actor.{OneForOneStrategy, SupervisorStrategy, Props, Actor}
+import akka.actor._
 import org.kimbasoft.akka.usecase1.MyActorMessages.{SplitResponse, SplitRequest}
 import org.kimbasoft.akka.usecase1.MySplitActor.InvalidRequestException
 
@@ -24,13 +24,14 @@ class MySplitActor extends Actor {
   override def receive: Receive = {
     case SplitRequest(depth, message) =>
       if (depth > 0) {
-        context.actorOf(Props[MySplitActor], s"child$count-1") ! SplitRequest(depth - 1, message + "-1")
-        context.actorOf(Props[MySplitActor], s"child$count-2") ! SplitRequest(depth - 1, message + "-2")
+        context.actorOf(Props[MySplitActor], s"child_$count-1") ! SplitRequest(depth - 1, message + "-1")
+        context.actorOf(Props[MySplitActor], s"child_$count-2") ! SplitRequest(depth - 1, message + "-2")
         count += 1
       }
       else
-        sender ! SplitResponse(Success("Finished"))
+        sender ! SplitResponse(Success(s"Finished: $message"))
     case SplitResponse =>
+      sender ! _
     case _ =>
       sender ! SplitResponse(Failure(InvalidRequestException))
   }
