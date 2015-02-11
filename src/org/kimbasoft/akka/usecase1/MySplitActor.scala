@@ -13,7 +13,7 @@ import scala.util.{Success, Failure}
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-class MySplitActor extends Actor {
+class MySplitActor(name: String) extends Actor {
 
   var count = 1
 
@@ -23,21 +23,21 @@ class MySplitActor extends Actor {
 
   override def receive: Receive = {
     case SplitRequest(depth, message) =>
-      if (depth > 0) {
-        context.actorOf(Props[MySplitActor], s"actor_$count-1") ! SplitRequest(depth - 1, message + s"_$count-1")
-        context.actorOf(Props[MySplitActor], s"actor_$count-2") ! SplitRequest(depth - 1, message + s"_$count-2")
+      if(depth > 0) {
+        println(s">> $name: $message")
+        context.actorOf(Props(classOf[MySplitActor], s"$name.$count"), s"$name.$count") ! SplitRequest(depth - 1, message)
+        count += 1
+        context.actorOf(Props(classOf[MySplitActor], s"$name.$count"), s"$name.$count") ! SplitRequest(depth - 1, message)
         count += 1
       }
-      else
-        sender ! SplitResponse(Success(s"Finished: $message"))
-    case SplitResponse(Success(message)) =>
-      println(message)
-      sender ! SplitResponse(Success(message))
-    case SplitResponse(Failure(except)) =>
-      println(s"!!! $except")
-      sender ! SplitResponse(Failure(except))
-    case _ =>
-      sender ! SplitResponse(Failure(InvalidRequestException))
+      else {
+        println(s"== $name: $message")
+      }
+    case res @ SplitResponse(result) =>
+      println(s"<< $name: $result")
+      sender ! res
+    case unknown =>
+      println(s"Oops! [$unknown]")
   }
 
 }
