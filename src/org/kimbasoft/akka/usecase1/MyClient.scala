@@ -55,8 +55,8 @@ object MyClient {
 
     //**** INITIAL SPLIT EXAMPLE ****
     val splitActor = sys.actorOf(Props(classOf[MySplitActor],"root"), "root")
-    splitActor ! SplitRequest(5, "message1")
-//    splitActor ! SplitRequest(7, "message2")
+    splitActor ! SplitRequest(3, "message1")
+    splitActor ! SplitRequest(-7, "message2")
   }
 
 }

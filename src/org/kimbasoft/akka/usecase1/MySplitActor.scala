@@ -5,7 +5,7 @@ import akka.actor._
 import org.kimbasoft.akka.usecase1.MyActorMessages.{SplitRequest, SplitResponse}
 import org.kimbasoft.akka.usecase1.MySplitActor.InvalidRequestException
 
-import scala.util.Success
+import scala.util.{Failure, Success}
 
 /**
  * Missing documentation. 
@@ -23,8 +23,12 @@ class MySplitActor(name: String) extends Actor {
 
   override def receive: Receive = {
     case SplitRequest(depth, message) =>
+      if(depth < 0) {
+        println(s"!! Illegal processing depth $depth")
+        sender ! SplitResponse(Failure(InvalidRequestException))
+      }
       // If the desired depth has not been reached yet spin off two new actors and pass on the message
-      if(depth > 0) {
+      else if(depth > 0) {
         println(s">> $name: $message")
         context.actorOf(Props(classOf[MySplitActor], s"$name.$count"), s"$name.$count") ! SplitRequest(depth - 1, message)
         count += 1
