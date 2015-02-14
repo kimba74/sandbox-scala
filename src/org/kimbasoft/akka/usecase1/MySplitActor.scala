@@ -2,7 +2,7 @@ package org.kimbasoft.akka.usecase1
 
 import akka.actor.SupervisorStrategy.Stop
 import akka.actor._
-import org.kimbasoft.akka.usecase1.MyActorMessages.{SplitRequest, SplitResponse}
+import org.kimbasoft.akka.usecase1.MyActorMessages.{InfoRequest, SplitRequest, SplitResponse}
 import org.kimbasoft.akka.usecase1.MySplitActor.InvalidRequestException
 
 import scala.util.{Failure, Success}
@@ -22,6 +22,9 @@ class MySplitActor(name: String) extends Actor {
   }
 
   override def receive: Receive = {
+    case InfoRequest =>
+      println("-- Children ----------------")
+      context.children foreach (ar => println(s" -> $ar"))
     case SplitRequest(depth, message) =>
       if(depth < 0) {
         println(s"!! Illegal processing depth $depth")

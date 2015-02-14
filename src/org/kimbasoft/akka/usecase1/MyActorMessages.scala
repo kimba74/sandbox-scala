@@ -19,6 +19,7 @@ object MyActorMessages {
 
   // Request Object for MySplitActor
   case class SplitRequest(depth: Int, message: String)
+  case class InfoRequest()
 
   case class SplitResponse(result: Try[String])
 }

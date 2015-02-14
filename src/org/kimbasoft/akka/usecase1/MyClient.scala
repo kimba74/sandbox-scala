@@ -4,7 +4,7 @@ import akka.actor._
 import scala.concurrent.duration._
 import akka.pattern._
 import akka.util.Timeout
-import org.kimbasoft.akka.usecase1.MyActorMessages.{SplitRequest, ProcessSummation, ProcessFactorial}
+import org.kimbasoft.akka.usecase1.MyActorMessages.{InfoRequest, SplitRequest, ProcessSummation, ProcessFactorial}
 
 /**
  * Missing documentation. 
@@ -57,6 +57,7 @@ object MyClient {
     val splitActor = sys.actorOf(Props(classOf[MySplitActor],"root"), "root")
     splitActor ! SplitRequest(3, "message1")
     splitActor ! SplitRequest(-7, "message2")
+    splitActor ! InfoRequest
   }
 
 }
