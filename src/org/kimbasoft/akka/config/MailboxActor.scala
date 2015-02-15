@@ -17,7 +17,7 @@ class MailboxActor extends Actor {
   def receive: Receive = {
     // Processing of recognized message
     case ConfigRequest(messages) =>
-      println(s"Processing: $messages")
+      println(s"Mailbox: $messages")
       sender ! ConfigResponse(Success(s""""$messages" - processed!"""))
     // Handling of all unrecognized messages
     case _ =>

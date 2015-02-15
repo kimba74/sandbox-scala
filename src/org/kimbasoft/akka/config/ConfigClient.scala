@@ -9,7 +9,7 @@ import org.kimbasoft.akka.config.Messages.ConfigRequest
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object Client {
+object ConfigClient {
 
   def main(args: Array[String]) {
     val sys = ActorSystem("ConfigSystem")
