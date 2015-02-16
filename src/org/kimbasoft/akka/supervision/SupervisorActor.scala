@@ -1,9 +1,9 @@
 package org.kimbasoft.akka.supervision
 
-import akka.actor.SupervisorStrategy.Resume
+import akka.actor.SupervisorStrategy.{Stop, Resume}
 import akka.actor.{Actor, OneForOneStrategy, Props, SupervisorStrategy}
-import org.kimbasoft.akka.supervision.Messages.Exceptions.{IllegalFactorException, IllegalDepthException, IllegalSupervisionException}
-import org.kimbasoft.akka.supervision.Messages.{SupervisionRequest, SupervisionResponse}
+import org.kimbasoft.akka.supervision.SupervisionMessages.Exceptions._
+import org.kimbasoft.akka.supervision.SupervisionMessages.{SupervisionRequest, SupervisionResponse}
 
 import scala.util.Failure
 
@@ -18,7 +18,15 @@ class SupervisorActor(name: String) extends Actor {
   var counter = 1
 
   override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy() {
-    case IllegalSupervisionException => Resume
+    case IllegalRequestException =>
+      println(s"Child[$name]: IllegalRequestException -> Stopping Actor")
+      Stop
+    case IllegalDepthException =>
+      println(s"Child[$name]: IllegalDepthException -> Resuming Actor")
+      Resume
+    case IllegalFactorException =>
+      println(s"Child[$name]: IllegalFactorException -> Resuming Actor")
+      Resume
   }
 
   def receive: Receive = {
@@ -50,9 +58,9 @@ class SupervisorActor(name: String) extends Actor {
       }
       else {
         println(s"!! $name: Illegal Request")
-        sender ! SupervisionResponse(Failure(IllegalSupervisionException))
+        sender ! SupervisionResponse(Failure(IllegalRequestException))
       }
     case _ =>
-      sender ! SupervisionResponse(Failure(IllegalSupervisionException))
+      sender ! SupervisionResponse(Failure(IllegalRequestException))
   }
 }

@@ -2,7 +2,7 @@ package org.kimbasoft.akka.supervision
 
 import akka.actor.SupervisorStrategy.{Resume, Stop}
 import akka.actor.{OneForOneStrategy, SupervisorStrategy, SupervisorStrategyConfigurator}
-import org.kimbasoft.akka.supervision.Messages.Exceptions.{IllegalFactorException, IllegalDepthException, IllegalSupervisionException}
+import org.kimbasoft.akka.supervision.SupervisionMessages.Exceptions.{IllegalFactorException, IllegalDepthException, IllegalRequestException}
 
 /**
  * Missing documentation. 
@@ -20,8 +20,14 @@ class SupervisionStrategyConfig extends SupervisorStrategyConfigurator {
      *    Stop     - Stops the failed Actor
      *    Escalate - Escalates the problem to the next higher supervisor
      */
-    case IllegalSupervisionException => Stop
-    case IllegalDepthException => Resume
-    case IllegalFactorException => Resume
+    case IllegalRequestException =>
+      println("Root: IllegalRequestException -> Stopping Actor")
+      Stop
+    case IllegalDepthException =>
+      println("Root: IllegalDepthException -> Resuming Actor")
+      Resume
+    case IllegalFactorException =>
+      println("Root: IllegalFactorException -> Resuming Actor")
+      Resume
   }
 }

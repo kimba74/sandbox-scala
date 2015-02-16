@@ -8,7 +8,7 @@ import scala.util.Try
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object Messages {
+object SupervisionMessages {
 
   case class SupervisionRequest(factor: Int, depth: Int, message: String)
 
@@ -16,10 +16,11 @@ object Messages {
 
   object Exceptions {
 
-    object IllegalSupervisionException extends RuntimeException
+    object IllegalRequestException extends RuntimeException
 
     object IllegalFactorException extends RuntimeException
 
     object IllegalDepthException extends RuntimeException
+    
   }
 }

@@ -1,7 +1,7 @@
 package org.kimbasoft.akka.supervision
 
 import akka.actor.{Props, ActorSystem}
-import org.kimbasoft.akka.supervision.Messages.SupervisionRequest
+import org.kimbasoft.akka.supervision.SupervisionMessages.SupervisionRequest
 
 /**
  * Missing documentation. 
@@ -20,7 +20,7 @@ object SupervisionClient {
     //  val conf = ConfigFactory.load() // Loading Configuration from config file
     val sys = ActorSystem("SupervisionSystem")
 
-    /* Creating an Actor of type 'MyActor' in the previously created Actor System.
+    /* Creating an Actor of type 'SupervisorActor' in the previously created Actor System.
      * Top-Level Actors will be created via the actorOf() method of the Actor System. */
     val actor = sys.actorOf(Props(classOf[SupervisorActor], "root"), "root")
 
