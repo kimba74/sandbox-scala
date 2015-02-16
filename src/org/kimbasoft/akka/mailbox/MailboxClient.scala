@@ -1,7 +1,7 @@
-package org.kimbasoft.akka.config
+package org.kimbasoft.akka.mailbox
 
 import akka.actor.{Props, ActorSystem}
-import org.kimbasoft.akka.config.Messages.ConfigRequest
+import org.kimbasoft.akka.mailbox.Messages.ConfigRequest
 
 /**
  * Missing documentation. 
@@ -9,7 +9,7 @@ import org.kimbasoft.akka.config.Messages.ConfigRequest
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object ConfigClient {
+object MailboxClient {
 
   def main(args: Array[String]) {
     val sys = ActorSystem("ConfigSystem")

@@ -1,8 +1,8 @@
-package org.kimbasoft.akka.config
+package org.kimbasoft.akka.mailbox
 
 import akka.actor.Actor
-import org.kimbasoft.akka.config.Messages.Exceptions.IllegalRequestException
-import org.kimbasoft.akka.config.Messages.{ConfigResponse, ConfigRequest}
+import org.kimbasoft.akka.mailbox.Messages.Exceptions.IllegalRequestException
+import org.kimbasoft.akka.mailbox.Messages.{ConfigResponse, ConfigRequest}
 
 import scala.util.{Success, Failure}
 

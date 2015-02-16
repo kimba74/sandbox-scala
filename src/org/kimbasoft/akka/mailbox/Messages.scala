@@ -1,4 +1,4 @@
-package org.kimbasoft.akka.config
+package org.kimbasoft.akka.mailbox
 
 import scala.util.Try
 
