@@ -1,8 +1,8 @@
 package org.kimbasoft.akka.mailbox
 
 import akka.actor.Actor
-import org.kimbasoft.akka.mailbox.Messages.Exceptions.IllegalRequestException
-import org.kimbasoft.akka.mailbox.Messages.{ConfigResponse, ConfigRequest}
+import org.kimbasoft.akka.mailbox.MailboxMessages.Exceptions.IllegalRequestException
+import org.kimbasoft.akka.mailbox.MailboxMessages.{MailboxResponse, MailboxRequest}
 
 import scala.util.{Success, Failure}
 
@@ -16,11 +16,12 @@ class MailboxActor extends Actor {
 
   def receive: Receive = {
     // Processing of recognized message
-    case ConfigRequest(messages) =>
-      println(s"Mailbox: $messages")
-      sender ! ConfigResponse(Success(s""""$messages" - processed!"""))
+    case MailboxRequest(message) =>
+      println(s"""Mailbox: received message "$message" """)
+      sender ! MailboxResponse(Success(s""""$message" - processed!"""))
     // Handling of all unrecognized messages
-    case _ =>
-      sender ! ConfigResponse(Failure(IllegalRequestException))
+    case message =>
+      println(s"""Mailbox: Unknown message "$message"""")
+      sender ! MailboxResponse(Failure(IllegalRequestException))
   }
 }

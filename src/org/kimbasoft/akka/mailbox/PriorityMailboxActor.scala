@@ -1,8 +1,8 @@
 package org.kimbasoft.akka.mailbox
 
 import akka.actor.Actor
-import org.kimbasoft.akka.mailbox.Messages.Exceptions.IllegalRequestException
-import org.kimbasoft.akka.mailbox.Messages.{ConfigResponse, ConfigRequest}
+import org.kimbasoft.akka.mailbox.MailboxMessages.Exceptions.IllegalRequestException
+import org.kimbasoft.akka.mailbox.MailboxMessages.{MailboxRequest, MailboxResponse}
 
 import scala.util.{Failure, Success}
 
@@ -15,10 +15,13 @@ import scala.util.{Failure, Success}
 class PriorityMailboxActor extends Actor {
 
   def receive: Receive = {
-    case ConfigRequest(message) =>
-      println(s"Priority: $message")
-      sender ! ConfigResponse(Success(s""""$message" - priority processed!"""))
-    case _ =>
-      sender ! ConfigResponse(Failure(IllegalRequestException))
+    // Processing of recognized message
+    case MailboxRequest(message) =>
+      println(s"""Priority: received message "$message" """)
+      sender ! MailboxResponse(Success(s""""$message" - priority processed!"""))
+    // Handling of all unrecognized messages
+    case message =>
+      println(s"""Priority: Unknown message "$message"""")
+      sender ! MailboxResponse(Failure(IllegalRequestException))
   }
 }

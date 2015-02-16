@@ -8,11 +8,11 @@ import scala.util.Try
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object Messages {
+object MailboxMessages {
 
-  case class ConfigRequest(message: String)
+  case class MailboxRequest(message: String)
 
-  case class ConfigResponse(response: Try[String])
+  case class MailboxResponse(response: Try[String])
 
   object Exceptions {
 
