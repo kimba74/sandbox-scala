@@ -16,8 +16,8 @@ class PriorityMailboxActor extends Actor {
 
   def receive: Receive = {
     // Processing of recognized message
-    case MailboxRequest(message) =>
-      println(s"""Priority: received message "$message" """)
+    case MailboxRequest(message, priority) =>
+      println(s"""Priority: received message "$message" [$priority]""")
       sender ! MailboxResponse(Success(s""""$message" - priority processed!"""))
     // Handling of all unrecognized messages
     case message =>

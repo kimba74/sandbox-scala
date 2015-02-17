@@ -1,5 +1,7 @@
 package org.kimbasoft.akka.mailbox
 
+import org.kimbasoft.akka.mailbox.MailboxMessages.Priority.PriorityType
+
 import scala.util.Try
 
 /**
@@ -10,13 +12,21 @@ import scala.util.Try
  */
 object MailboxMessages {
 
-  case class MailboxRequest(message: String)
+  case class MailboxRequest(message: String, priority: PriorityType = Priority.NORMAL)
 
   case class MailboxResponse(response: Try[String])
 
   object Exceptions {
 
     object IllegalRequestException extends RuntimeException
+
+  }
+
+  object Priority extends Enumeration {
+
+    type PriorityType = Value
+
+    val LOW, NORMAL, MEDIUM, HIGH = Value
 
   }
 }
