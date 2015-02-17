@@ -1,6 +1,7 @@
 package org.kimbasoft.akka.supervision
 
 import akka.actor.{Props, ActorSystem}
+import com.typesafe.config.ConfigFactory
 import org.kimbasoft.akka.supervision.SupervisionMessages.SupervisionRequest
 
 /**
@@ -12,13 +13,12 @@ import org.kimbasoft.akka.supervision.SupervisionMessages.SupervisionRequest
 object SupervisionClient {
 
   def main(args: Array[String]) {
-    /* Configuring Supervisor Strategy for top-level (user) actors */
-    System.setProperty("akka.actor.guardian-supervisor-strategy","org.kimbasoft.akka.supervision.SupervisionStrategyConfig")
+    /* Reading ActorSystem configuration from embedded config file */
+    val config = ConfigFactory.load("org/kimbasoft/akka/supervision/supervision-config")
 
     /* Creating an Actor System. These Actor Systems are very heavy weight therefore
      * only one of them is advisable per Software System. */
-    //  val conf = ConfigFactory.load() // Loading Configuration from config file
-    val sys = ActorSystem("SupervisionSystem")
+    val sys = ActorSystem("SupervisionSystem", config)
 
     /* Creating an Actor of type 'SupervisorActor' in the previously created Actor System.
      * Top-Level Actors will be created via the actorOf() method of the Actor System. */
