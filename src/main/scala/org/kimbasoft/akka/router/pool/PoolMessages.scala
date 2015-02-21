@@ -1,4 +1,4 @@
-package org.kimbasoft.akka.router
+package org.kimbasoft.akka.router.pool
 
 import scala.util.Try
 
@@ -8,11 +8,11 @@ import scala.util.Try
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object RouterMessages {
+object PoolMessages {
 
-  case class RouterRequest(message: String)
+  case class PoolRequest(message: String)
 
-  case class RouterResponse(response: Try[String])
+  case class PoolResponse(response: Try[String])
 
   object Exceptions {
 
