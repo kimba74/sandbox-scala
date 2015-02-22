@@ -1,8 +1,6 @@
 package org.kimbasoft.akka.router.group
 
-import akka.actor.{ActorRef, ActorSystem, Props}
-import akka.util.Timeout
-import scala.concurrent.duration._
+import akka.actor.{ActorSystem, Props}
 import com.typesafe.config.ConfigFactory
 import org.kimbasoft.akka.router.group.GroupMessages.GroupRequest
 
@@ -22,18 +20,33 @@ object GroupClient {
      * only one of them is advisable per Software System. */
     val sys = ActorSystem("GroupSystem", config)
 
+    /* Creating supervising actor for the workers */
     val supervisor = sys.actorOf(Props[GroupActorSupervisor], "super")
 
-    val router = sys.actorOf(Props[GroupActorRouter], "router")
-    router ! GroupRequest("message 0")
-    router ! GroupRequest("message 1")
-    router ! GroupRequest("message 2")
-    router ! GroupRequest("message 3")
-    router ! GroupRequest("message 4")
-    router ! GroupRequest("message 5")
-    router ! GroupRequest("message 6")
-    router ! GroupRequest("message 7")
-    router ! GroupRequest("message 8")
-    router ! GroupRequest("message 9")
+    /* Creating Group Router with configuration provided workers */
+    val routerConf = sys.actorOf(Props[GroupActorRouterConf], "router-conf")
+    routerConf ! GroupRequest("conf message 0")
+    routerConf ! GroupRequest("conf message 1")
+    routerConf ! GroupRequest("conf message 2")
+    routerConf ! GroupRequest("conf message 3")
+    routerConf ! GroupRequest("conf message 4")
+    routerConf ! GroupRequest("conf message 5")
+    routerConf ! GroupRequest("conf message 6")
+    routerConf ! GroupRequest("conf message 7")
+    routerConf ! GroupRequest("conf message 8")
+    routerConf ! GroupRequest("conf message 9")
+
+    /* Creating Group Router with programmatic provided workers */
+    val routerProg = sys.actorOf(Props[GroupActorRouterProg], "router-prog")
+    routerProg ! GroupRequest("prog message 0")
+    routerProg ! GroupRequest("prog message 1")
+    routerProg ! GroupRequest("prog message 2")
+    routerProg ! GroupRequest("prog message 3")
+    routerProg ! GroupRequest("prog message 4")
+    routerProg ! GroupRequest("prog message 5")
+    routerProg ! GroupRequest("prog message 6")
+    routerProg ! GroupRequest("prog message 7")
+    routerProg ! GroupRequest("prog message 8")
+    routerProg ! GroupRequest("prog message 9")
   }
 }
