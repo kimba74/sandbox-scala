@@ -2,7 +2,7 @@ package org.kimbasoft.akka.router.pool
 
 import akka.actor.{ActorSystem, Props}
 import com.typesafe.config.ConfigFactory
-import org.kimbasoft.akka.router.pool.PoolMessages.PoolRequest
+import org.kimbasoft.akka.router.Messages.RouterRequest
 
 /**
  * Missing documentation. 
@@ -23,15 +23,15 @@ object PoolClient {
     /* Creating an Actor as router in the previously constructed ActorSystem */
     val router = sys.actorOf(Props[PoolActorRouter], "router")
 
-    router ! PoolRequest("message 0")
-    router ! PoolRequest("message 1")
-    router ! PoolRequest("message 2")
-    router ! PoolRequest("message 3")
-    router ! PoolRequest("message 4")
-    router ! PoolRequest("message 5")
-    router ! PoolRequest("message 6")
-    router ! PoolRequest("message 7")
-    router ! PoolRequest("message 8")
-    router ! PoolRequest("message 9")
+    router ! RouterRequest("message 0")
+    router ! RouterRequest("message 1")
+    router ! RouterRequest("message 2")
+    router ! RouterRequest("message 3")
+    router ! RouterRequest("message 4")
+    router ! RouterRequest("message 5")
+    router ! RouterRequest("message 6")
+    router ! RouterRequest("message 7")
+    router ! RouterRequest("message 8")
+    router ! RouterRequest("message 9")
   }
 }

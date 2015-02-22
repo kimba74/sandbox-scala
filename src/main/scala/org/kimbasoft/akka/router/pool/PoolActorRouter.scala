@@ -2,8 +2,9 @@ package org.kimbasoft.akka.router.pool
 
 import akka.actor.{Actor, Props}
 import akka.routing.FromConfig
-import org.kimbasoft.akka.router.pool.PoolMessages.Exceptions.IllegalRequestException
-import org.kimbasoft.akka.router.pool.PoolMessages.{PoolResponse, PoolRequest}
+import org.kimbasoft.akka.router.ActorWorker
+import org.kimbasoft.akka.router.Messages.Exceptions.IllegalRequestException
+import org.kimbasoft.akka.router.Messages.{RouterRequest, RouterResponse}
 
 import scala.util.Failure
 
@@ -15,12 +16,12 @@ import scala.util.Failure
  */
 class PoolActorRouter extends Actor {
   /* Creating Router Pool from configuration settings */
-  val workers = context.actorOf(FromConfig.props(Props[PoolActorWorker]), "workers")
+  val workers = context.actorOf(FromConfig.props(Props(classOf[ActorWorker], "Pool")), "workers")
 
   def receive: Receive = {
-    case request: PoolRequest =>
+    case request: RouterRequest =>
       workers forward request
     case _ =>
-      sender ! PoolResponse(Failure(IllegalRequestException))
+      sender ! RouterResponse(Failure(IllegalRequestException))
   }
 }

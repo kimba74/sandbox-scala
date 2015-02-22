@@ -2,8 +2,8 @@ package org.kimbasoft.akka.router.group
 
 import akka.actor.Actor
 import akka.routing.FromConfig
-import org.kimbasoft.akka.router.group.GroupMessages.Exceptions.IllegalRequestException
-import org.kimbasoft.akka.router.group.GroupMessages.{GroupRequest, GroupResponse}
+import org.kimbasoft.akka.router.Messages.Exceptions.IllegalRequestException
+import org.kimbasoft.akka.router.Messages.{RouterRequest, RouterResponse}
 
 import scala.util.Failure
 
@@ -18,9 +18,9 @@ class GroupActorRouterConf extends Actor {
   val workers = context.actorOf(FromConfig.props(), "workers")
 
   def receive: Receive = {
-    case request: GroupRequest =>
+    case request: RouterRequest =>
       workers forward request
     case _ =>
-      sender ! GroupResponse(Failure(IllegalRequestException))
+      sender ! RouterResponse(Failure(IllegalRequestException))
   }
 }
