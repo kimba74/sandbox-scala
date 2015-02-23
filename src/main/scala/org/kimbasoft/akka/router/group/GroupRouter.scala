@@ -1,7 +1,7 @@
 package org.kimbasoft.akka.router.group
 
 import akka.actor.Actor
-import akka.routing.{FromConfig, RoundRobinGroup}
+import akka.routing.{Broadcast, FromConfig, RoundRobinGroup}
 import org.kimbasoft.akka.router.Messages.Exceptions.IllegalRequestException
 import org.kimbasoft.akka.router.Messages.{ProgRouterRequest, ConfRouterRequest, RouterRequest, RouterResponse}
 
@@ -27,6 +27,15 @@ class GroupRouter extends Actor {
       workersConf forward RouterRequest(s"conf $message")
     case ProgRouterRequest(message) =>
       workersProg forward RouterRequest(s"prog $message")
+    case Broadcast(request) =>
+      request match {
+        case ConfRouterRequest(message) =>
+          workersConf forward Broadcast(RouterRequest(s"conf broadcast $message"))
+        case ProgRouterRequest(message) =>
+          workersProg forward Broadcast(RouterRequest(s"prog broadcast $message"))
+        case _=>
+          sender ! RouterResponse(Failure(IllegalRequestException))
+      }
     case _ =>
       sender ! RouterResponse(Failure(IllegalRequestException))
   }

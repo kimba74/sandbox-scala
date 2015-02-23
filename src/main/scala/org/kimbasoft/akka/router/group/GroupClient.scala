@@ -1,6 +1,7 @@
 package org.kimbasoft.akka.router.group
 
 import akka.actor.{ActorSystem, Props}
+import akka.routing.Broadcast
 import com.typesafe.config.ConfigFactory
 import org.kimbasoft.akka.router.ActorSupervisor
 import org.kimbasoft.akka.router.Messages.{ConfRouterRequest, ProgRouterRequest}
@@ -38,5 +39,11 @@ object GroupClient {
     group ! ProgRouterRequest("message D")
     group ! ProgRouterRequest("message E")
     group ! ProgRouterRequest("message F")
+
+    /* Broadcast messages will be sent to every actor regardless of the underlying routing
+     * logic. The router will unpack the broadcast message's payload and will forward it to
+     * every actor. */
+    group ! Broadcast(ConfRouterRequest("Broadcast 1"))
+    group ! Broadcast(ProgRouterRequest("Broadcast A"))
   }
 }

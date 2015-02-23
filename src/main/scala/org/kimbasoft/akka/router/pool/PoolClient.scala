@@ -1,6 +1,7 @@
 package org.kimbasoft.akka.router.pool
 
 import akka.actor.{ActorSystem, Props}
+import akka.routing.Broadcast
 import com.typesafe.config.ConfigFactory
 import org.kimbasoft.akka.router.Messages.{ConfRouterRequest, ProgRouterRequest}
 
@@ -34,5 +35,11 @@ object PoolClient {
     pool ! ProgRouterRequest("message D")
     pool ! ProgRouterRequest("message E")
     pool ! ProgRouterRequest("message F")
+
+    /* Broadcast messages will be sent to every actor regardless of the underlying routing
+     * logic. The router will unpack the broadcast message's payload and will forward it to
+     * every actor. */
+    pool ! Broadcast(ConfRouterRequest("Broadcast 1"))
+    pool ! Broadcast(ProgRouterRequest("Broadcast A"))
   }
 }
