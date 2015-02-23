@@ -10,6 +10,10 @@ import scala.util.Try
  */
 object Messages {
 
+  case class ConfRouterRequest(message: String)
+
+  case class ProgRouterRequest(message: String)
+
   case class RouterRequest(message: String)
 
   case class RouterResponse(response: Try[String])
