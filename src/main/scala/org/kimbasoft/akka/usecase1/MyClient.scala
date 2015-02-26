@@ -1,6 +1,7 @@
 package org.kimbasoft.akka.usecase1
 
 import akka.actor._
+import scala.concurrent.Await
 import scala.concurrent.duration._
 import akka.pattern._
 import akka.util.Timeout
@@ -44,14 +45,9 @@ object MyClient {
     implicit val timeout = Timeout(1.seconds)
     val f1 = mainActor ? ProcessFactorial(seq2)
     val f2 = mainActor ? ProcessSummation(seq2)
-    // Process Future objects results
-    do {
-      if (f1.isCompleted)
-        println(s"Value: ${f1.value}")
-      if (f2.isCompleted)
-        println(s"Value: ${f2.value}")
-    } while (!f1.isCompleted && !f2.isCompleted)
-
+    // Process Future objects results (Blocking, not recommended but works for the example)
+    println(s"Value: ${Await.result(f1, 5.seconds)} ")
+    println(s"Value: ${Await.result(f2, 5.seconds)} ")
 
     //**** INITIAL SPLIT EXAMPLE ****
     val splitActor = sys.actorOf(Props(classOf[MySplitActor],"root"), "root")
