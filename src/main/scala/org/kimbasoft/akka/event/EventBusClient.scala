@@ -1,6 +1,7 @@
 package org.kimbasoft.akka.event
 
 import akka.actor.{ActorSystem, DeadLetter}
+import com.typesafe.config.ConfigFactory
 import org.kimbasoft.akka.event.ActorBus.{ActorBusImpl, ActorEvent}
 import org.kimbasoft.akka.event.EventBusMessages.{BusPublication, BusPublicationRequest, BusMessage, BusRequestMessage}
 import org.kimbasoft.akka.event.LookupBus.{LookupBusImpl, LookupEvent}
@@ -16,8 +17,10 @@ import org.kimbasoft.akka.event.SubchannelBus.{SubchannelBusImpl, SubchannelEven
 object EventBusClient {
 
   def main(args: Array[String]) {
+    
+    val config = ConfigFactory.load("org/kimbasoft/akka/event/eventbus-config")
 
-    val sys = ActorSystem("EventBusSystem")
+    val sys = ActorSystem("EventBusSystem", config)
 
     /* Message processing example for Event Bus with Lookup Classification */
     val actor1 = sys.actorOf(EventBusActor.props("LookupActorGreetings"), "event-actor-greeting")
