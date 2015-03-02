@@ -1,11 +1,11 @@
 package org.kimbasoft.akka.event
 
-import akka.actor.ActorSystem
-import org.kimbasoft.akka.event.ActorBus.{ActorEvent, ActorBusImpl}
-import org.kimbasoft.akka.event.EventBusMessages.BusMessage
-import org.kimbasoft.akka.event.LookupBus.{LookupEvent, LookupBusImpl}
-import org.kimbasoft.akka.event.ScanningBus.{ScanningEvent, ScanningBusImpl}
-import org.kimbasoft.akka.event.SubchannelBus.{SubchannelEvent, SubchannelBusImpl}
+import akka.actor.{ActorSystem, DeadLetter}
+import org.kimbasoft.akka.event.ActorBus.{ActorBusImpl, ActorEvent}
+import org.kimbasoft.akka.event.EventBusMessages.{BusPublication, BusPublicationRequest, BusMessage, BusRequestMessage}
+import org.kimbasoft.akka.event.LookupBus.{LookupBusImpl, LookupEvent}
+import org.kimbasoft.akka.event.ScanningBus.{ScanningBusImpl, ScanningEvent}
+import org.kimbasoft.akka.event.SubchannelBus.{SubchannelBusImpl, SubchannelEvent}
 
 /**
  * Missing documentation. 
@@ -74,5 +74,16 @@ object EventBusClient {
     busD.publish(ActorEvent(observer1, BusMessage("2. Message with observer 1")))
     busD.publish(ActorEvent(observer2, BusMessage("3. Message with observer 2")))
     busD.publish(ActorEvent(observer2, BusMessage("4. Message with observer 3")))
+
+    /* Subscribing to the Actor System's Event Stream for Dead Letters*/
+    val actorP = sys.actorOf(EventBusActor.props("Producer"), "stream-producer")
+    val actorC = sys.actorOf(EventBusActor.props("Consumer"), "stream-consumer")
+    val actorD = sys.actorOf(EventBusActor.props("DeadLetter"), "dead-letter")
+
+    sys.eventStream.subscribe(actorD, classOf[DeadLetter])
+    sys.eventStream.subscribe(actorC, classOf[BusPublication])
+
+    actorP ! BusRequestMessage("Hello World.")
+    actorP ! BusPublicationRequest("Hello Subscribers")
   }
 }
