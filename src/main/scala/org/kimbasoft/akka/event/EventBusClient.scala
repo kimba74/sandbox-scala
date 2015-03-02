@@ -1,6 +1,7 @@
 package org.kimbasoft.akka.event
 
 import akka.actor.ActorSystem
+import org.kimbasoft.akka.event.ActorBus.{ActorEvent, ActorBusImpl}
 import org.kimbasoft.akka.event.EventBusMessages.BusMessage
 import org.kimbasoft.akka.event.LookupBus.{LookupEvent, LookupBusImpl}
 import org.kimbasoft.akka.event.ScanningBus.{ScanningEvent, ScanningBusImpl}
@@ -57,5 +58,21 @@ object EventBusClient {
     busC.publish(ScanningEvent("ab", "Topic length = 2"))
     busC.publish(ScanningEvent("abc", "Topic length = 3"))
     busC.publish(ScanningEvent("abcd", "Topic length = 4"))
+
+    /* Message processing example for Event Bus with Actor Classification */
+    val observer1 = sys.actorOf(EventBusActor.props("Observer-1"), "observer-1")
+    val observer2 = sys.actorOf(EventBusActor.props("Observer-2"), "observer-2")
+    val actor7 = sys.actorOf(EventBusActor.props("ActorSubscriber-1"), "actorevent-1")
+    val actor8 = sys.actorOf(EventBusActor.props("ActorSubscriber-2"), "actorevent-2")
+
+    val busD = new ActorBusImpl
+    busD.subscribe(actor7, observer1)
+    busD.subscribe(actor8, observer1)
+    busD.subscribe(actor8, observer2)
+
+    busD.publish(ActorEvent(observer1, BusMessage("1. Message with observer 1")))
+    busD.publish(ActorEvent(observer1, BusMessage("2. Message with observer 1")))
+    busD.publish(ActorEvent(observer2, BusMessage("3. Message with observer 2")))
+    busD.publish(ActorEvent(observer2, BusMessage("4. Message with observer 3")))
   }
 }
