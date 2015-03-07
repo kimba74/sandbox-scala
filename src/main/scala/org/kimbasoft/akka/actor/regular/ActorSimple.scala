@@ -1,8 +1,8 @@
-package org.kimbasoft.akka.actor
+package org.kimbasoft.akka.actor.regular
 
-import akka.actor.{Props, Actor}
-import org.kimbasoft.akka.actor.ActorSimple.Exceptions.SimpleRequestException
-import org.kimbasoft.akka.actor.ActorSimple.Messages.{SimpleResponse, SimpleRequest}
+import akka.actor.{Actor, Props}
+import org.kimbasoft.akka.actor.regular.ActorSimple.Exceptions.SimpleRequestException
+import org.kimbasoft.akka.actor.regular.ActorSimple.Messages.{SimpleResponse, SimpleRequest}
 
 import scala.util.{Failure, Success, Try}
 

@@ -1,4 +1,4 @@
-package org.kimbasoft.akka.dsl
+package org.kimbasoft.akka.actor.dsl
 
 import scala.util.Try
 

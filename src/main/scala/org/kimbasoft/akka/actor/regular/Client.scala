@@ -1,9 +1,9 @@
-package org.kimbasoft.akka.actor
+package org.kimbasoft.akka.actor.regular
 
 import akka.actor.ActorSystem
-import org.kimbasoft.akka.actor.ActorComplex.Manager.{Start, Stop}
-import org.kimbasoft.akka.actor.ActorComplex.Messages.ComplexRequest
-import org.kimbasoft.akka.actor.ActorSimple.Messages.SimpleRequest
+import org.kimbasoft.akka.actor.regular.ActorComplex.Manager.{Stop, Start}
+import org.kimbasoft.akka.actor.regular.ActorComplex.Messages.ComplexRequest
+import org.kimbasoft.akka.actor.regular.ActorSimple.Messages.SimpleRequest
 
 /**
  * Missing documentation

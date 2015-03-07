@@ -1,10 +1,10 @@
-package org.kimbasoft.akka.dsl
+package org.kimbasoft.akka.actor.dsl
 
 // Import of ActorDSL and all its members is required
 import akka.actor.ActorDSL._
 import akka.actor.ActorSystem
-import org.kimbasoft.akka.dsl.Messages.Exceptions.IllegalDSLRequestException
-import org.kimbasoft.akka.dsl.Messages.{DSLResponse, DSLRequest}
+import org.kimbasoft.akka.actor.dsl.Messages.Exceptions.IllegalDSLRequestException
+import org.kimbasoft.akka.actor.dsl.Messages.{DSLResponse, DSLRequest}
 
 import scala.util.Failure
 

@@ -1,11 +1,11 @@
-package org.kimbasoft.akka.actor
+package org.kimbasoft.akka.actor.regular
 
 import akka.actor._
-import org.kimbasoft.akka.actor.ActorComplex.Exceptions
-import org.kimbasoft.akka.actor.ActorComplex.Exceptions.{ComplexRequestException, ComplexManagementException}
-import org.kimbasoft.akka.actor.ActorComplex.Manager.{Stop, Start}
-import org.kimbasoft.akka.actor.ActorComplex.Messages.ComplexRequest
-import org.kimbasoft.akka.actor.ActorSimple.Messages.{SimpleResponse, SimpleRequest}
+import org.kimbasoft.akka.actor.regular.ActorComplex.Exceptions
+import org.kimbasoft.akka.actor.regular.ActorComplex.Exceptions.{ComplexRequestException, ComplexManagementException}
+import org.kimbasoft.akka.actor.regular.ActorComplex.Manager.{Stop, Start}
+import org.kimbasoft.akka.actor.regular.ActorComplex.Messages.ComplexRequest
+import org.kimbasoft.akka.actor.regular.ActorSimple.Messages.{SimpleRequest, SimpleResponse}
 
 import scala.util.Try
 
