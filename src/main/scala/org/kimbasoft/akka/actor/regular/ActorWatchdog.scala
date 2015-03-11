@@ -1,6 +1,6 @@
 package org.kimbasoft.akka.actor.regular
 
-import akka.actor.{Terminated, ActorRef, Props, Actor}
+import akka.actor._
 import org.kimbasoft.akka.actor.regular.ActorWatchdog.Messages.{UnwatchActor, WatchActor}
 
 /**
@@ -11,13 +11,19 @@ import org.kimbasoft.akka.actor.regular.ActorWatchdog.Messages.{UnwatchActor, Wa
  */
 class ActorWatchdog extends Actor {
 
+  val name = self.path.name
+
+  context.system.eventStream.subscribe(self, classOf[DeadLetter])
+
   def receive: Receive = {
     case Terminated(actor) =>
-      println(s"Death Watch: $actor terminated!")
+      println(s"Actor[$name] DeathWatch: $actor terminated!")
     case WatchActor(actor) =>
       context.watch(actor)
     case UnwatchActor(actor) =>
       context.unwatch(actor)
+    case DeadLetter(message, sender, recipient) =>
+      println(s"Actor[$name] DeadLetter: $message, from: $sender, to: $recipient")
     case _ =>
   }
 }

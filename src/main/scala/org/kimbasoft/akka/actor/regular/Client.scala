@@ -24,6 +24,7 @@ object Client {
     watchdog ! WatchActor(simple)
     simple ! SimpleRequest("Fire-and-Forget")
     simple ! 90210
+    simple ! SimpleRequest("deadletter")
     simple ! PoisonPill
     Thread.sleep(500)
 

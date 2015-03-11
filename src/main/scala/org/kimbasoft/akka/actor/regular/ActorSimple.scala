@@ -13,16 +13,21 @@ import scala.util.{Failure, Success, Try}
  */
 class ActorSimple extends Actor {
 
+  val name = self.path.name
+
   /**
    * Method that needs to be implemented as the Actor's behavior
    * @return
    */
   def receive: Receive = {
+    case SimpleRequest("deadletter") =>
+      println(s"Actor[$name]: received a DeadLetter request")
+      context.system.deadLetters ! SimpleResponse(Success("Request to send to DeadLetter!"))
     case SimpleRequest(message) =>
-      println(s"""ActorSimple: received message: "$message"""")
+      println(s"""Actor[$name]: received message: "$message"""")
       sender ! SimpleResponse(Success(s"""Received and processed message "$message""""))
     case request =>
-      println(s"""ActorSimple: received unknown request "$request"""")
+      println(s"""Actor[$name]: received unknown request "$request"""")
       sender ! SimpleResponse(Failure(SimpleRequestException))
   }
 
