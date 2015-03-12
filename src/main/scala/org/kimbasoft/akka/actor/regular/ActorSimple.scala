@@ -34,13 +34,13 @@ class ActorSimple extends Actor {
   @throws[Exception](classOf[Exception])
   override def preStart(): Unit = {
     super.preStart()
-    println(s"ActorSimple $self is about to start!")
+    println(s"Actor[$name]: instance of ActorSimple, $self is about to start!")
   }
 
   @throws[Exception](classOf[Exception])
   override def postStop(): Unit = {
     super.postStop()
-    println(s"ActorSimple $self was stopped!")
+    println(s"Actor[$name]: instance of ActorSimple $self was stopped!")
   }
 }
 

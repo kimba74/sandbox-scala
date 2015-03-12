@@ -14,56 +14,62 @@ import scala.util.Try
  *
  * @since 1.0
  */
-class ActorComplex(name: String, workers: Int) extends Actor {
+class ActorComplex(workers: Int) extends Actor {
 
   private var wActors = Vector.empty[ActorRef]
+
+  val name = self.path.name
 
   def receive: Receive = initialize
 
   val initialize: Receive = {
     case Start =>
-      println(s"$name: starting up actor with $workers workers")
+      println(s"Actor[$name]: starting up actor with $workers workers")
       wActors = ((1 to workers) map makeActor).toVector
       context become processing
     case request =>
-      println(s"$name: received unknown management request $request")
+      println(s"Actor[$name]: received unknown management request $request")
       sender ! ComplexManagementException
   }
 
   val processing: Receive = {
     case ComplexRequest(message: String) =>
-      println(s"""$name: forwarding message "$message" to workers""")
+      println(s"""Actor[$name]: forwarding message "$message" to workers""")
       wActors foreach { act => act ! SimpleRequest(message) }
     case ComplexRequest(message: Int) =>
-      println(s"""$name: keeping "$message" to myself""")
+      println(s"""Actor[$name]: keeping "$message" to myself""")
     case response: SimpleResponse =>
-      println(s"""$name: worker responded with "$response"""")
+      println(s"""Actor[$name]: worker responded with "$response"""")
     case Stop =>
       wActors foreach { act => act ! PoisonPill }
       context become shuttingdown
     case request =>
-      println(s"""$name: received unknown request "$request"""")
+      println(s"""Actor[$name]: received unknown request "$request"""")
       sender ! ComplexRequestException
   }
 
   val shuttingdown: Receive = {
     case Terminated(worker) =>
-      println(s"$name: shut down $worker")
+      println(s"Actor[$name]: shut down $worker")
       wActors = wActors diff Vector(worker)
       if (wActors.isEmpty) {
-        println(s"$name: all workers are stopped, stopping myself")
+        println(s"Actor[$name]: all workers are stopped, stopping myself")
         context stop self
       }
     case _ =>
       sender ! Exceptions.ComplexManagementException
   }
 
+  /**
+   * Utility method creating a new child Actor and registering this actor
+   * as the child's DeathWatch.
+   */
   private def makeActor(id: Int): ActorRef = context.watch(context.actorOf(ActorSimple.props, s"worker-$id"))
 }
 
 object ActorComplex {
 
-  def props(name: String, workers: Int): Props = Props(classOf[ActorComplex], name, workers)
+  def props(workers: Int): Props = Props(classOf[ActorComplex], workers)
 
   object Manager {
 
