@@ -1,12 +1,12 @@
-package org.kimbasoft.akka.event
+package org.kimbasoft.akka.eventbus
 
 import akka.actor.{ActorSystem, DeadLetter}
 import com.typesafe.config.ConfigFactory
-import org.kimbasoft.akka.event.ActorBus.{ActorBusImpl, ActorEvent}
-import org.kimbasoft.akka.event.EventBusMessages.{BusPublication, BusPublicationRequest, BusMessage, BusRequestMessage}
-import org.kimbasoft.akka.event.LookupBus.{LookupBusImpl, LookupEvent}
-import org.kimbasoft.akka.event.ScanningBus.{ScanningBusImpl, ScanningEvent}
-import org.kimbasoft.akka.event.SubchannelBus.{SubchannelBusImpl, SubchannelEvent}
+import org.kimbasoft.akka.eventbus.ActorBus.{ActorBusImpl, ActorEvent}
+import org.kimbasoft.akka.eventbus.EventBusMessages.{BusPublication, BusPublicationRequest, BusMessage, BusRequestMessage}
+import org.kimbasoft.akka.eventbus.LookupBus.{LookupBusImpl, LookupEvent}
+import org.kimbasoft.akka.eventbus.ScanningBus.{ScanningBusImpl, ScanningEvent}
+import org.kimbasoft.akka.eventbus.SubchannelBus.{SubchannelBusImpl, SubchannelEvent}
 
 /**
  * Missing documentation. 
@@ -18,7 +18,7 @@ object EventBusClient {
 
   def main(args: Array[String]) {
     
-    val config = ConfigFactory.load("org/kimbasoft/akka/event/eventbus-config")
+    val config = ConfigFactory.load("org/kimbasoft/akka/eventbus/eventbus-config")
 
     val sys = ActorSystem("EventBusSystem", config)
 

@@ -1,4 +1,4 @@
-package org.kimbasoft.akka.event
+package org.kimbasoft.akka.eventbus
 
 import scala.util.Try
 

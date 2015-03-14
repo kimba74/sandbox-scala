@@ -1,7 +1,7 @@
-package org.kimbasoft.akka.event
+package org.kimbasoft.akka.eventbus
 
 import akka.actor.{DeadLetter, Props, Actor}
-import org.kimbasoft.akka.event.EventBusMessages._
+import org.kimbasoft.akka.eventbus.EventBusMessages._
 
 import scala.util.{Failure, Success}
 

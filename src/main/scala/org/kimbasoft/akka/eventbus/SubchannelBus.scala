@@ -1,4 +1,4 @@
-package org.kimbasoft.akka.event
+package org.kimbasoft.akka.eventbus
 
 import akka.actor.ActorRef
 import akka.event.{SubchannelClassification, EventBus}
