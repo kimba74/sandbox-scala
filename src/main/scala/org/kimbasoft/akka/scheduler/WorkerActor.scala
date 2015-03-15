@@ -1,7 +1,7 @@
 package org.kimbasoft.akka.scheduler
 
-import akka.actor.Actor
-import org.kimbasoft.akka.scheduler.SchedulerMessages.Tick
+import akka.actor.{Props, Actor}
+import org.kimbasoft.akka.scheduler.WorkerActor.Messages.Tick
 
 /**
  * Missing documentation. 
@@ -16,5 +16,14 @@ class WorkerActor extends Actor {
       println(s"Worker: $message [${System.currentTimeMillis()}]")
     case _ =>
       println(s"Worker: Whut?")
+  }
+}
+
+object WorkerActor {
+
+  val props = Props[WorkerActor]
+
+  object Messages {
+    case class Tick(message: String)
   }
 }

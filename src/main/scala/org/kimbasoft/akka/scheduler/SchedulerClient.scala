@@ -1,7 +1,8 @@
 package org.kimbasoft.akka.scheduler
 
-import akka.actor.{Props, ActorSystem}
-import org.kimbasoft.akka.scheduler.SchedulerMessages.Tick
+import akka.actor.ActorSystem
+import org.kimbasoft.akka.scheduler.WorkerActor.Messages.Tick
+
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
@@ -17,7 +18,7 @@ object SchedulerClient {
 
     val sys = ActorSystem("SchedulerSystem")
 
-    val worker = sys.actorOf(Props[WorkerActor], "worker")
+    val worker = sys.actorOf(WorkerActor.props, "worker")
 
     import sys.dispatcher
 
