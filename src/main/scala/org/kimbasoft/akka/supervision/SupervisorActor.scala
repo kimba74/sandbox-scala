@@ -2,10 +2,10 @@ package org.kimbasoft.akka.supervision
 
 import akka.actor.SupervisorStrategy.{Stop, Resume}
 import akka.actor.{Actor, OneForOneStrategy, Props, SupervisorStrategy}
-import org.kimbasoft.akka.supervision.SupervisionMessages.Exceptions._
-import org.kimbasoft.akka.supervision.SupervisionMessages.{SupervisionRequest, SupervisionResponse}
+import org.kimbasoft.akka.supervision.SupervisorActor.Exceptions.{IllegalFactorException, IllegalDepthException, IllegalRequestException}
+import org.kimbasoft.akka.supervision.SupervisorActor.Messages.{SupervisionResponse, SupervisionRequest}
 
-import scala.util.Failure
+import scala.util.{Try, Failure}
 
 /**
  * Missing documentation. 
@@ -13,9 +13,11 @@ import scala.util.Failure
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-class SupervisorActor(name: String) extends Actor {
+class SupervisorActor extends Actor {
 
   var counter = 1
+
+  val name = self.path.name
 
   override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy() {
     case IllegalRequestException =>
@@ -37,7 +39,7 @@ class SupervisorActor(name: String) extends Actor {
         println(s">> $name: $message")
         for (c <- 1 to factor) {
           val actName = s"$name.$counter"
-          val actRefs = context.actorOf(Props(classOf[SupervisorActor], actName), actName)
+          val actRefs = context.actorOf(SupervisorActor.props, actName)
           actRefs ! SupervisionRequest(factor, depth - 1, message)
           counter += 1
         }
@@ -62,5 +64,24 @@ class SupervisorActor(name: String) extends Actor {
       }
     case _ =>
       sender ! SupervisionResponse(Failure(IllegalRequestException))
+  }
+}
+
+object SupervisorActor {
+
+  val props = Props[SupervisorActor]
+
+  object Messages {
+    case class SupervisionRequest(factor: Int, depth: Int, message: String)
+
+    case class SupervisionResponse(response: Try[String])
+  }
+
+  object Exceptions {
+    object IllegalRequestException extends RuntimeException
+
+    object IllegalFactorException extends RuntimeException
+
+    object IllegalDepthException extends RuntimeException
   }
 }
