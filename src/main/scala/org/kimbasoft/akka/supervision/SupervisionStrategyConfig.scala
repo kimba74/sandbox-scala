@@ -2,7 +2,7 @@ package org.kimbasoft.akka.supervision
 
 import akka.actor.SupervisorStrategy.{Resume, Stop}
 import akka.actor.{OneForOneStrategy, SupervisorStrategy, SupervisorStrategyConfigurator}
-import org.kimbasoft.akka.supervision.SupervisorActor.Exceptions.{IllegalFactorException, IllegalDepthException, IllegalRequestException}
+import org.kimbasoft.akka.supervision.SupervisorActor.Exceptions.{IllegalDepthException, IllegalFactorException, IllegalRequestException}
 
 /**
  * Missing documentation. 

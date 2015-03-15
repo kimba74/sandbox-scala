@@ -1,11 +1,11 @@
 package org.kimbasoft.akka.supervision
 
-import akka.actor.SupervisorStrategy.{Stop, Resume}
+import akka.actor.SupervisorStrategy.{Resume, Stop}
 import akka.actor.{Actor, OneForOneStrategy, Props, SupervisorStrategy}
-import org.kimbasoft.akka.supervision.SupervisorActor.Exceptions.{IllegalFactorException, IllegalDepthException, IllegalRequestException}
-import org.kimbasoft.akka.supervision.SupervisorActor.Messages.{SupervisionResponse, SupervisionRequest}
+import org.kimbasoft.akka.supervision.SupervisorActor.Exceptions.{IllegalDepthException, IllegalFactorException, IllegalRequestException}
+import org.kimbasoft.akka.supervision.SupervisorActor.Messages.SupervisionRequest
 
-import scala.util.{Try, Failure}
+import scala.util.Try
 
 /**
  * Missing documentation. 
@@ -52,18 +52,18 @@ class SupervisorActor extends Actor {
     case SupervisionRequest(factor, depth, _) =>
       if (factor < 1) {
         println(s"!! $name: Illegal factor $factor")
-        sender ! SupervisionResponse(Failure(IllegalFactorException))
+        throw IllegalFactorException
       }
       else if (depth < 0) {
         println(s"!! $name: Illegal depth $depth")
-        sender ! SupervisionResponse(Failure(IllegalDepthException))
+        throw IllegalDepthException
       }
       else {
         println(s"!! $name: Illegal Request")
-        sender ! SupervisionResponse(Failure(IllegalRequestException))
+        throw IllegalRequestException
       }
     case _ =>
-      sender ! SupervisionResponse(Failure(IllegalRequestException))
+      throw IllegalRequestException
   }
 }
 
