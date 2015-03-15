@@ -1,8 +1,8 @@
 package org.kimbasoft.akka.dispatcher
 
-import akka.actor.{Props, ActorSystem}
+import akka.actor.ActorSystem
 import com.typesafe.config.ConfigFactory
-import org.kimbasoft.akka.dispatcher.DispatcherMessages.DispatcherRequest
+import org.kimbasoft.akka.dispatcher.DispatcherActor.Messages.DispatcherRequest
 
 /**
  * Missing documentation. 
@@ -20,18 +20,17 @@ object DispatcherClient {
      * only one of them is advisable per Software System. */
     val sys = ActorSystem("DispatcherSystem", config)
 
-    // TODO: Figure out test case for demonstrating Dispatchers
-    val actorDefault = sys.actorOf(Props[DispatcherActor], "standard-actor")
+    val actorDefault = sys.actorOf(DispatcherActor.props, "standard-actor")
     actorDefault ! DispatcherRequest("default 1")
     actorDefault ! DispatcherRequest("default 2")
     actorDefault ! DispatcherRequest("default 3")
 
-    val actorSimple = sys.actorOf(Props[DispatcherActor], "simple-dispatcher-actor")
+    val actorSimple = sys.actorOf(DispatcherActor.props, "simple-dispatcher-actor")
     actorSimple ! DispatcherRequest("simple 1")
     actorSimple ! DispatcherRequest("simple 2")
     actorSimple ! DispatcherRequest("simple 3")
 
-    val actorThreadPool = sys.actorOf(Props[DispatcherActor], "thread-pool-dispatcher-actor")
+    val actorThreadPool = sys.actorOf(DispatcherActor.props, "thread-pool-dispatcher-actor")
     actorThreadPool ! DispatcherRequest("thread pool 1")
     actorThreadPool ! DispatcherRequest("thread pool 2")
     actorThreadPool ! DispatcherRequest("thread pool 3")
