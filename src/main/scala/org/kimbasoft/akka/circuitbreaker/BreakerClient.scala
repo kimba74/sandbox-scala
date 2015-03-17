@@ -1,8 +1,8 @@
 package org.kimbasoft.akka.circuitbreaker
 
-import akka.actor.{Props, ActorSystem}
+import akka.actor.ActorSystem
 import com.typesafe.config.ConfigFactory
-import org.kimbasoft.akka.circuitbreaker.BreakerMessages.{StallRequest, GoodRequest, CrashRequest}
+import org.kimbasoft.akka.circuitbreaker.BreakerActor.Messages.{StallRequest, GoodRequest, CrashRequest}
 
 /**
  * Missing documentation
@@ -20,7 +20,7 @@ object BreakerClient {
     val sys = ActorSystem("BreakerSystem", config)
 
     /* Create Actor with Circuit Breaker inside */
-    val actor = sys.actorOf(Props[BreakerActor], "breaker-actor")
+    val actor = sys.actorOf(BreakerActor.props, "breaker-actor")
 
     /* Have the call crash 3 times */
     actor ! CrashRequest
@@ -31,9 +31,9 @@ object BreakerClient {
      * to ensure the reset timeout has passed and the Breaker goes into half-open */
     Thread.sleep(15000)
 
-    /* Send an initial good request to bring the Circuit Breaker back into half-open mode.
-     * The toggle between good and bad request to demonstrate that a response to a good
-     * request resets the Breaker's Fail Counter.*/
+    /* Send an initial good request to bring the Circuit Breaker back from half-open to
+     * closed mode. The toggle between good and bad request to demonstrate that a response
+     * to a good request resets the Breaker's Fail Counter.*/
     actor ! GoodRequest
     actor ! CrashRequest
     actor ! GoodRequest

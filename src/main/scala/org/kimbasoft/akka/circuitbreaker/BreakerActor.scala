@@ -1,9 +1,9 @@
 package org.kimbasoft.akka.circuitbreaker
 
-import akka.actor.{ActorLogging, Actor}
+import akka.actor.{Props, ActorLogging, Actor}
 import akka.pattern.CircuitBreaker
 import akka.pattern.pipe
-import org.kimbasoft.akka.circuitbreaker.BreakerMessages.{GoodRequest, CrashRequest, StallRequest}
+import org.kimbasoft.akka.circuitbreaker.BreakerActor.Messages.{StallRequest, GoodRequest, CrashRequest}
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
@@ -23,11 +23,11 @@ class BreakerActor extends Actor with ActorLogging {
     .onClose(notifyClose)
     .onHalfOpen(notifyHalfOpen)
 
-  def notifyClose: Unit = log.info("Circuit Breaker now closed")
+  def notifyClose: Unit = log.info("Breaker: Circuit Breaker now closed")
 
-  def notifyHalfOpen: Unit = log.info("Circuit Breaker now half-open")
+  def notifyHalfOpen: Unit = log.info("Breaker: Circuit Breaker now half-open")
 
-  def notifyOpen: Unit = log.info("Circuit Breaker now open, won't close for 10 sec")
+  def notifyOpen: Unit = log.info("Breaker: Circuit Breaker now open, won't close for 10 sec")
 
   def receive: Receive = {
     case CrashRequest =>
@@ -44,5 +44,18 @@ class BreakerActor extends Actor with ActorLogging {
       sender ! breaker.withSyncCircuitBreaker(BreakerDangerSimulator.stall(sleep))
     case "Blocking Call" =>
       sender ! breaker.withSyncCircuitBreaker("Dangerous call")
+  }
+}
+
+object BreakerActor {
+
+  val props = Props[BreakerActor]
+
+  object Messages {
+    case object CrashRequest
+
+    case object GoodRequest
+
+    case class StallRequest(stall: Long)
   }
 }
