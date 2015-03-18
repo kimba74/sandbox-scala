@@ -1,10 +1,7 @@
 package org.kimbasoft.akka.mailbox
 
-import akka.actor.Actor
-import org.kimbasoft.akka.mailbox.MailboxMessages.Exceptions.IllegalRequestException
-import org.kimbasoft.akka.mailbox.MailboxMessages.{MailboxResponse, MailboxRequest}
-
-import scala.util.{Success, Failure}
+import akka.actor.{Actor, Props}
+import org.kimbasoft.akka.mailbox.MailboxActor.Messages.MailboxRequest
 
 /**
  * Missing documentation. 
@@ -14,14 +11,34 @@ import scala.util.{Success, Failure}
  */
 class MailboxActor extends Actor {
 
+  val name = self.path.name
+
   def receive: Receive = {
     // Processing of recognized message
     case MailboxRequest(message, priority) =>
-      println(s"""Mailbox: received message "$message" [$priority]""")
-      sender ! MailboxResponse(Success(s""""$message" - processed!"""))
+      println(s"""$name: received message "$message" [$priority]""")
+      Thread.sleep(10) // Sleeping for 10ms to prevent side-effects in this example
     // Handling of all unrecognized messages
     case message =>
-      println(s"""Mailbox: Unknown message "$message"""")
-      sender ! MailboxResponse(Failure(IllegalRequestException))
+      println(s"""$name: Unknown message "$message"""")
+  }
+}
+
+object MailboxActor {
+
+  val props = Props[MailboxActor]
+
+  object Messages {
+    import Priority._
+    case class MailboxRequest(message: String, priority: PriorityType = Priority.NORMAL)
+  }
+
+  object Exceptions {
+    object IllegalRequestException extends RuntimeException
+  }
+
+  object Priority extends Enumeration {
+    type PriorityType = Value
+    val LOW, NORMAL, MEDIUM, HIGH = Value
   }
 }

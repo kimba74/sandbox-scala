@@ -1,8 +1,9 @@
 package org.kimbasoft.akka.mailbox
 
-import akka.actor.{Props, ActorSystem}
+import akka.actor.ActorSystem
 import com.typesafe.config.ConfigFactory
-import org.kimbasoft.akka.mailbox.MailboxMessages.{Priority, MailboxRequest}
+import org.kimbasoft.akka.mailbox.MailboxActor.Messages.MailboxRequest
+import org.kimbasoft.akka.mailbox.MailboxActor.Priority
 
 /**
  * Missing documentation. 
@@ -21,11 +22,12 @@ object MailboxClient {
     val sys = ActorSystem("MailboxSystem", config)
 
     /* Creating an Actor with default mailbox in the previously constructed ActorSystem */
-    val actor1 = sys.actorOf(Props[MailboxActor], "mailbox-actor")
+    val actor1 = sys.actorOf(MailboxActor.props, "mailbox-actor")
     /* Creating an Actor with priority mailbox in the previously constructed ActorSystem */
-    val actor2 = sys.actorOf(Props[PriorityMailboxActor], "priority-actor")
+    val actor2 = sys.actorOf(MailboxActor.props, "priority-actor")
 
     /* Sending MailboxRequest to actor with default mailbox */
+    println("-- Default Mailbox -------------------------------------")
     actor1 ! MailboxRequest("Hello Low 1!", Priority.LOW)
     actor1 ! MailboxRequest("Hello Medium 1!", Priority.MEDIUM)
     actor1 ! MailboxRequest("Hello Normal 1!", Priority.NORMAL)
@@ -42,7 +44,11 @@ object MailboxClient {
     actor1 ! MailboxRequest("Hello Medium 3!", Priority.MEDIUM)
     actor1 ! MailboxRequest("Hello Normal 3!", Priority.NORMAL)
 
+    /* Sleep 2 seconds to allow Default Mailbox Actor to finish up */
+    Thread.sleep(2000)
+
     /* Sending MailboxRequest to actor with PriorityMailbox implementation */
+    println("-- Priority Mailbox ------------------------------------")
     actor2 ! MailboxRequest("Hello Low 1!", Priority.LOW)
     actor2 ! MailboxRequest("Hello Medium 1!", Priority.MEDIUM)
     actor2 ! MailboxRequest("Hello Normal 1!", Priority.NORMAL)

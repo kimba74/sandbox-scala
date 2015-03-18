@@ -3,8 +3,8 @@ package org.kimbasoft.akka.mailbox
 import akka.actor.ActorSystem
 import akka.dispatch.{PriorityGenerator, UnboundedPriorityMailbox}
 import com.typesafe.config.Config
-import org.kimbasoft.akka.mailbox.MailboxMessages.MailboxRequest
-import org.kimbasoft.akka.mailbox.MailboxMessages.Priority._
+import org.kimbasoft.akka.mailbox.MailboxActor.Messages.MailboxRequest
+import org.kimbasoft.akka.mailbox.MailboxActor.Priority
 
 /**
  * Missing documentation. 
@@ -15,10 +15,10 @@ import org.kimbasoft.akka.mailbox.MailboxMessages.Priority._
 class PriorityMailbox(settings: ActorSystem.Settings, config: Config) extends UnboundedPriorityMailbox(PriorityGenerator {
   case MailboxRequest(_, priority) =>
     priority match {
-      case HIGH => 0
-      case MEDIUM => 1
-      case NORMAL => 2
-      case LOW => 3
+      case Priority.HIGH => 0
+      case Priority.MEDIUM => 1
+      case Priority.NORMAL => 2
+      case Priority.LOW => 3
     }
   case _ => 3
 }) {
