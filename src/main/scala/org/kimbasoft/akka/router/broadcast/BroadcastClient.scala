@@ -3,7 +3,7 @@ package org.kimbasoft.akka.router.broadcast
 import akka.actor.{ActorSystem, Props}
 import com.typesafe.config.ConfigFactory
 import org.kimbasoft.akka.router.ActorSupervisor
-import org.kimbasoft.akka.router.Messages.{ProgRouterRequest, ConfRouterRequest}
+import org.kimbasoft.akka.router.ActorWorker.Messages.{ConfRouterRequest, ProgRouterRequest}
 
 /**
  * Missing documentation. 

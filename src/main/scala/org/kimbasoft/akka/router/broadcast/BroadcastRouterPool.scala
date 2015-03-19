@@ -1,10 +1,10 @@
 package org.kimbasoft.akka.router.broadcast
 
-import akka.actor.{Actor, Props}
+import akka.actor.Actor
 import akka.routing.{BroadcastPool, FromConfig}
 import org.kimbasoft.akka.router.ActorWorker
-import org.kimbasoft.akka.router.Messages.Exceptions.IllegalRequestException
-import org.kimbasoft.akka.router.Messages.{ConfRouterRequest, ProgRouterRequest, RouterRequest, RouterResponse}
+import org.kimbasoft.akka.router.ActorWorker.Exceptions.IllegalRequestException
+import org.kimbasoft.akka.router.ActorWorker.Messages.{ConfRouterRequest, ProgRouterRequest, RouterRequest, RouterResponse}
 
 import scala.util.Failure
 
@@ -17,10 +17,10 @@ import scala.util.Failure
 class BroadcastRouterPool extends Actor {
 
   /* Creating Router Pool from configuration file */
-  val workersConf = context.actorOf(FromConfig.props(Props(classOf[ActorWorker], "Pool")), "worker-conf")
+  val workersConf = context.actorOf(FromConfig.props(ActorWorker.props("Pool")), "worker-conf")
 
   /* Creating Router Pool from programmatic configuration */
-  val workersProg = context.actorOf(BroadcastPool(3).props(Props(classOf[ActorWorker],"Pool")), "worker-prog")
+  val workersProg = context.actorOf(BroadcastPool(3).props(ActorWorker.props("Pool")), "worker-prog")
 
   def receive: Receive = {
     case ConfRouterRequest(message) =>

@@ -1,6 +1,6 @@
 package org.kimbasoft.akka.router
 
-import akka.actor.{Props, Actor}
+import akka.actor.Actor
 
 /**
  * Missing documentation. 
@@ -18,5 +18,5 @@ class ActorSupervisor(worker_type: String, worker_num: Int) extends Actor {
     case _ => // Don't do anything here
   }
 
-  private def createWorker(index: Int) = context.actorOf(Props(classOf[ActorWorker], worker_type), s"worker$index")
+  private def createWorker(index: Int) = context.actorOf(ActorWorker.props(worker_type), s"worker$index")
 }

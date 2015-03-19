@@ -2,8 +2,8 @@ package org.kimbasoft.akka.router.broadcast
 
 import akka.actor.Actor
 import akka.routing.{BroadcastGroup, FromConfig}
-import org.kimbasoft.akka.router.Messages.Exceptions.IllegalRequestException
-import org.kimbasoft.akka.router.Messages.{ConfRouterRequest, ProgRouterRequest, RouterRequest, RouterResponse}
+import org.kimbasoft.akka.router.ActorWorker.Exceptions.IllegalRequestException
+import org.kimbasoft.akka.router.ActorWorker.Messages.{ConfRouterRequest, ProgRouterRequest, RouterRequest, RouterResponse}
 
 import scala.util.Failure
 

@@ -1,10 +1,10 @@
 package org.kimbasoft.akka.router
 
-import akka.actor.Actor
-import org.kimbasoft.akka.router.Messages.Exceptions.IllegalRequestException
-import org.kimbasoft.akka.router.Messages.{RouterResponse, RouterRequest}
+import akka.actor.{Actor, Props}
+import org.kimbasoft.akka.router.ActorWorker.Exceptions.IllegalRequestException
+import org.kimbasoft.akka.router.ActorWorker.Messages.{RouterRequest, RouterResponse}
 
-import scala.util.Failure
+import scala.util.{Failure, Try}
 
 /**
  * Missing documentation. 
@@ -19,5 +19,24 @@ class ActorWorker(worker_type: String) extends Actor {
       println(s"$worker_type Worker[$this]: $message")
     case _ =>
       sender ! RouterResponse(Failure(IllegalRequestException))
+  }
+}
+
+object ActorWorker {
+
+  def props(worker_type: String) = Props(classOf[ActorWorker], worker_type)
+
+  object Messages {
+    case class ConfRouterRequest(message: String)
+
+    case class ProgRouterRequest(message: String)
+
+    case class RouterRequest(message: String)
+
+    case class RouterResponse(response: Try[String])
+  }
+
+  object Exceptions {
+    case object IllegalRequestException extends RuntimeException
   }
 }
