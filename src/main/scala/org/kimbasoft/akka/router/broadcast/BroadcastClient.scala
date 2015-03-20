@@ -22,7 +22,7 @@ object BroadcastClient {
     val sys = ActorSystem("BroadcastSystem", config)
 
     /* Creating supervising actor for the workers */
-    val supervisor = sys.actorOf(Props(classOf[ActorSupervisor], "Group", 3), "super")
+    val supervisor = sys.actorOf(ActorSupervisor.props("Group", 3), "super")
 
     /* Creating Broadcast Group Router and sending messages */
     val group = sys.actorOf(Props[BroadcastRouterGroup], "router-group")
@@ -36,6 +36,9 @@ object BroadcastClient {
     group ! ProgRouterRequest("message 7")
     group ! ProgRouterRequest("message 8")
     group ! ProgRouterRequest("message 9")
+
+    /* Sleep 100ms to give first example enough time to finish */
+    Thread.sleep(100)
 
     /* Creating Broadcast Pool Router and sending messages */
     val pool = sys.actorOf(Props[BroadcastRouterPool], "router-pool")

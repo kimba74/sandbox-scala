@@ -23,7 +23,7 @@ object GroupClient {
     val sys = ActorSystem("GroupSystem", config)
 
     /* Creating supervising actor for the workers */
-    val supervisor = sys.actorOf(Props(classOf[ActorSupervisor], "Group", 3), "super")
+    val supervisor = sys.actorOf(ActorSupervisor.props("Group", 3), "super")
 
     /* Creating Group Router with configuration provided workers */
     val group = sys.actorOf(Props[GroupRouter], "router")
