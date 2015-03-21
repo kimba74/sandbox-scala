@@ -13,11 +13,14 @@ import akka.actor._
 object CountExtension extends ExtensionId[CountExtensionImpl] with ExtensionIdProvider {
 
   override def createExtension(system: ExtendedActorSystem): CountExtensionImpl = {
-    println(".. Created CountExtension")
+    println("  ! Created CountExtension")
     new CountExtensionImpl
   }
 
-  override def lookup(): ExtensionId[_ <: Extension] = CountExtension
+  override def lookup(): ExtensionId[_ <: Extension] = {
+    println("  ? Looking up CountExtension")
+    CountExtension
+  }
 
 }
 
