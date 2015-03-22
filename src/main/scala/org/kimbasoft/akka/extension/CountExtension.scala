@@ -12,11 +12,18 @@ import akka.actor._
  */
 object CountExtension extends ExtensionId[CountExtensionImpl] with ExtensionIdProvider {
 
+  /**
+   * Will be called when the Extension is being called first (instantiated)
+   */
   override def createExtension(system: ExtendedActorSystem): CountExtensionImpl = {
     println("  ! Created CountExtension")
     new CountExtensionImpl
   }
 
+  /**
+   * Will be called when an Extension is being looked up and returns the factory
+   * to create an instance of the Extension and register it with the ActorSystem.
+   */
   override def lookup(): ExtensionId[_ <: Extension] = {
     println("  ? Looking up CountExtension")
     CountExtension
