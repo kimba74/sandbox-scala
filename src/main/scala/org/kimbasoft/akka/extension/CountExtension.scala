@@ -31,6 +31,9 @@ object CountExtension extends ExtensionId[CountExtensionImpl] with ExtensionIdPr
 
 }
 
+/**
+ * Implementation of the Extension's functionality.
+ */
 class CountExtensionImpl extends Extension {
 
   private val counter = new AtomicLong(0)
@@ -39,6 +42,10 @@ class CountExtensionImpl extends Extension {
 
 }
 
+/**
+ * Implementation of a Trait for the use with Actors that mirrors and/or makes the
+ * Extension's functionality available to the Actor.
+ */
 trait Counting { self: Actor =>
 
   def increment() = CountExtension(context.system).increment()
