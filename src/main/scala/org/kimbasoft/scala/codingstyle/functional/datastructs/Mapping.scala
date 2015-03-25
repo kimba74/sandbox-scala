@@ -21,7 +21,7 @@ object Mapping {
 
     /* Same as above but use pattern matching to decompose the tuple into its key
      * and value part for easier usage */
-    val lengthMap2 = valuesMap.map({ case (k, v) => (k, v.length) })
+    val lengthMap2 = valuesMap.map{ case (k, v) => (k, v.length) }
     println("Map Length (2): " + lengthMap2)
 
     /* Create a list of Int values */
