@@ -12,9 +12,9 @@ object LazyValues {
     println("In AbstractTrait:")
     val value: Int
     // Will be initialized during initialization of Trait
-    val stat_inverse = {println("  initializing stat_inverse!"); 1.0/value}
+    val stat_inverse = { println("  initializing stat_inverse!"); 1.0/value }
     // Will be initialized during first usage
-    lazy val lazy_inverse = {println("  initializing lazy_inverse!"); 1.0/value}
+    lazy val lazy_inverse = { println("  initializing lazy_inverse!"); 1.0/value }
   }
 
   def main(args: Array[String]) {

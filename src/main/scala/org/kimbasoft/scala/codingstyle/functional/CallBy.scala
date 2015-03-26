@@ -9,16 +9,6 @@ package org.kimbasoft.scala.codingstyle.functional
 object CallBy {
 
   /**
-   * The 'amount' argument of this method on the other hand will be
-   * evaluated inside the method's body when it is being accessed.
-   * therefore being "dynamic" to the method. These types of arguments
-   * are referred to as Call-by-Name parameter.
-   */
-  def callByName(amount: => Int): Unit = {
-    println("Call-by-Name : " + amount)
-  }
-
-  /**
    * The 'amount' argument passed to this method will be evaluated
    * before being passed to the method, thus appearing "static" to
    * the method. It is called a Call-by-Value parameter and the
@@ -26,6 +16,16 @@ object CallBy {
    */
   def callByValue(amount: Int): Unit = {
     println("Call-by-Value: " + amount)
+  }
+
+  /**
+   * The 'amount' argument of this method on the other hand will be
+   * evaluated inside the method's body when it is being accessed.
+   * therefore being "dynamic" to the method. These types of arguments
+   * are referred to as Call-by-Name parameter.
+   */
+  def callByName(amount: => Int): Unit = {
+    println("Call-by-Name : " + amount)
   }
 
   /**
@@ -51,9 +51,8 @@ object CallBy {
 
   def main(args: Array[String]) {
     println("-- Call by Name / Call by Value ----")
-    callByName(24)
     callByValue(12)
-
+    callByName(24)
 
     println("-- Custom While Loop ---------------")
     var count = 0
