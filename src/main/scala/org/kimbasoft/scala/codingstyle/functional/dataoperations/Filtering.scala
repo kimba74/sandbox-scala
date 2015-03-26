@@ -1,4 +1,4 @@
-package org.kimbasoft.scala.codingstyle.functional.datastructs
+package org.kimbasoft.scala.codingstyle.functional.dataoperations
 
 /**
  * Missing documentation. 
