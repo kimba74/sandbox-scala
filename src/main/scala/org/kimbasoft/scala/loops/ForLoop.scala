@@ -46,5 +46,15 @@ object ForLoop {
       if !dog.contains("Yorkshire")
     } yield dog
     println(terrierBreed)
+
+    // For comprehension over two maps with a filter yielding and accumulating filtered list
+    val owners = Map("John" -> 1, "Jason" -> 2, "Mary Ellen" -> 3, "Erin" -> 2, "Ben" -> 4)
+    val cars = Map(1 -> "Ford", 2 -> "Oldsmobile", 3 -> "Buick", 4 -> "Adler")
+    val carOwners = for {
+      (name, carID) <- owners
+      car <- cars.get(carID)
+      if car == "Oldsmobile"
+    } yield (name, car)
+    println(carOwners)
   }
 }
