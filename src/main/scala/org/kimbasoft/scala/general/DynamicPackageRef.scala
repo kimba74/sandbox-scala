@@ -7,9 +7,7 @@ import org.kimbasoft.scala.pkg2.Class21
  *
  * @since 1.0
  */
-object DynamicPackageRef {
-
-  def main(args: Array[String]) {
+object DynamicPackageRef extends App {
     /* The following classes are referenced from the packages defined
      * in the DynamicPackages.scala file found in the src/ directory
      * of this project */
@@ -20,5 +18,4 @@ object DynamicPackageRef {
     println(class11.name)
     println(class12.name)
     println(class21.name)
-  }
 }
