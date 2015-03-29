@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object DependentMethodType {
+object DependentMethodType extends App {
 
   case class LocalResponse(statusCode: Int)
   case class RemoteResponse(message: String)
@@ -47,9 +47,7 @@ object DependentMethodType {
     }
   }
 
-  def main(args: Array[String]) {
-    println(Service.handle(LocalComputation(Future(LocalResponse(42)))))
-    println(Service.handle(RemoteComputation(Future(RemoteResponse("hello world")))))
-  }
 
+  println(Service.handle(LocalComputation(Future(LocalResponse(42)))))
+  println(Service.handle(RemoteComputation(Future(RemoteResponse("hello world")))))
 }

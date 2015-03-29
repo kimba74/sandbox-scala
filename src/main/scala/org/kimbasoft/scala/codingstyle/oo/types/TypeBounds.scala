@@ -8,7 +8,7 @@ import scala.language.implicitConversions
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object TypeBounds {
+object TypeBounds extends App {
 
   class MySuper
   class MyClass extends MySuper
@@ -64,7 +64,6 @@ object TypeBounds {
   }
 
 
-  def main(args: Array[String]) {
     val mySuper = new MySuper
     val myClass = new MyClass
     val mySubCl = new MySubCl
@@ -72,59 +71,42 @@ object TypeBounds {
     val bounds: Boundaries[MyClass] = new Boundaries[MyClass]
 
     println("-- Upper Bounds ------------------------------")
-
-    /* Will Work:
-     * */
+    /* Will Work: */
     bounds.upperBound(mySubCl)
 
-    /* Will Work:
-     * */
+    /* Will Work: */
     bounds.upperBound(myClass)
 
-    /* Won't Work:
-     * */
+    /* Won't Work: */
 //  bounds.upperBound(mySuper)
 
     println("-- Lower Bounds ------------------------------")
-
-    /* Will Work:
-     * */
+    /* Will Work: */
     val boundSuper: MySuper = bounds.lowerBound(mySuper)
 
-    /* Will Work:
-     * */
+    /* Will Work: */
     val boundClass: MyClass = bounds.lowerBound(myClass)
 
-    /* Won't Work:
-     * */
+    /* Won't Work: */
 //  val boundSubCl: MySubCl = bounds.lowerBound(mySubCl)
 
     println("-- Context Bounds ----------------------------")
-
-    /* Will Work:
-     * */
+    /* Will Work: */
     bounds.contextBound(mySubCl)
 
-    /* Will Work:
-     * */
+    /* Will Work: */
     bounds.contextBound(myClass)
 
-    /* Won't Work:
-     * */
+    /* Won't Work: */
 //  bounds.contextBound(mySuper)
 
     println("-- View Bounds -------------------------------")
-
-    /* Will Work:
-     * */
+    /* Will Work: */
     bounds.viewBound(mySubCl)
 
-    /* Will Work:
-     * */
+    /* Will Work: */
     bounds.viewBound(myClass)
 
-    /* Won't Work:
-     * */
+    /* Won't Work: */
 //  bounds.viewBound(mySuper)
-  }
 }

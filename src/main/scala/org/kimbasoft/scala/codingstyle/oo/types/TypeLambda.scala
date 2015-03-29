@@ -9,7 +9,7 @@ import org.kimbasoft.scala.codingstyle.oo.types.TypeLambda.Functor._
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object TypeLambda {
+object TypeLambda extends App {
 
   /**
    * Abstract Trait that defines two parameters, the second of which
@@ -52,9 +52,8 @@ object TypeLambda {
     }
   }
 
-  def main(args: Array[String]) {
-    println(List(1,2,3) map2 (_ * 2))
-    println(Option(4) map2 (_ * 3))
-    println(Map("one" -> 1, "two" -> 2, "three" -> 3) map2 (_ * 4))
-  }
+
+  println(List(1, 2, 3) map2 (_ * 2))
+  println(Option(4) map2 (_ * 3))
+  println(Map("one" -> 1, "two" -> 2, "three" -> 3) map2 (_ * 4))
 }

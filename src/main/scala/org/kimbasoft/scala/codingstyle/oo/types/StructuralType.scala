@@ -5,7 +5,7 @@ package org.kimbasoft.scala.codingstyle.oo.types
  *
  * @since 1.0
  */
-object StructuralType {
+object StructuralType extends App {
 
   object Registry {
     /* Import flag to enable Reflective Calls for Structural Types.
@@ -63,24 +63,22 @@ object StructuralType {
   case class JobDescription(position: String)
 
 
-  def main(args: Array[String]) {
-    println("-- Using an Object Structural Type -----------")
-    Registry.register(SchoolApplicant("John Doe"))
-    Registry.register(PassportApplicant("Mark Smith", "Great Britain"))
-    Registry.register(SchoolApplicant("Jane Doe"))
-    Registry.register(PassportApplicant("Nancy Baker", "USA"))
-    Registry.printApplications()
+  println("-- Using an Object Structural Type -----------")
+  Registry.register(SchoolApplicant("John Doe"))
+  Registry.register(PassportApplicant("Mark Smith", "Great Britain"))
+  Registry.register(SchoolApplicant("Jane Doe"))
+  Registry.register(PassportApplicant("Nancy Baker", "USA"))
+  Registry.printApplications()
 
-    println("-- Using a Function Structural Type ----------")
-    // Passing a method satisfying the required signature of an non-specific object
-    Registry.describe(() => BookDescription("Map of Bones is a great book!").summary)
-    // Passing a method satisfying the required signature of another non-specific object
-    Registry.describe(() => JobDescription("Working as a lumberjack is tough work").position)
-    // Defining a named higher function satisfying the required signature and passing it to the object
-    val funct = () => "This is just a function"
-    Registry.describe(funct)
-    // Passing an anonymous higher function satisfying the required signature to the object
-    Registry.describe(() => "And this is an anonymous function")
-    Registry.printDescriptions()
-  }
+  println("-- Using a Function Structural Type ----------")
+  // Passing a method satisfying the required signature of an non-specific object
+  Registry.describe(() => BookDescription("Map of Bones is a great book!").summary)
+  // Passing a method satisfying the required signature of another non-specific object
+  Registry.describe(() => JobDescription("Working as a lumberjack is tough work").position)
+  // Defining a named higher function satisfying the required signature and passing it to the object
+  val funct = () => "This is just a function"
+  Registry.describe(funct)
+  // Passing an anonymous higher function satisfying the required signature to the object
+  Registry.describe(() => "And this is an anonymous function")
+  Registry.printDescriptions()
 }

@@ -6,7 +6,7 @@ package org.kimbasoft.scala.codingstyle.oo.types
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object TypeProjection {
+object TypeProjection extends App {
 
   trait Logger {
     def log(message: String): Unit
@@ -36,27 +36,26 @@ object TypeProjection {
     val logger: Log = new ConsoleLogger
   }
 
-  def main(args: Array[String]) {
-    // Type Projection (accessed via #)
 
-    /* Trying to project type Log from trait Service will not compile since the
-     * type is defined abstract and not yet defined. */
-//  val logger1: Service#Log = new ConsoleLogger
+  // Type Projection (accessed via #)
 
-    /* Projecting type Log from a concrete implementation of trait Service. This
-     * will work since the concrete implementation MyService defines the type to
-     * be ConsoleLogger, a sub-type of trait Logger. */
-    val logger2: MyService#Log = new ConsoleLogger
+  /* Trying to project type Log from trait Service will not compile since the
+   * type is defined abstract and not yet defined. */
+  //  val logger1: Service#Log = new ConsoleLogger
 
-    /* Singleton Type
-     * Every object, even if created from the same class has it's own unique type.
-     * This is called a 'Singleton Type' i.e.: myS1.type != myS2.type
-     * The Singleton Type of an object can be accessed via the '.type' call on any object. 
-     */
-    val myS1 = new MyService
-    val myS2 = new MyService
+  /* Projecting type Log from a concrete implementation of trait Service. This
+   * will work since the concrete implementation MyService defines the type to
+   * be ConsoleLogger, a sub-type of trait Logger. */
+  val logger2: MyService#Log = new ConsoleLogger
 
-    val l11: myS1.logger.type = myS1.logger
-//  val l12: myS1.logger.type = myS2.logger  // Will not compile because the Singleton Type differs
-  }
+  /* Singleton Type
+   * Every object, even if created from the same class has it's own unique type.
+   * This is called a 'Singleton Type' i.e.: myS1.type != myS2.type
+   * The Singleton Type of an object can be accessed via the '.type' call on any object.
+   */
+  val myS1 = new MyService
+  val myS2 = new MyService
+
+  val l11: myS1.logger.type = myS1.logger
+  //  val l12: myS1.logger.type = myS2.logger  // Will not compile because the Singleton Type differs
 }

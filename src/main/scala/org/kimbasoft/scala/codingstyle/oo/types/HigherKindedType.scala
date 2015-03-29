@@ -9,7 +9,7 @@ import scala.language.higherKinds
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object HigherKindedType {
+object HigherKindedType extends App {
 
   /**
    * Abstract Trait 'Add' that defines an 'add()' method for the defined type T
@@ -126,22 +126,20 @@ object HigherKindedType {
     implicitly[Reduce2[M]].reduce(container)(implicitly[Add[T]].add)
   }
 
-  def main(args: Array[String]) {
-    println("-- No Higher-Kinded Type ---------------------")
-    println(sumSeq(Vector(1 -> 10, 2 -> 20, 3 -> 30)))
-    println(sumSeq(1 to 10))
-//  println(sumSeq(List('a','b','c')))     // Does not compile because no implicit Add[Char] exists
-//  println(sumSeq(Option(2)))             // Does not compile since Option is not a sub-type of Seq
 
-    println("-- Higher-Kinded Type ------------------------")
-    println(sumReduce1(Vector(2 -> 20, 3 -> 30, 4 -> 40)))
-    println(sumReduce1(2 to 20))
-    println(sumReduce1(Option(2)))
+  println("-- No Higher-Kinded Type ---------------------")
+  println(sumSeq(Vector(1 -> 10, 2 -> 20, 3 -> 30)))
+  println(sumSeq(1 to 10))
+  //  println(sumSeq(List('a','b','c')))     // Does not compile because no implicit Add[Char] exists
+  //  println(sumSeq(Option(2)))             // Does not compile since Option is not a sub-type of Seq
 
-    println("-- Higher-Kinded Type Improved ---------------")
-    println(sumReduce2(Vector(3 -> 30, 4 -> 40, 5 -> 50)))
-    println(sumReduce2(3 to 30))
-    println(sumReduce2(Option(3)))
-  }
+  println("-- Higher-Kinded Type ------------------------")
+  println(sumReduce1(Vector(2 -> 20, 3 -> 30, 4 -> 40)))
+  println(sumReduce1(2 to 20))
+  println(sumReduce1(Option(2)))
 
+  println("-- Higher-Kinded Type Improved ---------------")
+  println(sumReduce2(Vector(3 -> 30, 4 -> 40, 5 -> 50)))
+  println(sumReduce2(3 to 30))
+  println(sumReduce2(Option(3)))
 }

@@ -6,7 +6,7 @@ package org.kimbasoft.scala.codingstyle.oo.types
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object AbstractType {
+object AbstractType extends App {
 
   /**
    * Abstract class using an abstract type rather than being parametrized.
@@ -40,11 +40,10 @@ object AbstractType {
     def read: String = source.toString
   }
 
-  def main(args: Array[String]) {
-    val str: MyType = new StringType("Hello")
-    val int: MyType = new IntegerType(123)
 
-    println(s"Str> ${str.read}")
-    println(s"Int> ${int.read}")
-  }
+  val str: MyType = new StringType("Hello")
+  val int: MyType = new IntegerType(123)
+
+  println(s"Str> ${str.read}")
+  println(s"Int> ${int.read}")
 }

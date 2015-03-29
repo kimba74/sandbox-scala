@@ -6,7 +6,7 @@ package org.kimbasoft.scala.codingstyle.oo.types
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object ExistentialType {
+object ExistentialType extends App {
 
   /**
    * Method using parameter with Existential Type to deal with Type Erasure
@@ -24,9 +24,8 @@ object ExistentialType {
     case z => throw new RuntimeException(s"Unexpected list element $z")
   }
 
-  def main(args: Array[String]) {
-    val seq1: Seq[Any] = Seq("1", 2, "3", 4, "5", 6)
-    val seq2: Seq[Int] = double(seq1)
-    println(seq2)
-  }
+
+  val seq1: Seq[Any] = Seq("1", 2, "3", 4, "5", 6)
+  val seq2: Seq[Int] = double(seq1)
+  println(seq2)
 }
