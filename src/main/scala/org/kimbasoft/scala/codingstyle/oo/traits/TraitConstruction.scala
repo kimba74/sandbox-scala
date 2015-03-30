@@ -5,7 +5,7 @@ package org.kimbasoft.scala.codingstyle.oo.traits
  *
  * @since 1.0
  */
-object TraitConstruction {
+object TraitConstruction extends App {
 
   /**
    * Base Class
@@ -43,9 +43,8 @@ object TraitConstruction {
     println( "   in FinalClass: a = " + a )
   }
 
-  def main(args: Array[String]) {
-    println("Pre-Creation FinalClass:")
-    val fc = new FinalClass
-    println("Post-Creation FinalClass:")
-  }
+
+  println("Pre-Creation FinalClass:")
+  val fc = new FinalClass
+  println("Post-Creation FinalClass:")
 }

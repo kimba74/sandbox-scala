@@ -27,7 +27,7 @@ import scala.collection.mutable.ArrayBuffer
  *
  * See article: http://www.artima.com/scalazine/articles/stackable_trait_pattern.html
  */
-object UseCase {
+object UseCase extends App {
 
   /**
    * Base (Abstract Class or Trait)
@@ -66,17 +66,16 @@ object UseCase {
    */
   class OddQueueInt extends BasicQueueInt with OddNumbersOnly
 
-  def main(args: Array[String]) {
-    // Stacking Traits on-the-fly
-    val even = new BasicQueueInt with EvenNumbersOnly
-    for (i <- 1 to 10)
-      even.put(i)
-    println("Even Only: " + even)
 
-    // Stacking Traits via Composed Class
-    val odds = new OddQueueInt
-    for (i <- 1 to 10)
-      odds.put(i)
-    println("Odds Only: " + odds)
-  }
+  // Stacking Traits on-the-fly
+  val even = new BasicQueueInt with EvenNumbersOnly
+  for (i <- 1 to 10)
+    even.put(i)
+  println("Even Only: " + even)
+
+  // Stacking Traits via Composed Class
+  val odds = new OddQueueInt
+  for (i <- 1 to 10)
+    odds.put(i)
+  println("Odds Only: " + odds)
 }
