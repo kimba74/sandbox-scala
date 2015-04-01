@@ -7,7 +7,7 @@ import org.kimbasoft.akka.actor.typed.SampleActor.SampleActorException
 import scala.concurrent.Future
 
 /**
- * Missing documentation. 
+ * The implementation of the Business interface (trait)
  *
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0

@@ -5,7 +5,8 @@ import org.kimbasoft.akka.actor.typed.SampleActor.SampleActorException
 import scala.concurrent.Future
 
 /**
- * Missing documentation. 
+ * Business interface (trait) of a TypedActor. This interface declares
+ * the methods that can be invoked on the Actor (just like on EJBs)
  *
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
