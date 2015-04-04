@@ -10,19 +10,21 @@ import org.specs2.specification.AroundEach
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-class AroundContext extends Specification with AroundEach {
+class AroundEachContext extends Specification with AroundEach {
 
   protected def around[R: AsResult](r: => R): Result = {
-    println("Before each")
+    println("Around each before")
     try AsResult(r)
-    finally println("After each")
+    finally println("Around each after")
   }
 
   "Example 1 must be OK" >> {
-    println("example1"); ok
+    println("executing example1")
+    ok
   }
 
   "Example 2 must be OK" >> {
-    println("example2"); ok
+    println("executing example2")
+    ok
   }
 }
