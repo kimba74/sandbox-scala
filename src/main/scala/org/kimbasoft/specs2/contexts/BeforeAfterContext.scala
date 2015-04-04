@@ -9,14 +9,14 @@ import org.specs2.specification.{AfterEach, BeforeEach}
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-class BeforeAfterContextUnit extends Specification with BeforeEach with AfterEach {
+class BeforeAfterContext extends Specification with BeforeEach with AfterEach {
 
   "This is a Before and After Context example:" >> {
-    "ex1: Hello must endWith (lo)" >> {
-      "Hello" must endWith ("lo")
+    "Example 1 must be OK" >> {
+      println("example1"); ok
     }
-    "ex2: 25 must be between (10, 50)" >> {
-      25 must be between (10, 50)
+    "Example 2 must be OK" >> {
+      println("example2"); ok
     }
   }
 
