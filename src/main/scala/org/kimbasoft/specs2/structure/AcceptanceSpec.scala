@@ -5,9 +5,22 @@ import org.specs2.Specification
 import org.specs2.specification.core.SpecStructure
 
 /**
- * Missing documentation
+ * The Acceptance style specification extends 'org.specs2.Specification' and operates
+ * in the Functional Expectation mode. This means the final result of a block is
+ * always returned by the last test in the block.
  *
- * @since 1.0
+ * Example:
+ *        def exp = {
+ *           1 must be equalTo 4
+ *           3 must beGreaterThan 1
+ *        }
+ *
+ * Even though the first statement in the block is 'false' the block will return 'true'
+ * since the last statement returns true. This behavior can either be changed by chaining
+ * the two statements via 'and' (thereby making them one statement) or by changing the
+ * Specifications default Functional Expectation behavior to the Thrown Expectation behavior.
+ * Latter can be achieved by also implementing the 'org.specs2.matcher.ThrownExpectations'
+ * trait.
  */
 class AcceptanceSpec extends Specification {
   def is: SpecStructure = s2"""
