@@ -29,13 +29,14 @@ object OptionUsage extends App {
   println("Left : " + control.get("Left"))
   println("North: " + control.get("North")) // This one will return None
 
-  /* To get the value from a "Some" object one will have to call .get on the Some object itself.
-   * This will not however work on a "None" object */
+  /* To get the value from a "Some" object one will have to call .get() on the Some
+   * object itself. This will not however work on a "None" object */
   println("""-- Getting "Some" value ------------""")
   println("Up   : " + control.get("Up").get)
   println("Down : " + control.get("Down").get)
   println("Right: " + control.get("Right").get)
   println("Left : " + control.get("Left").get)
+  // println("North: " + control.get("North").get) // Will crash because .get() will return None
 
   /* In order to avoid having to check if a returned Option object is of type Some or None before
    * being able to call a .get() method to retrieve the value, Scala offers a retrieval method that
