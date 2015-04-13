@@ -38,4 +38,9 @@ object GeneratorsScalaCheck extends App {
   val intListGen = Gen.containerOf[List,Int](Gen.oneOf(1, 3, 5))
 
   println("Integer List Gen: " + intListGen.sample)
+
+  /* Generating an array of boolean values all of value 'true' */
+  val booleanArrayGen = Gen.containerOf[Array,Boolean](true)
+
+  println("Boolean Array Gen: " + booleanArrayGen.sample)
 }
