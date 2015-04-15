@@ -1,6 +1,7 @@
 package org.kimbasoft.specs2.scalacheck
 
-import org.scalacheck.Prop._
+import org.scalacheck.Gen
+import org.scalacheck.Prop.{forAll, BooleanOperators}
 
 /**
  * Missing documentation. 
@@ -15,6 +16,15 @@ object PropertiesScalaCheck extends App {
   propConcat.check
 
   println("\n\"ForAll\" Square Root Prop: ")
-  val propSqrt = forAll { (n: Int) => scala.math.sqrt(n*n) == n }
-  propSqrt.check
+  val propSqrt1 = forAll { (n: Int) => scala.math.sqrt(n*n) == n }
+  propSqrt1.check
+
+  println("\n\"ForAll\" Square Root Prop (custom Gen): ")
+  val genSqrt2 = Gen.choose(1,100)
+  val propSqrt2 = forAll (genSqrt2){ (n: Int) => scala.math.sqrt(n*n) == n }
+  propSqrt2.check
+
+  println("\n\"ForAll\" Square Root Prop (implication): ")
+  val propSqrt3 = forAll { (n: Int) => (n > 0 && n < 1000) ==> (scala.math.sqrt(n*n) == n) }
+  propSqrt3.check
 }
