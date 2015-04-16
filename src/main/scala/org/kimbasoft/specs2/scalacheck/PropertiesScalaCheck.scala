@@ -1,7 +1,9 @@
 package org.kimbasoft.specs2.scalacheck
 
 import org.scalacheck.Gen
-import org.scalacheck.Prop.{forAll, BooleanOperators}
+import org.scalacheck.Prop.{all, atLeastOne, forAll, BooleanOperators}
+
+import scala.math._
 
 /**
  * Missing documentation. 
@@ -16,7 +18,7 @@ object PropertiesScalaCheck extends App {
   propConcat.check
 
   println("\n\"ForAll\" Square Root Prop: ")
-  val propSqrt1 = forAll { (n: Int) => scala.math.sqrt(n*n) == n }
+  val propSqrt1 = forAll { (n: Int) => sqrt(n*n) == n }
   propSqrt1.check
 
   println("\n\"ForAll\" Square Root Prop (custom Gen): ")
@@ -27,4 +29,29 @@ object PropertiesScalaCheck extends App {
   println("\n\"ForAll\" Square Root Prop (implication): ")
   val propSqrt3 = forAll { (n: Int) => (n > 0 && n < 1000) ==> (scala.math.sqrt(n*n) == n) }
   propSqrt3.check
+
+  println("\n\n-- Combining Properties -------------------------------")
+  println("\n forAll((n: Int) => n*2 == n+n)")
+  val p1 = forAll((n: Int) => n*2 == n+n)
+  p1.check
+
+  println("\n forAll((n: Int) => sqrt(n*n) == n)")
+  val p2 = forAll((n: Int) => sqrt(n*n) == n)
+  p2.check
+
+  println("\n p1 && p2")
+  val p3 = p1 && p2
+  p3.check
+
+  println("\n p1 || p2")
+  val p4 = p1 || p2
+  p4.check
+
+  println("\n all(p1, p2)")
+  val p5 = all(p1, p2)         // Same as p3
+  p5.check
+
+  println("\n atLeastOne(p1, p2)")
+  val p6 = atLeastOne(p1, p2)  // Same as p4
+  p6.check
 }
