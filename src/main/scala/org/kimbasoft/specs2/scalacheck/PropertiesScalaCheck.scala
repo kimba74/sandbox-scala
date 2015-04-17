@@ -1,6 +1,6 @@
 package org.kimbasoft.specs2.scalacheck
 
-import org.scalacheck.Gen
+import org.scalacheck.{Properties, Gen}
 import org.scalacheck.Prop.{all, atLeastOne, forAll, BooleanOperators}
 
 import scala.math._
@@ -30,28 +30,56 @@ object PropertiesScalaCheck extends App {
   val propSqrt3 = forAll { (n: Int) => (n > 0 && n < 1000) ==> (scala.math.sqrt(n*n) == n) }
   propSqrt3.check
 
-  println("\n\n-- Combining Properties -------------------------------")
-  println("\n forAll((n: Int) => n*2 == n+n)")
+  println("\n\n-- Combining Properties ------------------------------")
+  println("\nforAll((n: Int) => n*2 == n+n)")
   val p1 = forAll((n: Int) => n*2 == n+n)
   p1.check
 
-  println("\n forAll((n: Int) => sqrt(n*n) == n)")
+  println("\nforAll((n: Int) => sqrt(n*n) == n)")
   val p2 = forAll((n: Int) => sqrt(n*n) == n)
   p2.check
 
-  println("\n p1 && p2")
+  println("\np1 && p2")
   val p3 = p1 && p2
   p3.check
 
-  println("\n p1 || p2")
+  println("\np1 || p2")
   val p4 = p1 || p2
   p4.check
 
-  println("\n all(p1, p2)")
+  println("\nall(p1, p2)")
   val p5 = all(p1, p2)         // Same as p3
   p5.check
 
-  println("\n atLeastOne(p1, p2)")
+  println("\natLeastOne(p1, p2)")
   val p6 = atLeastOne(p1, p2)  // Same as p4
   p6.check
+
+  println("\n\n-- Grouping Properties -------------------------------")
+  println("\nProperties(\"String\") Grouping: ")
+  val p7 = new GroupedProperties
+  p7.check
+}
+
+/**
+ * Properties also has a main() method so that the grouping object can
+ * be implemented as an object and executed standalone as test.
+ */
+class GroupedProperties extends Properties("String") {
+
+  property("startsWith") = forAll { (a: String, b: String) =>
+    (a + b).startsWith(a)
+  }
+
+  property("endsWith") = forAll { (a: String, b: String) =>
+    (a + b).endsWith(b)
+  }
+
+  property("substring") = forAll { (a: String, b: String) =>
+    (a + b).substring(a.length) == b
+  }
+
+  property("substring") = forAll { (a: String, b: String, c: String) =>
+    (a + b + c).substring(a.length, a.length + b.length) == b
+  }
 }
