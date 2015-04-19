@@ -67,10 +67,41 @@ object PropertiesScalaCheck extends App {
   println("\nProperties(\"MyGroup\") Grouping: ")
   val p9 = new GroupingProperties
   p9.check
+
+  println("\n\n-- Labeling Properties -------------------------------")
+  println("\nCondition before Label: ")
+  val pA = forAll { (m: Int, n:Int) =>
+    val res = m + n
+    (res >= m)    :| "result >= #1" &&
+    (res >= n)    :| "result >= #2" &&
+    (res < m + n) :| "result not sum"
+  }
+  pA.check
+
+  println("\nLabel before Condition: ")
+  val pB = forAll { (m: Int, n:Int) =>
+    val res = m + n
+    ("result >= #1"   |: res >= m) &&
+    ("result >= #2"   |: res >= n) &&
+    ("result not sum" |: res < m + n)
+  }
+  pB.check
+
+  println("\nCondition Inspection with Label: ")
+  val pC = forAll { (m: Int, n: Int) =>
+    val res = m * n
+    ("evidence = " + res) |: all(
+      "division 1"  |: m != 0 ==> (res / m == n),
+      "division 2"  |: n != 0 ==> (res / n == m),
+      "less than 1" |: res > m,
+      "less than 2" |: res > n
+    )
+  }
+  pC.check
 }
 
 /**
- * Properties also has a main() method so that the grouping object can
+ * Properties also has a main() method so that the grouping class could
  * be implemented as an object and executed standalone as test.
  */
 class StringProperties extends Properties("String") {
