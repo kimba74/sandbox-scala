@@ -1,6 +1,6 @@
 package org.kimbasoft.specs2.scalacheck
 
-import org.scalacheck.Gen
+import org.scalacheck.{Arbitrary, Gen}
 
 /**
  * Missing documentation. 
@@ -37,4 +37,28 @@ object GeneratorsScalaCheck extends App {
   /* Generating an array of boolean values all of value 'true' */
   val booleanArrayGen = Gen.containerOf[Array,Boolean](true)
   println("Boolean Array Gen: " + booleanArrayGen.sample)
+
+  /* Generating an Int Tree from Case Classes */
+  val treeGen = TreeFactory.genTree
+  println("Case Tree Gen: " + treeGen.sample)
+}
+
+sealed abstract class Tree
+
+case class Node(left: Tree, right: Tree, value: Int) extends Tree
+
+case object Leaf extends Tree
+
+object TreeFactory {
+
+  val genLeaf = Gen.const(Leaf)
+
+  val genNode = for {
+    v <- Arbitrary.arbitrary[Int]
+    left <- genTree
+    right <- genTree
+  } yield Node(left, right, v)
+
+  def genTree: Gen[Tree] = Gen.oneOf(genLeaf, genNode)
+
 }
