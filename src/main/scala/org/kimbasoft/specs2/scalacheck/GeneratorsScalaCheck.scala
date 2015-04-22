@@ -38,6 +38,14 @@ object GeneratorsScalaCheck extends App {
   val booleanArrayGen = Gen.containerOf[Array,Boolean](true)
   println("Boolean Array Gen: " + booleanArrayGen.sample)
 
+  /* Generating arbitrary Integer number and limiting it to even numbers only */
+  val evenNumber = Arbitrary.arbitrary[Int] suchThat (_ % 2 == 0)
+  println("Arbitrary even Integer Number (or None): " + evenNumber.sample)
+
+  /* Generating an arbitrary String */
+  val arbitraryString = Arbitrary.arbitrary[String]
+  println("Arbitrary String: " + arbitraryString.sample)
+
   /* Generating an Int Tree from Case Classes */
   val treeGen = TreeFactory.genTree
   println("Case Tree Gen: " + treeGen.sample)
