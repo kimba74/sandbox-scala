@@ -46,6 +46,10 @@ object GeneratorsScalaCheck extends App {
   val arbitraryString = Arbitrary.arbitrary[String]
   println("Arbitrary String: " + arbitraryString.sample)
 
+  /* Generating an arbitrary Int List */
+  val arbitraryList = Arbitrary.arbitrary[List[Int]]
+  println("Arbitrary Int List: " + arbitraryList.sample)
+
   /* Generating an Int Tree from Case Classes */
   val treeGen = TreeFactory.genTree
   println("Case Tree Gen: " + treeGen.sample)
