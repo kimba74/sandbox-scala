@@ -17,9 +17,13 @@ object GeneratorsScalaCheck extends App {
   } yield (n, m)
   println("Tuple Gen : " + tupleGen.sample)
 
-  /* Generating a random String by selecting one of a provided list */
+  /* Generating a String by randomly selecting one of a provided list */
   val stringGen = Gen.oneOf("a", "b", "c", "d")
   println("String Gen: " + stringGen.sample)
+
+  /* Generating a random String */
+  val randStringGen = Gen.alphaStr
+  println("Random String Gen: " + randStringGen.sample)
 
   /* Generating a small even Integer values by setting a range then
    * filtering the values based in even and odd */
