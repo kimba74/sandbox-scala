@@ -10,41 +10,80 @@ import org.scalacheck.{Arbitrary, Gen}
  */
 object GeneratorsScalaCheck extends App {
 
+  println("-- Simple Generators -------------------------------------")
+  /* Generating a random number Char */
+  val simpleNumChar = Gen.numChar
+  println("Simple Number Char: " + simpleNumChar.sample)
+
+  /* Generating a random number String */
+  val simpleNumString = Gen.numStr
+  println("Simple Number String: " + simpleNumString.sample)
+
+  /* Generating a random alpha-numeric Char */
+  val simpleAlphaNumChar = Gen.alphaNumChar
+  println("Simple Alpha-Numeric Char: " + simpleAlphaNumChar.sample)
+
+  /* Generating a random alpha-numeric String */
+  val simpleAlphaNumString = Gen.identifier
+  println("Simple Alpha-Numeric String: " + simpleAlphaNumString.sample)
+  
+  /* Generating a random alpha String */
+  val simpleAlphaChar = Gen.alphaChar
+  println("Simple Alpha Char: " + simpleAlphaChar.sample)
+
+  /* Generating a random alpha String */
+  val simpleAlphaString = Gen.alphaStr
+  println("Simple Alpha String: " + simpleAlphaString.sample)
+
+
+  println("\n-- Container Generators ----------------------------------")
   /* Generating random tuples with (semi)random values */
-  val tupleGen = for {
+  val contTuple = for {
     n <- Gen.choose(10, 20)
     m <- Gen.choose(2*n, 500)
   } yield (n, m)
-  println("Tuple Gen : " + tupleGen.sample)
-
-  /* Generating a String by randomly selecting one of a provided list */
-  val stringGen = Gen.oneOf("a", "b", "c", "d")
-  println("String Gen: " + stringGen.sample)
-
-  /* Generating a random String */
-  val randStringGen = Gen.alphaStr
-  println("Random String Gen: " + randStringGen.sample)
-
-  /* Generating a small even Integer values by setting a range then
-   * filtering the values based in even and odd */
-  val evenIntGen = Gen.choose(0,200) suchThat (_ % 2 == 0)
-  println("Small Even Int Gen: " + evenIntGen.sample)
-
-  /* Generating a list with random length from provided list */
-  val selectionGen = Gen.someOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
-  println("Random List length Gen: " + selectionGen.sample)
+  println("Tuple Container : " + contTuple.sample)
 
   /* Generating a list of random length with only the provided elements */
-  val intListGen = Gen.containerOf[List,Int](Gen.oneOf(1, 3, 5))
-  println("Integer List Gen: " + intListGen.sample)
+  val contIntList = Gen.containerOf[List, Int](Gen.oneOf(1, 3, 5))
+  println("Integer List: " + contIntList.sample)
 
   /* Generating an array of boolean values all of value 'true' */
-  val booleanArrayGen = Gen.containerOf[Array,Boolean](true)
-  println("Boolean Array Gen: " + booleanArrayGen.sample)
+  val contBooleanArray = Gen.containerOf[Array, Boolean](true)
+  println("Boolean Array: " + contBooleanArray.sample)
 
-  /* Generating arbitrary Integer number and limiting it to even numbers only */
-  val evenNumber = Arbitrary.arbitrary[Int] suchThat (_ % 2 == 0)
-  println("Arbitrary even Integer Number (or None): " + evenNumber.sample)
+
+  println("\n-- Conditional Generators ------------------------------")
+  /* Generating a String by randomly selecting one of a provided list */
+  val conditionString = Gen.oneOf("a", "bc", "def", "ghij") suchThat (s => s.contains(Gen.oneOf("a", "c", "e", "h"))) 
+  println("Conditional String: " + conditionString.sample)
+
+  /* Generating an Integer value from provided range */
+  val conditionEvenNum = Gen.choose(0,200) suchThat (i => i % 2 == 0)
+  println("Conditional even Int: " + conditionEvenNum.sample)
+
+  /* Generating a list with random length from provided list */
+  val conditionShortList = Gen.someOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9) suchThat (l => l.length < 5)
+  println("Conditional short List: " + conditionShortList.sample)
+  
+
+  println("\n-- Selective Generators --------------------------------")
+  /* Generating a String by randomly selecting one of a provided list */
+  val selectString = Gen.oneOf("abc", "def", "ghi", "jkl")
+  println("Selecting String from list: " + selectString.sample)
+
+  /* Generating an Integer value from provided range */
+  val selectIntRange = Gen.choose(0,200)
+  println("Selecting Int from Range: " + selectIntRange.sample)
+
+  /* Generating a list with random length from provided list */
+  val selectList = Gen.someOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
+  println("Selecting Sub-List from List: " + selectList.sample)
+
+
+  println("\n-- Arbitrary Value Generators --------------------------")
+  val arbIntNumber = Arbitrary.arbitrary[Int]
+  println("Arbitrary Integer Number: " + arbIntNumber.sample)
 
   /* Generating an arbitrary String */
   val arbitraryString = Arbitrary.arbitrary[String]
@@ -54,6 +93,8 @@ object GeneratorsScalaCheck extends App {
   val arbitraryList = Arbitrary.arbitrary[List[Int]]
   println("Arbitrary Int List: " + arbitraryList.sample)
 
+
+  println("\n-- Case Class Generators -------------------------------")
   /* Generating an Int Tree from Case Classes */
   val treeGen = TreeFactory.genTree
   println("Case Tree Gen: " + treeGen.sample)
