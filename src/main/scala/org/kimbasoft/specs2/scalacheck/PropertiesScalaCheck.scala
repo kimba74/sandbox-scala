@@ -90,7 +90,7 @@ object PropertiesScalaCheck extends App {
   println("\nCondition Inspection with Label: ")
   val pC = forAll { (m: Int, n: Int) =>
     val res = m * n
-    ("evidence = " + res) |: all(
+    s"evidence: m = $m; n = $n; res = $res" |: all (
       "division 1"  |: m != 0 ==> (res / m == n),
       "division 2"  |: n != 0 ==> (res / n == m),
       "less than 1" |: res > m,
