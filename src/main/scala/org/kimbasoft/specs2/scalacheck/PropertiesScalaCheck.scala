@@ -1,7 +1,7 @@
 package org.kimbasoft.specs2.scalacheck
 
-import org.scalacheck.{Properties, Gen}
-import org.scalacheck.Prop.{all, atLeastOne, forAll, BooleanOperators}
+import org.scalacheck.Prop.{BooleanOperators, all, atLeastOne, forAll}
+import org.scalacheck.{Gen, Properties}
 
 import scala.math._
 
@@ -39,20 +39,24 @@ object PropertiesScalaCheck extends App {
   val p2 = forAll((n: Int) => sqrt(n * n) == n)
   p2.check
 
+  /* Combining properties p1 and p2 via AND */
   println("\np1 && p2")
   val p3 = p1 && p2
   p3.check
 
+  /* Combining properties p1 and p2 via OR */
   println("\np1 || p2")
   val p4 = p1 || p2
   p4.check
 
+  /* Combining properties p1 and p2 via all(). Similar to AND */
   println("\nall(p1, p2)")
-  val p5 = all(p1, p2) // Same as p3
+  val p5 = all(p1, p2)
   p5.check
 
+  /* Combining properties p1 and p2 via atLeastOne(). Similar to OR */
   println("\natLeastOne(p1, p2)")
-  val p6 = atLeastOne(p1, p2) // Same as p4
+  val p6 = atLeastOne(p1, p2)
   p6.check
 
   println("\n\n-- Grouping Properties -------------------------------")
