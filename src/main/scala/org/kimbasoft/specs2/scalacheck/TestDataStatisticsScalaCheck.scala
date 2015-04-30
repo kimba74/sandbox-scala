@@ -25,6 +25,9 @@ object TestDataStatisticsScalaCheck extends App {
 
 
   val collector2 = forAll { list: List[Int] =>
+    /* This classify method takes three parameters. The first is the criteria,
+     * the second is the value returned if the criteria is true, the third is
+     * the value to be returned when the criteria is false */
     classify(list.length > 5, "large", "small")(list == list)
   }
   collector2.check
