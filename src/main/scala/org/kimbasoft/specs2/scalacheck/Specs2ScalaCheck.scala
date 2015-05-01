@@ -1,5 +1,6 @@
 package org.kimbasoft.specs2.scalacheck
 
+import org.specs2.execute.ResultImplicits._
 import org.specs2.specification.core.SpecStructure
 import org.specs2.{Specification, ScalaCheck}
 
@@ -14,5 +15,8 @@ class Specs2ScalaCheck extends Specification with ScalaCheck {
     Boolean    : addition and multiplication are related ${ prop { (a: Int) => a + a == 2 * a } }
     MatchResult: addition and multiplication are related ${ prop { (a: Int) => a + a must_== 2 * a } }
     Prop       : addition and multiplication are related ${ prop { (a: Int) => (a > 0) ==> (a + a must_== 2 * a) } }
+    Equivalence: check if age is considered you ${ prop((i: Int) => (i >= 18 && i <= 55) <==> isYoung(i)) }
   """
+
+  def isYoung(value: Int): Boolean = value >= 18 && value <= 55
 }
