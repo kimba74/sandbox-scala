@@ -17,6 +17,7 @@ class Specs2ScalaCheck extends Specification with ScalaCheck {
     Prop       : addition and multiplication are related ${ prop { (a: Int) => (a > 0) ==> (a + a must_== 2 * a) } }
     Equivalence: check if age is considered you ${ prop((i: Int) => (i >= 18 && i <= 55) <==> isYoung(i)) }
   """
+  // TODO: Build better use-case for Equivalence (<==>) operator
 
   def isYoung(value: Int): Boolean = value >= 18 && value <= 55
 }
