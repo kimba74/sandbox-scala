@@ -134,10 +134,13 @@ class StringProperties extends Properties("String") {
 
 class IntegerProperties extends Properties("Integer") {
 
-  property("double") = forAll { (n: Int) => n * 2 == n + n }
+  property("double") = forAll { (n: Int) =>
+    n * 2 == n + n
+  }
 
-  property("even") = forAll { (n: Int) => (n*2) % 2 == 0}
-
+  property("even") = forAll { (n: Int) =>
+    (n * 2) % 2 == 0
+  }
 }
 
 class GroupingProperties extends Properties("MyGroup") {
