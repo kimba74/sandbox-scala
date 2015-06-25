@@ -21,6 +21,13 @@ object Reflection extends App {
   val constTest   = classTest.primaryConstructor.asMethod
   val constMirror = classMirror.reflectConstructor(constTest)
 
+  // Inspecting the default constructor
+  println("Inspecting constructor parameters")
+  for(symList <- constTest.info.paramLists) {
+    for(symbol <- symList)
+      println(s"  > ${symbol.name}: ${symbol.info}")
+  }
+
   // Create instance of loaded class via primary constructor
   val instTest = constMirror("MyTest")
 
