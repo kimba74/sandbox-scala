@@ -7,6 +7,7 @@ lazy val scalaSandbox = (project in file (".")).
       "com.typesafe.akka" %% "akka-actor"         % "2.3.9",
       "com.typesafe.akka" %% "akka-agent"         % "2.3.9",
       "com.typesafe.akka" %% "akka-testkit"       % "2.3.9",
+      "org.scala-lang"    %  "scala-reflect"      % "2.11.6",
       "org.specs2"        %% "specs2-core"        % "3.4"  ,
       "org.specs2"        %% "specs2-scalacheck"  % "3.4"
     ),
