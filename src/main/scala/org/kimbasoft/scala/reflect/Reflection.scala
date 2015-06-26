@@ -1,6 +1,7 @@
 package org.kimbasoft.scala.reflect
 
 import scala.reflect.runtime.{universe => ru}
+import scala.reflect.runtime.universe.TypeTag
 
 /**
  * Missing documentation. 
@@ -33,4 +34,8 @@ object Reflection extends App {
 
   // Invoke toString() on dynamically loaded class
   println(instTest)
+
+
+
+  def getTypeOf[T: TypeTag](obj: T) = ru.typeOf[T]
 }
