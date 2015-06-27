@@ -1,6 +1,7 @@
 package org.kimbasoft.scala.reflect
 
 import scala.reflect.runtime.{universe => ru}
+import scala.reflect.runtime.universe.ClassSymbol
 import scala.reflect.runtime.universe.TypeTag
 
 /**
@@ -22,6 +23,8 @@ object Reflection extends App {
   val constTest   = classTest.primaryConstructor.asMethod
   val constMirror = classMirror.reflectConstructor(constTest)
 
+  inspectClass(classTest)
+
   // Inspecting the default constructor
   println("Inspecting constructor parameters")
   for(symList <- constTest.info.paramLists) {
@@ -36,6 +39,12 @@ object Reflection extends App {
   println(instTest)
 
 
-
   def getTypeOf[T: TypeTag](obj: T) = ru.typeOf[T]
+
+  def inspectClass(clazz: ClassSymbol) = {
+    println(clazz)
+    for (member <- clazz.info.decls) {
+      println(s" > $member")
+    }
+  }
 }
