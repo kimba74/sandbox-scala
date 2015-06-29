@@ -21,7 +21,7 @@ object Reflection extends App {
   val constTest   = classTest.primaryConstructor.asMethod
   val constMirror = classMirror.reflectConstructor(constTest)
 
-  inspectClass(classTest)
+  inspect(classTest)
 
   // Inspecting the default constructor
   println("Inspecting constructor parameters")
@@ -37,16 +37,41 @@ object Reflection extends App {
   println(instTest)
 
 
-  def getTypeOf[T: ru.TypeTag](obj: T) = ru.typeOf[T]
-
-  def inspectClass(clazz: ru.ClassSymbol) = {
-    println(clazz)
-    for (member <- clazz.info.decls) {
-      member match {
-        case c: ru.ClassSymbol => println(s"  > A Class: $c")
-        case m: ru.MethodSymbol => println(s"  > A Method: $m")
-        case u => println(s"  > Unknown: $u")
-      }
+  def inspect(sym: ru.Symbol, indent: String = "") = {
+    sym match {
+      case c: ru.ClassSymbol  => inspectClass(c, indent)
+      case m: ru.ModuleSymbol => inspectModule(m, indent)
+      case m: ru.MethodSymbol => inspectMethod(m, indent)
+      case t: ru.TermSymbol   => inspectTerm(t, indent)
+      case t: ru.TypeSymbol   => inspectType(t, indent)
+      case u                  => println(s"Unknown Symbol: $u")
     }
+  }
+
+  def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
+    println(indent + sym)
+    for (member <- sym.info.decls) {
+      inspect(member, indent + "  ")
+    }
+  }
+
+  def inspectModule(sym: ru.ModuleSymbol, indent: String = ""): Unit = {
+    println(indent + sym)
+    for (member <- sym.info.decls)
+      inspect(member, indent + "  ")
+  }
+
+  def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
+    println(indent + sym)
+    for (member <- sym.info.decls)
+      inspect(member, indent + "  ")
+  }
+
+  def inspectTerm(sym: ru.TermSymbol, indent: String = ""): Unit = {
+    println(indent + sym)
+  }
+
+  def inspectType(sym: ru.TypeSymbol, indent: String = ""): Unit = {
+    println(indent + sym)
   }
 }
