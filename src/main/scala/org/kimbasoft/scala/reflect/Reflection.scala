@@ -62,9 +62,17 @@ object Reflection extends App {
   }
 
   def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
-    println(indent + sym)
-    for (member <- sym.info.decls)
-      inspect(member, indent + "  ")
+    var prefix: String = ""
+    sym match {
+      case c if c.isConstructor => prefix = "constructor"
+      case s if s.isSetter      => prefix = "setter"
+      case g if g.isGetter      => prefix = "getter"
+      case _ => prefix = "def"
+    }
+
+    println(indent + "* " + prefix + " " + sym.name.decodedName)
+//    for (member <- sym.info.decls)
+//      inspect(member, indent + "  ")
   }
 
   def inspectTerm(sym: ru.TermSymbol, indent: String = ""): Unit = {

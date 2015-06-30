@@ -7,6 +7,8 @@ package org.kimbasoft.scala.reflect
  * @since 1.0
  */
 class TestClass(name: String) {
+  val id = 1234
+  var status = "ALIVE"
   override def toString: String = s"This is TestClass($name)"
 }
 
