@@ -53,6 +53,9 @@ object Reflection extends App {
     for (member <- sym.info.decls) {
       inspect(member, indent + "  ")
     }
+    // Inspect Companion Object if existing
+    if (sym.companion != ru.NoSymbol)
+      inspect(sym.companion)
   }
 
   def inspectModule(sym: ru.ModuleSymbol, indent: String = ""): Unit = {

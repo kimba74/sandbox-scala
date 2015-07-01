@@ -12,6 +12,10 @@ class TestClass(name: String) {
   override def toString: String = s"This is TestClass($name)"
 }
 
+object TestClass {
+  def apply(name: String): TestClass = new TestClass(name)
+}
+
 object TestObject {
   override def toString: String = "This is TestObject"
 }
