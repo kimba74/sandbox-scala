@@ -64,22 +64,48 @@ object Reflection extends App {
       inspect(member, indent + "  ")
   }
 
+  final protected def test(): Unit = {}
+
   def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
+    // Determine visibility
+    var visible: String = ""
+    sym match {
+      case p if p.isPrivate   => visible = "private "
+      case p if p.isProtected => visible = "protected "
+      case _ => visible = ""
+    }
+    // Determine method type
     var prefix: String = ""
     sym match {
-      case c if c.isConstructor => prefix = "constructor"
-      case s if s.isSetter      => prefix = "setter"
-      case g if g.isGetter      => prefix = "getter"
-      case _ => prefix = "def"
+      case c if c.isConstructor => prefix = "constructor "
+      case s if s.isSetter      => prefix = "setter "
+      case g if g.isGetter      => prefix = "getter "
+      case _ => prefix = "def "
     }
+    // Determine name
+    val name = sym.name.decodedName
+    // Determine return value
+    val retVal = sym.returnType
 
-    println(indent + "* " + prefix + " " + sym.name.decodedName)
+    println(indent + visible + prefix + name + ": " + retVal)
 //    for (member <- sym.info.decls)
 //      inspect(member, indent + "  ")
   }
 
   def inspectTerm(sym: ru.TermSymbol, indent: String = ""): Unit = {
-    println(indent + sym)
+    // Determine type
+    var termType = ""
+    sym match {
+      case v if sym.isVal => termType = "val "
+      case v if sym.isVar => termType = "var "
+      case _ => termType = "??? "
+    }
+    // Determine name
+    val name = sym.name.decodedName
+    // Determine type
+    val retVal = sym.typeSignature
+
+    println(indent + termType + name + ": " + retVal)
   }
 
   def inspectType(sym: ru.TypeSymbol, indent: String = ""): Unit = {
