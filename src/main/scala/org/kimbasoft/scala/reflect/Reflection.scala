@@ -64,8 +64,6 @@ object Reflection extends App {
       inspect(member, indent + "  ")
   }
 
-  final protected def test(): Unit = {}
-
   def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
     // Determine visibility
     var visible: String = ""
