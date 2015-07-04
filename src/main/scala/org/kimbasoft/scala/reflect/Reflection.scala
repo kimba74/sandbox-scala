@@ -82,10 +82,18 @@ object Reflection extends App {
     }
     // Determine name
     val name = sym.name.decodedName
+    //
+    var params = ""
+    for (paramList <- sym.info.paramLists) {
+      params = params + "("
+      for (param <- paramList)
+        params = params + param.name.decodedName + ": " + param.typeSignature + " "
+      params = params + ")"
+    }
     // Determine return value
     val retVal = sym.returnType
 
-    println(indent + visible + prefix + name + ": " + retVal)
+    println(indent + visible + prefix + name + params + ": " + retVal)
 //    for (member <- sym.info.decls)
 //      inspect(member, indent + "  ")
   }
