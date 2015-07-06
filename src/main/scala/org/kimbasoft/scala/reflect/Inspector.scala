@@ -9,6 +9,12 @@ import scala.reflect.runtime.{universe => ru}
  * @since 1.0
  */
 object Inspector {
+
+  /**
+   *
+   * @param sym
+   * @param indent
+   */
   def inspect(sym: ru.Symbol, indent: String = "") = {
     sym match {
       case c: ru.ClassSymbol  => inspectClass(c, indent)
@@ -20,6 +26,11 @@ object Inspector {
     }
   }
 
+  /**
+   *
+   * @param sym
+   * @param indent
+   */
   private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
     println(indent + sym)
     for (member <- sym.info.decls) {
@@ -30,12 +41,22 @@ object Inspector {
       inspect(sym.companion)
   }
 
+  /**
+   *
+   * @param sym
+   * @param indent
+   */
   private def inspectModule(sym: ru.ModuleSymbol, indent: String = ""): Unit = {
     println(indent + sym)
     for (member <- sym.info.decls)
       inspect(member, indent + "  ")
   }
 
+  /**
+   *
+   * @param sym
+   * @param indent
+   */
   private def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
     // Determine visibility
     var visible: String = ""
@@ -44,6 +65,7 @@ object Inspector {
       case p if p.isProtected => visible = "protected "
       case _ => visible = ""
     }
+
     // Determine method type
     var prefix: String = ""
     sym match {
@@ -52,8 +74,10 @@ object Inspector {
       case g if g.isGetter      => prefix = "getter "
       case _ => prefix = "def "
     }
+
     // Determine name
     val name = sym.name.decodedName
+
     //
     var params = ""
     for (paramList <- sym.info.paramLists) {
@@ -62,6 +86,7 @@ object Inspector {
         params = params + param.name.decodedName + ": " + param.typeSignature + " "
       params = params + ")"
     }
+
     // Determine return value
     val retVal = sym.returnType
 
@@ -70,6 +95,11 @@ object Inspector {
     //      inspect(member, indent + "  ")
   }
 
+  /**
+   *
+   * @param sym
+   * @param indent
+   */
   private def inspectTerm(sym: ru.TermSymbol, indent: String = ""): Unit = {
     // Determine type
     var termType = ""
@@ -86,6 +116,11 @@ object Inspector {
     println(indent + termType + name + ": " + retVal)
   }
 
+  /**
+   *
+   * @param sym
+   * @param indent
+   */
   private def inspectType(sym: ru.TypeSymbol, indent: String = ""): Unit = {
     println(indent + sym)
   }
