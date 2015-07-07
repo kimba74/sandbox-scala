@@ -83,7 +83,7 @@ object Inspector {
     for (paramList <- sym.info.paramLists) {
       params = params + "("
       for (param <- paramList)
-        params = params + param.name.decodedName + ": " + param.typeSignature + " "
+        params = params + param.name.decodedName + ": " + param.typeSignature + " " //TODO slk: Handle as Term
       params = params + ")"
     }
 
