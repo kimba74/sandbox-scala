@@ -37,4 +37,13 @@ object Reflection extends App {
   // Using Inspector to inspect class
   Inspector.inspect(classTest)
 
+  val tpe = getTypeTag(instTest)
+  println(s"tpe  = ${tpe.tpe}")
+
+  val ttpe = testTypeTag[String]
+  println(s"ttpe = $ttpe")
+
+  def getTypeTag[T : ru.TypeTag](obj: T) = ru.typeTag[T]
+
+  def testTypeTag[T](implicit obj: ru.TypeTag[T]) = obj.tpe
 }
