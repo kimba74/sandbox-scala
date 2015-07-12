@@ -43,6 +43,9 @@ object Reflection extends App {
   val ttpe = testTypeTag[String]
   println(s"ttpe = $ttpe")
 
+  for (tsym <- classTest.baseClasses)
+    println(getTypeTag(tsym.info.dealias))
+
   def getTypeTag[T : ru.TypeTag](obj: T) = ru.typeTag[T]
 
   def testTypeTag[T](implicit obj: ru.TypeTag[T]) = obj.tpe
