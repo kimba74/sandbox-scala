@@ -37,7 +37,7 @@ object Reflection extends App {
   // Using Inspector to inspect class
   Inspector.inspect(classTest)
 
-  val tpe = getTypeTag(instTest) // TODO slk: find a way to get access of class
+  val tpe = getTypeTag(classTest.info.erasure) // TODO slk: find a way to get access of class
   println(s"tpe  = ${tpe.tpe}")
 
   val ttpe = testTypeTag[String]
