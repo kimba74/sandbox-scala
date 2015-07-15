@@ -37,6 +37,7 @@ object Reflection extends App {
   // Using Inspector to inspect class
   Inspector.inspect(classTest)
 
+  //TODO slk: Check into type erasure as cause for TypeTag being unavailable for dynamically loaded class
   val tpe = getTypeTag(classTest.info.erasure) // TODO slk: find a way to get access to class type
   println(s"tpe  = ${tpe.tpe}")
 
