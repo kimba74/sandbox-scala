@@ -51,10 +51,25 @@ object Reflection extends App {
 
   def testTypeTag[T](implicit obj: ru.TypeTag[T]) = obj.tpe
 
+  println("----------------------------------------------------------")
   // Testing approach via Java Class (TODO slk: Check on type erasure)
   val jclass = Reflection.getClass.getClassLoader.loadClass("org.kimbasoft.scala.reflect.TestClass")
-  val jtpe   = getTypeTag(jclass)
+  val sclass = runMirror.staticClass("org.kimbasoft.scala.reflect.TestClass")
   println(s"jclass = $jclass")
+  println(s"sclass = $sclass")
+
+  val smirror  = runMirror.reflectClass(sclass)
+  val sconst   = sclass.primaryConstructor.asMethod
+  val scmirror = smirror.reflectConstructor(sconst)
+  val sobj = scmirror("Bla!")
+  println(s"sobj   = $sobj")
+
+  val stype = sclass.asType
+  println(s"stype  = $stype")
+
+  val jtpe   = getTypeTag(jclass)
+  val stpe   = getTypeTag(sclass)
   println(s"jtpe   = ${jtpe.tpe}")
+  println(s"stpe   = ${stpe.tpe}")
 
 }
