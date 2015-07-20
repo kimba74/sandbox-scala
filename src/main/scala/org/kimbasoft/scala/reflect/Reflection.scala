@@ -53,9 +53,7 @@ object Reflection extends App {
 
   println("----------------------------------------------------------")
   // Testing approach via Java Class (TODO slk: Check on type erasure)
-  val jclass = Reflection.getClass.getClassLoader.loadClass("org.kimbasoft.scala.reflect.TestClass")
   val sclass = runMirror.staticClass("org.kimbasoft.scala.reflect.TestClass")
-  println(s"jclass = $jclass")
   println(s"sclass = $sclass")
 
   val smirror  = runMirror.reflectClass(sclass)
@@ -63,13 +61,12 @@ object Reflection extends App {
   val scmirror = smirror.reflectConstructor(sconst)
   val sobj = scmirror("Bla!")
   println(s"sobj   = $sobj")
+  println(s"sobj isInstanceOf[TestClass] = ${sobj.isInstanceOf[TestClass]}")
 
   val stype = sclass.asType
   println(s"stype  = $stype")
 
-  val jtpe   = getTypeTag(jclass)
   val stpe   = getTypeTag(sclass)
-  println(s"jtpe   = ${jtpe.tpe}")
   println(s"stpe   = ${stpe.tpe}")
 
 }
