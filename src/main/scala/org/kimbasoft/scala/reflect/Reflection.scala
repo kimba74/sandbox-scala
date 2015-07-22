@@ -17,6 +17,9 @@ object Reflection extends App {
   val classTest   = runMirror.staticClass("org.kimbasoft.scala.reflect.TestClass")
   val classMirror = runMirror.reflectClass(classTest)
 
+  // Check if dynamically loaded class is of type TestClass
+  println(s"classTest of type TestClass = ${classTest.toType =:= ru.typeOf[TestClass]}")
+
   // Loading the primary constructor of the loaded class
   val constTest   = classTest.primaryConstructor.asMethod
   val constMirror = classMirror.reflectConstructor(constTest)
@@ -70,7 +73,7 @@ object Reflection extends App {
   println(s"sclass [toTypeConstructor]      = ${sclass.toTypeConstructor}")
   println(s"sclass [typeParams]             = ${sclass.typeParams}")
   println(s"sclass [typeSignature]          = ${sclass.typeSignature}")
-  println(s"sclass =:= ru.typeOf[TestClass] = ${sclass.toType.=:=(ru.typeOf[TestClass])}")
+  println(s"sclass =:= ru.typeOf[TestClass] = ${sclass.toType =:= ru.typeOf[TestClass]}")
 
   val smirror  = runMirror.reflectClass(sclass)
   val sconst   = sclass.primaryConstructor.asMethod

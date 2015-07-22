@@ -4,9 +4,9 @@ lazy val scalaSandbox = (project in file (".")).
     version := "1.0",
     scalaVersion := "2.11.7",
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-actor"         % "2.3.9",
-      "com.typesafe.akka" %% "akka-agent"         % "2.3.9",
-      "com.typesafe.akka" %% "akka-testkit"       % "2.3.9",
+      "com.typesafe.akka" %% "akka-actor"         % "2.3.12",
+      "com.typesafe.akka" %% "akka-agent"         % "2.3.12",
+      "com.typesafe.akka" %% "akka-testkit"       % "2.3.12",
       "org.scala-lang"    %  "scala-reflect"      % "2.11.7",
       "org.specs2"        %% "specs2-core"        % "3.4"  ,
       "org.specs2"        %% "specs2-scalacheck"  % "3.4"
