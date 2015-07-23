@@ -10,53 +10,66 @@ import scala.reflect.runtime.{universe => ru}
  */
 object Reflection extends App {
 
+  //---- Instantiation of a dynamically loaded class ----
+
   // Getting the runtime mirror for the provided ClassLoader
-  val runMirror = ru.runtimeMirror(getClass.getClassLoader)
+  val mirClassLoader = ru.runtimeMirror(getClass.getClassLoader)
 
-  // Loading a specified class based on the class' fully qualified name
-  val classTest   = runMirror.staticClass("org.kimbasoft.scala.reflect.TestClass")
-  val classMirror = runMirror.reflectClass(classTest)
+  // Loading the ClassSymbol for a specified class based on the class' fully qualified name
+  val symTestClass = mirClassLoader.staticClass("org.kimbasoft.scala.reflect.TestClass")
+  
+  // Getting the runtime mirror for the provided ClassSymbol
+  val mirTestClass = mirClassLoader.reflectClass(symTestClass)
 
-  // Check if dynamically loaded class is of type TestClass
-  println(s"classTest of type TestClass = ${classTest.toType =:= ru.typeOf[TestClass]}")
+  // Loading the MethodSymbol for the primary constructor of the specified ClassSymbol
+  val symConstruct = symTestClass.primaryConstructor.asMethod
 
-  // Loading the primary constructor of the loaded class
-  val constTest   = classTest.primaryConstructor.asMethod
-  val constMirror = classMirror.reflectConstructor(constTest)
+  // Getting the runtime mirror for the provided MethodSymbol of the primary constructor
+  val mirConstruct = mirTestClass.reflectConstructor(symConstruct)
 
-  // Inspecting the default constructor
+  // Create instance of loaded class via runtime mirror of the primary constructor
+  val instTest = mirConstruct("MyTest")
+
+
+  //---- Inspection of the previously instantiated class ----
+
+  // Invoke toString() of the instance of the dynamically loaded class
+  println("Calling toString()")
+  println(s"  > $instTest")
+
+  // Inspecting the parameter list of the MethodSymbol of the default constructor
   println("Inspecting constructor parameters")
-  for(symList <- constTest.info.paramLists) {
+  for(symList <- symConstruct.info.paramLists) {
     for(symbol <- symList)
-      println(s"  > ${symbol.name}: ${symbol.info}")
+    println(s"  > ${symbol.name}: ${symbol.info}")
   }
 
-  // Create instance of loaded class via primary constructor
-  val instTest = constMirror("MyTest")
+  // Inspecting the base classes of the ClassSymbol
+  println("Inspecting base classes")
+  for (tsym <- symTestClass.baseClasses)
+    println(s"  > ${tsym.fullName}")
 
-  // Invoke toString() on dynamically loaded class
-  println(instTest)
+  // Check if dynamically loaded class is of type TestClass
+  println("Checking if class is of type 'TestClass'")
+  println(s"  > ${symTestClass.toType =:= ru.typeOf[TestClass]}")
 
+  println("----------------------------------------------------------")
   // Using Inspector to inspect class
-  Inspector.inspect(classTest)
+  Inspector.inspect(symTestClass)
 
   //TODO slk: Check into type erasure as cause for TypeTag being unavailable for dynamically loaded class
-  val tpe = getTypeTag(classTest.info.erasure) // TODO slk: find a way to get access to class type
+  val tpe = getTypeTag(symTestClass.info.erasure) // TODO slk: find a way to get access to class type
   println(s"tpe  = ${tpe.tpe}")
 
   val ttpe = testTypeTag[String]
   println(s"ttpe = $ttpe")
-
-  for (tsym <- classTest.baseClasses)
-    println(getTypeTag(tsym.info.dealias))
 
   def getTypeTag[T : ru.TypeTag](obj: T) = ru.typeTag[T]
 
   def testTypeTag[T](implicit obj: ru.TypeTag[T]) = obj.tpe
 
   println("----------------------------------------------------------")
-  // Testing approach via Java Class (TODO slk: Check on type erasure)
-  val sclass = runMirror.staticClass("org.kimbasoft.scala.reflect.TestClass")
+  val sclass = mirClassLoader.staticClass("org.kimbasoft.scala.reflect.TestClass")
   println(s"sclass                          = $sclass")
   println(s"sclass [fullName]               = ${sclass.fullName}")
   println(s"sclass [companion]              = ${sclass.companion}")
@@ -75,7 +88,7 @@ object Reflection extends App {
   println(s"sclass [typeSignature]          = ${sclass.typeSignature}")
   println(s"sclass =:= ru.typeOf[TestClass] = ${sclass.toType =:= ru.typeOf[TestClass]}")
 
-  val smirror  = runMirror.reflectClass(sclass)
+  val smirror  = mirClassLoader.reflectClass(sclass)
   val sconst   = sclass.primaryConstructor.asMethod
   val scmirror = smirror.reflectConstructor(sconst)
   val sobj = scmirror("Bla!")
@@ -85,7 +98,7 @@ object Reflection extends App {
   val stype = sclass.asType
   println(s"stype  = $stype")
 
-  val stpe   = getTypeTag(sclass)
+  val stpe   = getTypeTag(stype)
   println(s"stpe   = ${stpe.tpe}")
 
 }
