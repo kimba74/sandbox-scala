@@ -28,14 +28,14 @@ object Reflection extends App {
   val mirConstruct = mirTestClass.reflectConstructor(symConstruct)
 
   // Create instance of loaded class via runtime mirror of the primary constructor
-  val instTest = mirConstruct("MyTest")
+  val objTestClass = mirConstruct("MyTest")
 
 
   //---- Inspection of the previously instantiated class ----
 
   // Invoke toString() of the instance of the dynamically loaded class
   println("Calling toString()")
-  println(s"  > $instTest")
+  println(s"  > $objTestClass")
 
   // Inspecting the parameter list of the MethodSymbol of the default constructor
   println("Inspecting constructor parameters")
@@ -69,36 +69,30 @@ object Reflection extends App {
   def testTypeTag[T](implicit obj: ru.TypeTag[T]) = obj.tpe
 
   println("----------------------------------------------------------")
-  val sclass = mirClassLoader.staticClass("org.kimbasoft.scala.reflect.TestClass")
-  println(s"sclass                          = $sclass")
-  println(s"sclass [fullName]               = ${sclass.fullName}")
-  println(s"sclass [companion]              = ${sclass.companion}")
-  println(s"sclass [info]                   = ${sclass.info}")
-  println(s"sclass [knownDirectSubclasses]  = ${sclass.knownDirectSubclasses}")
-  println(s"sclass [module]                 = ${sclass.module}")
-  println(s"sclass [name]                   = ${sclass.name}")
-  println(s"sclass [overrides]              = ${sclass.overrides}")
-  println(s"sclass [owner]                  = ${sclass.owner}")
-  println(s"sclass [pos]                    = ${sclass.pos}")
-  println(s"sclass [selfType]               = ${sclass.selfType}")
-  println(s"sclass [thisPrefix]             = ${sclass.thisPrefix}")
-  println(s"sclass [toType]                 = ${sclass.toType}")
-  println(s"sclass [toTypeConstructor]      = ${sclass.toTypeConstructor}")
-  println(s"sclass [typeParams]             = ${sclass.typeParams}")
-  println(s"sclass [typeSignature]          = ${sclass.typeSignature}")
-  println(s"sclass =:= ru.typeOf[TestClass] = ${sclass.toType =:= ru.typeOf[TestClass]}")
+  println(s"symTestClass                          = $symTestClass")
+  println(s"symTestClass [fullName]               = ${symTestClass.fullName}")
+  println(s"symTestClass [companion]              = ${symTestClass.companion}")
+  println(s"symTestClass [info]                   = ${symTestClass.info}")
+  println(s"symTestClass [knownDirectSubclasses]  = ${symTestClass.knownDirectSubclasses}")
+  println(s"symTestClass [module]                 = ${symTestClass.module}")
+  println(s"symTestClass [name]                   = ${symTestClass.name}")
+  println(s"symTestClass [overrides]              = ${symTestClass.overrides}")
+  println(s"symTestClass [owner]                  = ${symTestClass.owner}")
+  println(s"symTestClass [pos]                    = ${symTestClass.pos}")
+  println(s"symTestClass [selfType]               = ${symTestClass.selfType}")
+  println(s"symTestClass [thisPrefix]             = ${symTestClass.thisPrefix}")
+  println(s"symTestClass [toType]                 = ${symTestClass.toType}")
+  println(s"symTestClass [toTypeConstructor]      = ${symTestClass.toTypeConstructor}")
+  println(s"symTestClass [typeParams]             = ${symTestClass.typeParams}")
+  println(s"symTestClass [typeSignature]          = ${symTestClass.typeSignature}")
+  println(s"symTestClass =:= ru.typeOf[TestClass] = ${symTestClass.toType =:= ru.typeOf[TestClass]}")
 
-  val smirror  = mirClassLoader.reflectClass(sclass)
-  val sconst   = sclass.primaryConstructor.asMethod
-  val scmirror = smirror.reflectConstructor(sconst)
-  val sobj = scmirror("Bla!")
-  println(s"sobj   = $sobj")
-  println(s"sobj isInstanceOf[TestClass] = ${sobj.isInstanceOf[TestClass]}")
+  println(s"objTestClass isInstanceOf[TestClass] = ${objTestClass.isInstanceOf[TestClass]}")
 
-  val stype = sclass.asType
-  println(s"stype  = $stype")
+  println(s"symTestClass.asType  = ${symTestClass.asType}")
+  println(s"symTestClass.toType  = ${symTestClass.toType}")
 
-  val stpe   = getTypeTag(stype)
-  println(s"stpe   = ${stpe.tpe}")
+  println(s".asType.tpe = ${getTypeTag(symTestClass.asType).tpe}")
+  println(s".toType.tpe = ${getTypeTag(symTestClass.toType).tpe}")
 
 }
