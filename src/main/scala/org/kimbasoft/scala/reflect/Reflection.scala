@@ -53,22 +53,11 @@ object Reflection extends App {
   println("Checking if class is of type 'TestClass'")
   println(s"  > ${symTestClass.toType =:= ru.typeOf[TestClass]}")
 
-  println("----------------------------------------------------------")
+  println("\n-- Inspection --------------------------------------------")
   // Using Inspector to inspect class
   Inspector.inspect(symTestClass)
 
-  //TODO slk: Check into type erasure as cause for TypeTag being unavailable for dynamically loaded class
-  val tpe = getTypeTag(symTestClass.info.erasure) // TODO slk: find a way to get access to class type
-  println(s"tpe  = ${tpe.tpe}")
-
-  val ttpe = testTypeTag[String]
-  println(s"ttpe = $ttpe")
-
-  def getTypeTag[T : ru.TypeTag](obj: T) = ru.typeTag[T]
-
-  def testTypeTag[T](implicit obj: ru.TypeTag[T]) = obj.tpe
-
-  println("----------------------------------------------------------")
+  println("\n-- Analysis ----------------------------------------------")
   println(s"symTestClass                          = $symTestClass")
   println(s"symTestClass [fullName]               = ${symTestClass.fullName}")
   println(s"symTestClass [companion]              = ${symTestClass.companion}")
@@ -95,4 +84,8 @@ object Reflection extends App {
   println(s".asType.tpe = ${getTypeTag(symTestClass.asType).tpe}")
   println(s".toType.tpe = ${getTypeTag(symTestClass.toType).tpe}")
 
+  //-----------------------------------------------------------------
+  def getTypeTag[T : ru.TypeTag](obj: T) = ru.typeTag[T]
+
+  def testTypeTag[T](implicit obj: ru.TypeTag[T]) = obj.tpe
 }
