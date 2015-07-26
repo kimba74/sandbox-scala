@@ -78,9 +78,11 @@ object Reflection extends App {
 
   println(s"objTestClass isInstanceOf[TestClass] = ${objTestClass.isInstanceOf[TestClass]}")
 
+  println("-- Types ---------------------------------------------------")
   println(s"symTestClass.asType  = ${symTestClass.asType}")
   println(s"symTestClass.toType  = ${symTestClass.toType}")
 
+  println("-- TypeTags ------------------------------------------------")
   println(s".asType.tpe = ${getTypeTag(symTestClass.asType).tpe}")
   println(s".toType.tpe = ${getTypeTag(symTestClass.toType).tpe}")
 
