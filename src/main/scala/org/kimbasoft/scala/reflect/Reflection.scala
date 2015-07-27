@@ -59,6 +59,8 @@ object Reflection extends App {
 
   println("\n-- Analysis ----------------------------------------------")
   println(s"symTestClass                          = $symTestClass")
+  println(s"symTestClass [alternatives]           = ${symTestClass.alternatives}")
+  println(s"symTestClass [annotations]            = ${symTestClass.annotations}")
   println(s"symTestClass [fullName]               = ${symTestClass.fullName}")
   println(s"symTestClass [companion]              = ${symTestClass.companion}")
   println(s"symTestClass [info]                   = ${symTestClass.info}")
@@ -74,15 +76,19 @@ object Reflection extends App {
   println(s"symTestClass [toTypeConstructor]      = ${symTestClass.toTypeConstructor}")
   println(s"symTestClass [typeParams]             = ${symTestClass.typeParams}")
   println(s"symTestClass [typeSignature]          = ${symTestClass.typeSignature}")
+
+  println("\n-- Tests -------------------------------------------------")
   println(s"symTestClass =:= ru.typeOf[TestClass] = ${symTestClass.toType =:= ru.typeOf[TestClass]}")
+  println(s"symTestClass =:= ru.typeOf[TestTrait] = ${symTestClass.toType =:= ru.typeOf[TestTrait]}")
 
-  println(s"objTestClass isInstanceOf[TestClass] = ${objTestClass.isInstanceOf[TestClass]}")
+  println(s"objTestClass isInstanceOf[TestClass]  = ${objTestClass.isInstanceOf[TestClass]}")
+  println(s"objTestClass isInstanceOf[TestTrait]  = ${objTestClass.isInstanceOf[TestTrait]}")
 
-  println("-- Types ---------------------------------------------------")
+  println("\n-- Types -------------------------------------------------")
   println(s"symTestClass.asType  = ${symTestClass.asType}")
   println(s"symTestClass.toType  = ${symTestClass.toType}")
 
-  println("-- TypeTags ------------------------------------------------")
+  println("\n-- TypeTags ----------------------------------------------")
   println(s".asType.tpe = ${getTypeTag(symTestClass.asType).tpe}")
   println(s".toType.tpe = ${getTypeTag(symTestClass.toType).tpe}")
 

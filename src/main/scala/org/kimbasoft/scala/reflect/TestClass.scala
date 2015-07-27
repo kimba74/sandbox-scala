@@ -6,7 +6,7 @@ package org.kimbasoft.scala.reflect
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-class TestClass(name: String) {
+class TestClass(name: String) extends TestTrait {
   val id = 1234
   var status = "ALIVE"
   override def toString: String = s"This is TestClass($name)"
@@ -25,3 +25,5 @@ object TestObject {
 case class TestCase(name: String) {
   override def toString: String = s"This is TestCase($name)"
 }
+
+trait TestTrait
