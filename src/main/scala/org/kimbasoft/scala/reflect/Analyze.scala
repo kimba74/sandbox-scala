@@ -16,12 +16,7 @@ object Analyze {
     println(s"sym [annotations]            = ${sym.annotations}")
     println(s"sym [fullName]               = ${sym.fullName}")
     println(s"sym [companion]              = ${sym.companion}")
-    println(s"sym [info]                   = ${sym.info}")
-    println(s"    [info - baseClasses]     = ${sym.info.baseClasses}")
-    println(s"    [info - dealias]         = ${sym.info.dealias}")
-    println(s"    [info - decls]           = ${sym.info.decls}")
-    println(s"    [info - erasure]         = ${sym.info.erasure}")
-    println(s"    [info - etaExpand]       = ${sym.info.etaExpand}")
+    analyze(sym.info, "sym [info] ")
     println(s"sym [knownDirectSubclasses]  = ${sym.knownDirectSubclasses}")
     println(s"sym [module]                 = ${sym.module}")
     println(s"sym [name]                   = ${sym.name}")
@@ -34,5 +29,14 @@ object Analyze {
     println(s"sym [toTypeConstructor]      = ${sym.toTypeConstructor}")
     println(s"sym [typeParams]             = ${sym.typeParams}")
     println(s"sym [typeSignature]          = ${sym.typeSignature}")
+  }
+
+  def analyze(typ: ru.Type, prefix: String = ""): Unit = {
+    println(s"$prefix               = $typ")
+    println(s"$prefix - baseClasses = ${typ.baseClasses}")
+    println(s"$prefix - dealias     = ${typ.dealias}")
+    println(s"$prefix - decls       = ${typ.decls}")
+    println(s"$prefix - erasure     = ${typ.erasure}")
+    println(s"$prefix - etaExpand   = ${typ.etaExpand}")
   }
 }
