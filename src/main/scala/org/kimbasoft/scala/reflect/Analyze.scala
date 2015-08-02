@@ -10,29 +10,29 @@ import scala.reflect.runtime.{universe => ru}
  */
 object Analyze {
 
-  def analyze(sym: ru.ClassSymbol): Unit = {
-    println(s"sym                            = $sym")
-    println(s"sym [alternatives]             = ${sym.alternatives}")
-    println(s"sym [annotations]              = ${sym.annotations}")
-    println(s"sym [fullName]                 = ${sym.fullName}")
-    println(s"sym [companion]                = ${sym.companion}")
-    analyze(sym.info, "sym [info] ")
-    symbolIs(sym, "sym")
-    println(s"sym [knownDirectSubclasses]    = ${sym.knownDirectSubclasses}")
-    println(s"sym [module]                   = ${sym.module}")
-    println(s"sym [name]                     = ${sym.name}")
-    println(s"sym [overrides]                = ${sym.overrides}")
-    println(s"sym [owner]                    = ${sym.owner}")
-    println(s"sym [pos]                      = ${sym.pos}")
-    println(s"sym [selfType]                 = ${sym.selfType}")
-    println(s"sym [thisPrefix]               = ${sym.thisPrefix}")
-    println(s"sym [toType]                   = ${sym.toType}")
-    println(s"sym [toTypeConstructor]        = ${sym.toTypeConstructor}")
-    println(s"sym [typeParams]               = ${sym.typeParams}")
-    println(s"sym [typeSignature]            = ${sym.typeSignature}")
+  def analyze(sym: ru.ClassSymbol, prefix: String = ""): Unit = {
+    println(s"$prefix                            = $sym")
+    println(s"$prefix [alternatives]             = ${sym.alternatives}")
+    println(s"$prefix [annotations]              = ${sym.annotations}")
+    println(s"$prefix [fullName]                 = ${sym.fullName}")
+    println(s"$prefix [companion]                = ${sym.companion}")
+    infos(sym.info, "$prefix [info] ")
+    symbolIs(sym, prefix)
+    println(s"$prefix [knownDirectSubclasses]    = ${sym.knownDirectSubclasses}")
+    println(s"$prefix [module]                   = ${sym.module}")
+    println(s"$prefix [name]                     = ${sym.name}")
+    println(s"$prefix [overrides]                = ${sym.overrides}")
+    println(s"$prefix [owner]                    = ${sym.owner}")
+    println(s"$prefix [pos]                      = ${sym.pos}")
+    println(s"$prefix [selfType]                 = ${sym.selfType}")
+    println(s"$prefix [thisPrefix]               = ${sym.thisPrefix}")
+    println(s"$prefix [toType]                   = ${sym.toType}")
+    println(s"$prefix [toTypeConstructor]        = ${sym.toTypeConstructor}")
+    println(s"$prefix [typeParams]               = ${sym.typeParams}")
+    println(s"$prefix [typeSignature]            = ${sym.typeSignature}")
   }
 
-  def analyze(typ: ru.Type, prefix: String = ""): Unit = {
+  def infos(typ: ru.Type, prefix: String = ""): Unit = {
     println(s"$prefix               = $typ")
     println(s"$prefix - baseClasses = ${typ.baseClasses}")
     println(s"$prefix - dealias     = ${typ.dealias}")
