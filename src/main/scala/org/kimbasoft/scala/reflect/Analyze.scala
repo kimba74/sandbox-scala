@@ -40,7 +40,12 @@ object Analyze {
     println(s"$prefix - erasure     = ${typ.erasure}")
     println(s"$prefix - etaExpand   = ${typ.etaExpand}")
   }
-  
+
+  /**
+   * Prints descriptor information of the Class Symbol
+   * @param sym
+   * @param prefix
+   */
   def symbolIs(sym: ru.ClassSymbol, prefix: String = ""): Unit = {
     println(s"$prefix [isAbstract]               = ${sym.isAbstract}")
     println(s"$prefix [isAbstractOverride]       = ${sym.isAbstractOverride}")
