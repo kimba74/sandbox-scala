@@ -10,6 +10,11 @@ import scala.reflect.runtime.{universe => ru}
  */
 object Analyze {
 
+  /**
+   * Analyzes a ClassSymbol and prints out all information found.
+   * @param sym
+   * @param prefix
+   */
   def analyze(sym: ru.ClassSymbol, prefix: String = ""): Unit = {
     println(s"$prefix                            = $sym")
     println(s"$prefix [alternatives]             = ${sym.alternatives}")
@@ -32,6 +37,11 @@ object Analyze {
     println(s"$prefix [typeSignature]            = ${sym.typeSignature}")
   }
 
+  /**
+   * Analyzes a Type and prints out all information found.
+   * @param typ
+   * @param prefix
+   */
   def infos(typ: ru.Type, prefix: String = ""): Unit = {
     println(s"$prefix               = $typ")
     println(s"$prefix - baseClasses = ${typ.baseClasses}")
