@@ -12,8 +12,8 @@ object Analyze {
 
   /**
    * Analyzes a ClassSymbol and prints out all information found.
-   * @param sym
-   * @param prefix
+   * @param sym The ClassSymbol to be analyzed
+   * @param prefix A prefix to prepend the output with
    */
   def analyze(sym: ru.ClassSymbol, prefix: String = ""): Unit = {
     println(s"$prefix                            = $sym")
@@ -39,8 +39,8 @@ object Analyze {
 
   /**
    * Analyzes a Type and prints out all information found.
-   * @param typ
-   * @param prefix
+   * @param typ The type to print information about
+   * @param prefix A prefix to prepend the output with
    */
   def infos(typ: ru.Type, prefix: String = ""): Unit = {
     println(s"$prefix               = $typ")
@@ -53,8 +53,8 @@ object Analyze {
 
   /**
    * Prints descriptor information of the Class Symbol
-   * @param sym
-   * @param prefix
+   * @param sym The ClassSymbol to analyze
+   * @param prefix A prefix to prepend the output with
    */
   def symbolIs(sym: ru.ClassSymbol, prefix: String = ""): Unit = {
     println(s"$prefix [isAbstract]               = ${sym.isAbstract}")
