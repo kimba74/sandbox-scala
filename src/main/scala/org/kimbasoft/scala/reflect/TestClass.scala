@@ -26,4 +26,6 @@ case class TestCase(name: String) {
   override def toString: String = s"This is TestCase($name)"
 }
 
-trait TestTrait
+trait TestTrait extends UberTestTrait
+
+trait UberTestTrait
