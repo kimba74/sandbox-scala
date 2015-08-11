@@ -14,24 +14,24 @@ object Testing extends App {
   val strTestTrait  = "org.kimbasoft.scala.reflect.TestTrait"
   val strUTestTrait = "org.kimbasoft.scala.reflect.UberTestTrait"
 
-  val clsTestClass  = Testing.getClass.getClassLoader.loadClass(strTestClass )
-  val clsTestTrait  = Testing.getClass.getClassLoader.loadClass(strTestTrait )
-  val clsUTestTrait = Testing.getClass.getClassLoader.loadClass(strUTestTrait)
+  val clsTestClass  = Testing.getClass.getClassLoader.loadClass(strTestClass)  // Load Java Class for name
+  val clsTestTrait  = Testing.getClass.getClassLoader.loadClass(strTestTrait)  // Load Java Class for name
+  val clsUTestTrait = Testing.getClass.getClassLoader.loadClass(strUTestTrait) // Load Java Class for name
 
   println(s"Java: ${clsTestTrait.getName} is assignable from ${clsTestClass.getName} = ${clsTestTrait.isAssignableFrom(clsTestClass)}")
   println(s"Java: ${clsUTestTrait.getName} is assignable from ${clsTestClass.getName} = ${clsUTestTrait.isAssignableFrom(clsTestClass)}")
 
-  // Get runtime mirror
+  // Get Scala RuntimeMirror
   val rm = ru.runtimeMirror(ru.getClass.getClassLoader)
 
-  val sc = rm.staticClass(strTestClass)
-  val rc = rm.runtimeClass(sc)
+  val sc = rm.staticClass(strTestClass)   // Load Scala ClassSymbol for name
+  val rc = rm.runtimeClass(sc)            // Load corresponding Java class for Scala ClassSymbol
 
-  val st = rm.staticClass(strTestTrait)
-  val rt = rm.runtimeClass(st)
+  val st = rm.staticClass(strTestTrait)   // Load Scala ClassSymbol for name
+  val rt = rm.runtimeClass(st)            // Load corresponding Java class for Scala ClassSymbol
 
-  val sut = rm.staticClass(strUTestTrait)
-  val rut = rm.runtimeClass(sut)
+  val sut = rm.staticClass(strUTestTrait) // Load Scala ClassSymbol for name
+  val rut = rm.runtimeClass(sut)          // Load corresponding Java class for Scala ClassSymbol
 
   println(s"Scala: ${rt.getName} is assignable from ${rc.getName} = ${rt.isAssignableFrom(rc)}")
   println(s"Scala: ${rut.getName} is assignable from ${rc.getName} = ${rut.isAssignableFrom(rc)}")
