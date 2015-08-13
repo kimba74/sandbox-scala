@@ -10,31 +10,31 @@ import scala.reflect.runtime.{universe => ru}
  */
 object Testing extends App {
 
-  val strTestClass  = "org.kimbasoft.scala.reflect.TestClass"
-  val strTestTrait  = "org.kimbasoft.scala.reflect.TestTrait"
-  val strUTestTrait = "org.kimbasoft.scala.reflect.UberTestTrait"
+  val strTC  = "org.kimbasoft.scala.reflect.TestClass"
+  val strTT  = "org.kimbasoft.scala.reflect.TestTrait"
+  val strUT = "org.kimbasoft.scala.reflect.UberTestTrait"
 
   // Java Classes
-  val clsTestClass  = Testing.getClass.getClassLoader.loadClass(strTestClass)  // Load Java Class for name
-  val clsTestTrait  = Testing.getClass.getClassLoader.loadClass(strTestTrait)  // Load Java Class for name
-  val clsUTestTrait = Testing.getClass.getClassLoader.loadClass(strUTestTrait) // Load Java Class for name
+  val jcTC = Testing.getClass.getClassLoader.loadClass(strTC)  // Load Java Class for name
+  val jcTT = Testing.getClass.getClassLoader.loadClass(strTT)  // Load Java Class for name
+  val jcUT = Testing.getClass.getClassLoader.loadClass(strUT)  // Load Java Class for name
 
-  println(s"Java : ${clsTestTrait.getName} is assignable from ${clsTestClass.getName} = ${clsTestTrait.isAssignableFrom(clsTestClass)}")
-  println(s"Java : ${clsUTestTrait.getName} is assignable from ${clsTestClass.getName} = ${clsUTestTrait.isAssignableFrom(clsTestClass)}")
+  println(s"Java : ${jcTT.getName} is assignable from ${jcTC.getName} = ${jcTT.isAssignableFrom(jcTC)}")
+  println(s"Java : ${jcUT.getName} is assignable from ${jcTC.getName} = ${jcUT.isAssignableFrom(jcTC)}")
 
   // Get Scala RuntimeMirror
   val rm = ru.runtimeMirror(ru.getClass.getClassLoader)
 
   // Scala ClassSymbol and RuntimeClasses
-  val sc = rm.staticClass(strTestClass)   // Load Scala ClassSymbol for name
-  val rc = rm.runtimeClass(sc)            // Load corresponding Java class for Scala ClassSymbol
+  val scTC = rm.staticClass(strTC)   // Load Scala ClassSymbol for name
+  val rcTC = rm.runtimeClass(scTC)   // Load corresponding Java class for Scala ClassSymbol
 
-  val st = rm.staticClass(strTestTrait)   // Load Scala ClassSymbol for name
-  val rt = rm.runtimeClass(st)            // Load corresponding Java class for Scala ClassSymbol
+  val scTT = rm.staticClass(strTT)   // Load Scala ClassSymbol for name
+  val rcTT = rm.runtimeClass(scTT)   // Load corresponding Java class for Scala ClassSymbol
 
-  val sut = rm.staticClass(strUTestTrait) // Load Scala ClassSymbol for name
-  val rut = rm.runtimeClass(sut)          // Load corresponding Java class for Scala ClassSymbol
+  val scUT = rm.staticClass(strUT)   // Load Scala ClassSymbol for name
+  val rcUT = rm.runtimeClass(scUT)   // Load corresponding Java class for Scala ClassSymbol
 
-  println(s"Scala: ${rt.getName} is assignable from ${rc.getName} = ${rt.isAssignableFrom(rc)}")
-  println(s"Scala: ${rut.getName} is assignable from ${rc.getName} = ${rut.isAssignableFrom(rc)}")
+  println(s"Scala: ${rcTT.getName} is assignable from ${rcTC.getName} = ${rcTT.isAssignableFrom(rcTC)}")
+  println(s"Scala: ${rcUT.getName} is assignable from ${rcTC.getName} = ${rcUT.isAssignableFrom(rcTC)}")
 }
