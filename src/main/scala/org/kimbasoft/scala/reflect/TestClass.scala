@@ -12,6 +12,7 @@ class TestClass(name: String) extends TestTrait {
   override def toString: String = s"This is TestClass($name)"
   def aTest(num: Int): String = s"number was $num"
   def myTest(name: String)(id: Int): Unit = {}
+  def aFunct(f: (String) => Boolean): Boolean = f("Hello")
 }
 
 object TestClass {

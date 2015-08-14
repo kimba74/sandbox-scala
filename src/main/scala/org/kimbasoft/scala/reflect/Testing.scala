@@ -10,8 +10,8 @@ import scala.reflect.runtime.{universe => ru}
  */
 object Testing extends App {
 
-  val strTC  = "org.kimbasoft.scala.reflect.TestClass"
-  val strTT  = "org.kimbasoft.scala.reflect.TestTrait"
+  val strTC = "org.kimbasoft.scala.reflect.TestClass"
+  val strTT = "org.kimbasoft.scala.reflect.TestTrait"
   val strUT = "org.kimbasoft.scala.reflect.UberTestTrait"
 
   // Java Classes
