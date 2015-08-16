@@ -32,10 +32,11 @@ object Inspector {
    * @param indent
    */
   private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
-    println(indent + sym)
+    println(s"${indent}class.${sym.name} {")
     for (member <- sym.info.decls) {
       inspect(member, indent + "  ")
     }
+    println(s"$indent}")
     // Inspect Companion Object if existing
     if (sym.companion != ru.NoSymbol)
       inspect(sym.companion)
@@ -58,41 +59,36 @@ object Inspector {
    * @param indent
    */
   private def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
+    val nIndent = indent + "  "
+    println(s"${indent}method.${sym.name} {")
+
     // Determine visibility
-    var visible: String = ""
+    print(s"${nIndent}visibility = ")
     sym match {
-      case p if p.isPrivate   => visible = "private "
-      case p if p.isProtected => visible = "protected "
-      case _ => visible = ""
+      case p if p.isPrivate   => println("private")
+      case p if p.isProtected => println("protected")
+      case p if p.isPublic    => println("public")
+      case _ => println("unknown")
     }
 
     // Determine method type
-    var prefix: String = ""
+    print(s"${nIndent}type = ")
     sym match {
-      case c if c.isConstructor => prefix = "constructor "
-      case s if s.isSetter      => prefix = "setter "
-      case g if g.isGetter      => prefix = "getter "
-      case _ => prefix = "def "
+      case c if c.isConstructor => println("constructor ")
+      case s if s.isSetter      => println("setter")
+      case g if g.isGetter      => println("getter")
+      case _ => println("def")
     }
 
-    // Determine name
-    val name = sym.name.decodedName
+    println(s"${nIndent}returns = ${sym.returnType}")
 
-    //
-    var params = ""
     for (paramList <- sym.info.paramLists) {
-      params = params + "("
+      println(s"${nIndent}inspecting parameter list {")
       for (param <- paramList)
-        params = params + param.name.decodedName + ": " + param.typeSignature + " " //TODO slk: Handle as Term
-      params = params + ")"
+        inspect(param, nIndent + "  ")
+      println(s"$nIndent}")
     }
-
-    // Determine return value
-    val retVal = sym.returnType
-
-    println(indent + visible + prefix + name + params + ": " + retVal)
-    //    for (member <- sym.info.decls)
-    //      inspect(member, indent + "  ")
+    println(s"$indent}")
   }
 
   /**
@@ -101,19 +97,20 @@ object Inspector {
    * @param indent
    */
   private def inspectTerm(sym: ru.TermSymbol, indent: String = ""): Unit = {
-    // Determine type
-    var termType = ""
-    sym match {
-      case v if sym.isVal => termType = "val "
-      case v if sym.isVar => termType = "var "
-      case _ => termType = "??? "
-    }
-    // Determine name
-    val name = sym.name.decodedName
-    // Determine type
-    val retVal = sym.typeSignature
+    val nIndent = indent + "  "
+    println(s"${indent}term.${sym.name} {")
 
-    println(indent + termType + name + ": " + retVal)
+    // Determine type
+    print(s"${nIndent}writability = ")
+    sym match {
+      case v if sym.isVal => println("val")
+      case v if sym.isVar => println("var")
+      case _ => println("unknown")
+    }
+
+    // Determine type
+    println(s"${nIndent}type = ${sym.typeSignature}")
+    println(s"$indent}")
   }
 
   /**
