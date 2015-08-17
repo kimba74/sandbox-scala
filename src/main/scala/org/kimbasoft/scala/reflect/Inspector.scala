@@ -48,9 +48,10 @@ object Inspector {
    * @param indent
    */
   private def inspectModule(sym: ru.ModuleSymbol, indent: String = ""): Unit = {
-    println(indent + sym)
+    println(s"${indent}object.${sym.name} {")
     for (member <- sym.info.decls)
       inspect(member, indent + "  ")
+    println(s"$indent}")
   }
 
   /**
@@ -83,7 +84,7 @@ object Inspector {
     println(s"${nIndent}returns = ${sym.returnType}")
 
     for (paramList <- sym.info.paramLists) {
-      println(s"${nIndent}inspecting parameter list {")
+      println(s"${nIndent}parameter-list {")
       for (param <- paramList)
         inspect(param, nIndent + "  ")
       println(s"$nIndent}")
