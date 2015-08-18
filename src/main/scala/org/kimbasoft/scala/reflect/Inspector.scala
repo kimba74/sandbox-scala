@@ -120,6 +120,6 @@ object Inspector {
    * @param indent
    */
   private def inspectType(sym: ru.TypeSymbol, indent: String = ""): Unit = {
-    println(indent + sym)
+    println(s"${indent}type.${sym.name}")
   }
 }
