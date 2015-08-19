@@ -101,6 +101,15 @@ object Inspector {
     val nIndent = indent + "  "
     println(s"${indent}term.${sym.name} {")
 
+    // Determine visibility
+    print(s"${nIndent}visibility = ")
+    sym match {
+      case p if p.isPrivate   => println("private")
+      case p if p.isProtected => println("protected")
+      case p if p.isPublic    => println("public")
+      case _ => println("unknown")
+    }
+
     // Determine type
     print(s"${nIndent}writability = ")
     sym match {
@@ -108,9 +117,9 @@ object Inspector {
       case v if sym.isVar => println("var")
       case _ => println("unknown")
     }
-
     // Determine type
     println(s"${nIndent}type = ${sym.typeSignature}")
+    println(s"${nIndent}parameter = ${sym.isParameter}")
     println(s"$indent}")
   }
 
