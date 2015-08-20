@@ -117,9 +117,11 @@ object Inspector {
       case v if sym.isVar => println("var")
       case _ => println("unknown")
     }
+
     // Determine type
     println(s"${nIndent}type = ${sym.typeSignature}")
     println(s"${nIndent}parameter = ${sym.isParameter}")
+    println(s"${nIndent}with default = ${sym.isParamWithDefault}")
     println(s"$indent}")
   }
 
