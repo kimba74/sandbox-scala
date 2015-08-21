@@ -120,6 +120,7 @@ object Inspector {
 
     // Determine type
     println(s"${nIndent}type = ${sym.typeSignature}")
+    println(s"${nIndent}stable = ${sym.isStable}")
     println(s"${nIndent}parameter = ${sym.isParameter}")
     println(s"${nIndent}with default = ${sym.isParamWithDefault}")
     println(s"$indent}")
