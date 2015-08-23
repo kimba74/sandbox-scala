@@ -6,9 +6,12 @@ package org.kimbasoft.scala.reflect
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-class TestClass(name: String) extends TestTrait {
+class TestClass(name: String, number: Int) extends TestTrait {
   val id = 1234
   var status = "ALIVE"
+  def this(name: String){
+    this(name, -1)
+  }
   override def toString: String = s"This is TestClass($name)"
   def aTest(num: Int): String = s"number was $num"
   def calByName(num: => Int): String = s"number was $num"
@@ -17,7 +20,8 @@ class TestClass(name: String) extends TestTrait {
 }
 
 object TestClass {
-  def apply(name: String): TestClass = new TestClass(name)
+  def apply(name: String, number: Int): TestClass = new TestClass(name, number)
+  def apply(name: String): TestClass = new TestClass(name, -1)
 }
 
 object TestObject {

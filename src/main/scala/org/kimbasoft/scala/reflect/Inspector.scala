@@ -73,15 +73,22 @@ object Inspector {
     }
 
     // Determine method type
-    print(s"${nIndent}type = ")
+    print(s"${nIndent}type       = ")
     sym match {
-      case c if c.isConstructor => println("constructor ")
-      case s if s.isSetter      => println("setter")
-      case g if g.isGetter      => println("getter")
+      case p if p.isPrimaryConstructor => println("primary constructor")
+      case c if c.isConstructor        => println("constructor")
+      case s if s.isSetter             => println("setter")
+      case g if g.isGetter             => println("getter")
       case _ => println("def")
     }
 
-    println(s"${nIndent}returns = ${sym.returnType}")
+    if (sym.isConstructor)
+      println(s"${nIndent}primary    = ${sym.isPrimaryConstructor}")
+
+    if (sym.isAccessor)
+      println(s"${nIndent}accessed   = ${sym.accessed}")
+
+    println(s"${nIndent}returns    = ${sym.returnType}")
 
     for (paramList <- sym.info.paramLists) {
       println(s"${nIndent}parameter-list {")
@@ -102,7 +109,7 @@ object Inspector {
     println(s"${indent}term.${sym.name} {")
 
     // Determine visibility
-    print(s"${nIndent}visibility = ")
+    print(s"${nIndent}visibility   = ")
     sym match {
       case p if p.isPrivate   => println("private")
       case p if p.isProtected => println("protected")
@@ -111,7 +118,7 @@ object Inspector {
     }
 
     // Determine type
-    print(s"${nIndent}writability = ")
+    print(s"${nIndent}writability  = ")
     sym match {
       case v if sym.isVal => println("val")
       case v if sym.isVar => println("var")
@@ -119,10 +126,11 @@ object Inspector {
     }
 
     // Determine type
-    println(s"${nIndent}type = ${sym.typeSignature}")
-    println(s"${nIndent}stable = ${sym.isStable}")
-    println(s"${nIndent}parameter = ${sym.isParameter}")
-    println(s"${nIndent}by name = ${sym.isByNameParam}")
+    println(s"${nIndent}signature    = ${sym.typeSignature}")
+    println(s"${nIndent}stable       = ${sym.isStable}")
+    println(s"${nIndent}lazy         = ${sym.isLazy}")
+    println(s"${nIndent}parameter    = ${sym.isParameter}")
+    println(s"${nIndent}by name      = ${sym.isByNameParam}")
     println(s"${nIndent}with default = ${sym.isParamWithDefault}")
     println(s"$indent}")
   }

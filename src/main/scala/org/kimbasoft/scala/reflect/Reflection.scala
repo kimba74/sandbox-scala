@@ -28,7 +28,7 @@ object Reflection extends App {
   val mirConstruct = mirTestClass.reflectConstructor(symConstruct)
 
   // Create instance of loaded class via runtime mirror of the primary constructor
-  val objTestClass = mirConstruct("MyTest")
+  val objTestClass = mirConstruct("MyTest", 10)
 
 
   //---- Inspection of the previously instantiated class ----
