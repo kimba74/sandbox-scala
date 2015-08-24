@@ -82,8 +82,7 @@ object Inspector {
       case _ => println("def")
     }
 
-    if (sym.isConstructor)
-      println(s"${nIndent}primary    = ${sym.isPrimaryConstructor}")
+    println(s"${nIndent}overloaded = ${sym.isOverloaded}")
 
     if (sym.isAccessor)
       println(s"${nIndent}accessed   = ${sym.accessed}")
