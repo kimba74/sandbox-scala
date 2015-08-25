@@ -25,6 +25,12 @@ class TestClass(name: String, id: Int) extends TestTrait {
   def myTest(name: String)(id: Int = -1): Unit = {}
 
   def aFunct(f: (String) => Boolean): Boolean = f("Hello")
+
+  def overload(str: String): Unit = {}
+
+  def overload(int: Int): Unit = {}
+
+  def varargs(num: Int, str: String, bol: Boolean*): Unit = {}
 }
 
 
