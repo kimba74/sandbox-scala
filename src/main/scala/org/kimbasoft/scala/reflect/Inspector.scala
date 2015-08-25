@@ -83,6 +83,8 @@ object Inspector {
     }
 
     println(s"${nIndent}overloaded = ${sym.isOverloaded}")
+    println(s"${nIndent}synthetic  = ${sym.isSynthetic}")
+    println(s"${nIndent}varargs    = ${sym.isVarargs}")
 
     if (sym.isAccessor)
       println(s"${nIndent}accessed   = ${sym.accessed}")
