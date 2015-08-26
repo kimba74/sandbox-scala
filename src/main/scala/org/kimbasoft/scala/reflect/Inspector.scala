@@ -73,7 +73,7 @@ object Inspector {
     }
 
     // Determine method type
-    print(s"${nIndent}type       = ")
+    print(s"${nIndent}type         = ")
     sym match {
       case p if p.isPrimaryConstructor => println("primary constructor")
       case c if c.isConstructor        => println("constructor")
@@ -82,14 +82,15 @@ object Inspector {
       case _ => println("def")
     }
 
-    println(s"${nIndent}overloaded = ${sym.isOverloaded}")
-    println(s"${nIndent}synthetic  = ${sym.isSynthetic}")
-    println(s"${nIndent}varargs    = ${sym.isVarargs}")
+    println(s"${nIndent}param access = ${sym.isParamAccessor}")
+    println(s"${nIndent}overloaded   = ${sym.isOverloaded}")
+    println(s"${nIndent}synthetic    = ${sym.isSynthetic}")
+    println(s"${nIndent}varargs      = ${sym.isVarargs}")
 
     if (sym.isAccessor)
-      println(s"${nIndent}accessed   = ${sym.accessed}")
+      println(s"${nIndent}accessed     = ${sym.accessed}")
 
-    println(s"${nIndent}returns    = ${sym.returnType}")
+    println(s"${nIndent}returns      = ${sym.returnType}")
 
     for (paramList <- sym.info.paramLists) {
       println(s"${nIndent}parameter-list {")
