@@ -64,7 +64,7 @@ object Inspector {
     println(s"${indent}method.${sym.name} {")
 
     // Determine visibility
-    print(s"${nIndent}visibility = ")
+    print(s"${nIndent}visibility   = ")
     sym match {
       case p if p.isPrivate   => println("private")
       case p if p.isProtected => println("protected")
@@ -75,10 +75,19 @@ object Inspector {
     // Determine method type
     print(s"${nIndent}type         = ")
     sym match {
-      case p if p.isPrimaryConstructor => println("primary constructor")
-      case c if c.isConstructor        => println("constructor")
-      case s if s.isSetter             => println("setter")
-      case g if g.isGetter             => println("getter")
+      case cst if cst.isConstructor => {
+        cst match {
+          case p if p.isPrimaryConstructor => println("primary constructor")
+          case c if c.isConstructor => println("constructor")
+        }
+      }
+      case acs if acs.isAccessor  => {
+        acs match {
+          case s if s.isSetter => println("setter")
+          case g if g.isGetter => println("getter")
+        }
+        println(s"${nIndent}accessed     = ${sym.accessed}")
+      }
       case _ => println("def")
     }
 
@@ -86,9 +95,6 @@ object Inspector {
     println(s"${nIndent}overloaded   = ${sym.isOverloaded}")
     println(s"${nIndent}synthetic    = ${sym.isSynthetic}")
     println(s"${nIndent}varargs      = ${sym.isVarargs}")
-
-    if (sym.isAccessor)
-      println(s"${nIndent}accessed     = ${sym.accessed}")
 
     println(s"${nIndent}returns      = ${sym.returnType}")
 
