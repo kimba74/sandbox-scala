@@ -98,8 +98,10 @@ object Inspector {
     println(s"${nIndent}overloaded   = ${sym.isOverloaded}")
     println(s"${nIndent}synthetic    = ${sym.isSynthetic}")
     println(s"${nIndent}varargs      = ${sym.isVarargs}")
-
     println(s"${nIndent}returns      = ${sym.returnType}")
+
+    if (sym.alternatives.nonEmpty)
+      println(s"${nIndent}alternatives = ${sym.alternatives}")
 
     for (paramList <- sym.info.paramLists) {
       println(s"${nIndent}parameter-list {")
