@@ -28,7 +28,7 @@ class TestClass(name: String, id: Int) extends TestTrait {
 
   def overload(str: String): Unit = {}
 
-  def overload(int: Int): Unit = {}
+  def overload(str: String, int: Int): Unit = {}
 
   def varargs(num: Int, str: String, bol: Boolean*): Unit = {}
 }
