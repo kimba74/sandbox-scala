@@ -96,7 +96,7 @@ object Inspector {
     }
 
     println(s"${nIndent}param access = ${sym.isParamAccessor}")
-    println(s"${nIndent}overloaded   = ${sym.isOverloaded}")
+    println(s"${nIndent}overloaded   = ${sym.isOverloaded}")  // Does not seem to recognize an overloaded method
     println(s"${nIndent}synthetic    = ${sym.isSynthetic}")
     println(s"${nIndent}varargs      = ${sym.isVarargs}")
     println(s"${nIndent}returns      = ${sym.returnType}")
