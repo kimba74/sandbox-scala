@@ -95,6 +95,7 @@ object Inspector {
       case _ => println("def")
     }
 
+    // Inspect MethodSymbol information
     println(s"${nIndent}param access = ${sym.isParamAccessor}")
     println(s"${nIndent}overloaded   = ${sym.isOverloaded}")  // Does not seem to recognize an overloaded method
     println(s"${nIndent}synthetic    = ${sym.isSynthetic}")
