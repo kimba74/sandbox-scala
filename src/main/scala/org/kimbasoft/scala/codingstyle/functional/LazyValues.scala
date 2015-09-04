@@ -22,7 +22,7 @@ object LazyValues {
       val value: Int = 10
     }
     println("In con: ")
-    println("  con.value = " + con.value + ", con.stat_inverse=" + con.stat_inverse)
-    println("  con.value = " + con.value + ", con.lazy_inverse=" + con.lazy_inverse)
+    println(s"  con.value = ${con.value}, con.stat_inverse=${con.stat_inverse}")
+    println(s"  con.value = ${con.value}, con.lazy_inverse=${con.lazy_inverse}")
   }
 }
