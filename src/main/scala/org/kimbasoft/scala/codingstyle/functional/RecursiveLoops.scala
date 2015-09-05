@@ -110,6 +110,6 @@ object RecursiveLoops {
      * the TailRec object representing the result.
      */
     println("-- Trampoline Tail Calls -----------")
-    for (i <- 1 to 10) println(i +" is even? " + isEven((1 to i).toList).result)
+    for (i <- 1 to 10) println(s"$i is even? ${isEven((1 to i).toList).result}")
   }
 }

@@ -106,7 +106,7 @@ object Currying {
      * loop call. */
     var count = 0
     myWhile(count < 5){
-      println(count + ". iteration")
+      println(s"$count. iteration")
       count += 1
     }
   }

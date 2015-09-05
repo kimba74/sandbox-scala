@@ -15,7 +15,7 @@ object CallBy {
    * default behavior.
    */
   def callByValue(amount: Int): Unit = {
-    println("Call-by-Value: " + amount)
+    println(s"Call-by-Value: $amount")
   }
 
   /**
@@ -25,7 +25,7 @@ object CallBy {
    * are referred to as Call-by-Name parameter.
    */
   def callByName(amount: => Int): Unit = {
-    println("Call-by-Name : " + amount)
+    println(s"Call-by-Name : $amount")
   }
 
   /**
@@ -57,7 +57,7 @@ object CallBy {
     println("-- Custom While Loop ---------------")
     var count = 0
     myWhile(count < 5) {  // Also notice how the curried function is passed via {} and not ()
-      println("Iteration " + count + ": Still looping")
+      println(s"Iteration $count: Still looping")
       count += 1
     }
   }
