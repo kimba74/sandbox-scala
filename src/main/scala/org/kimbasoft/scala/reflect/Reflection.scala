@@ -33,6 +33,10 @@ object Reflection extends App {
 
   //---- Inspection of the previously instantiated class ----
 
+  // Retrieving Java Runtime Class for Scala ClassSymbol
+  println(s"Java Class object for ClassSymbol")
+  println(s"  > ${mirClassLoader.runtimeClass(symTestClass)}")
+
   // Invoke toString() of the instance of the dynamically loaded class
   println("Calling toString()")
   println(s"  > $objTestClass")
