@@ -61,11 +61,12 @@ object Reflection extends App {
   println(s"  > ${symTestClass.toType =:= ru.typeOf[TestClass]}")
 
   println("\n-- Inspection --------------------------------------------")
-  // Using Inspector to inspect class
+  // Using Inspector to inspect ClassSymbol
   Inspector.inspect(symTestClass)
 
   println("\n-- Analysis ----------------------------------------------")
-  Analyze.analyze(symTestClass, "sym")
+  // Using Analyzer to analyze ClassSymbol
+  Analyzer.analyze(symTestClass, "sym")
 
   println("\n-- Tests -------------------------------------------------")
   println(s"symTestClass =:= ru.typeOf[TestClass] = ${symTestClass.toType =:= ru.typeOf[TestClass]}")

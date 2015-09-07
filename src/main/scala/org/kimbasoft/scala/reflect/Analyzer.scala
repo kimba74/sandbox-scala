@@ -8,7 +8,7 @@ import scala.reflect.runtime.{universe => ru}
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-object Analyze {
+object Analyzer {
 
   /**
    * Analyzes a ClassSymbol and prints out all information found.
