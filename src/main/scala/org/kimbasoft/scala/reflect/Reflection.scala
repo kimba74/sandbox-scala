@@ -17,9 +17,12 @@ object Reflection extends App {
 
   // Loading the ClassSymbol for a specified class based on the class' fully qualified name
   val symTestClass = mirClassLoader.staticClass("org.kimbasoft.scala.reflect.TestClass")
-  
+
   // Getting the runtime mirror for the provided ClassSymbol
   val mirTestClass = mirClassLoader.reflectClass(symTestClass)
+
+  // Getting the runtime class object for the provided ClassSymbol
+  val clsTestClass = mirClassLoader.runtimeClass(symTestClass)
 
   // Loading the MethodSymbol for the primary constructor of the specified ClassSymbol
   val symConstruct = symTestClass.primaryConstructor.asMethod
@@ -34,8 +37,8 @@ object Reflection extends App {
   //---- Inspection of the previously instantiated class ----
 
   // Retrieving Java Runtime Class for Scala ClassSymbol
-  println(s"Java Class object for ClassSymbol")
-  println(s"  > ${mirClassLoader.runtimeClass(symTestClass)}")
+  println(s"Getting Java Class object for ClassSymbol")
+  println(s"  > $clsTestClass")
 
   // Invoke toString() of the instance of the dynamically loaded class
   println("Calling toString()")
