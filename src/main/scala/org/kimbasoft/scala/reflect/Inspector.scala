@@ -85,10 +85,12 @@ object Inspector {
       }
       // Check if method is an accessor
       case acs if acs.isAccessor  => {
+        // Check type of accessor
         acs match {
           case s if s.isSetter => println("setter")
           case g if g.isGetter => println("getter")
         }
+        // Check field accessed
         println(s"${nIndent}accessed     = ${sym.accessed}")
       }
       // Default check, method is just regular method
