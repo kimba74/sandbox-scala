@@ -18,21 +18,21 @@ class TestClass(name: String, id: Int) extends TestTrait {
 
   override def toString: String = s"This is TestClass($name)"
 
-  def aTest(num: Int): String = s"number was $num"
+  def intTest(num: Int): String = s"number was $num"
 
-  def calByName(num: => Int): String = s"number was $num"
+  def callByNameTest(num: => Int): String = s"number was $num"
 
-  def myTest(name: String)(id: Int = -1): Unit = {}
+  def curryingTest(name: String)(id: Int = -1): Unit = {}
 
-  def aFunct(f: (String) => Boolean): Boolean = f("Hello")
+  def functionTest(f: (String) => Boolean): Boolean = f("Hello")
 
-  def overload(str: String): Int = overload(str, 0)
+  def overloadTest(str: String): Int = overloadTest(str, 0)
 
-  def overload(int: Int): Int = overload("", int)
+  def overloadTest(int: Int): Int = overloadTest("", int)
 
-  def overload(str: String, int: Int) = int + str.length
+  def overloadTest(str: String, int: Int) = int + str.length
 
-  def varargs(num: Int, str: String, bol: Boolean*): Unit = {}
+  def varargsTest(num: Int, str: String, bol: Boolean*): Unit = {}
 }
 
 
@@ -41,6 +41,10 @@ object TestClass {
   def apply(name: String, number: Int): TestClass = new TestClass(name, number)
 
   def apply(name: String): TestClass = new TestClass(name, -1)
+
+  def unapply(inst: TestClass): Option[(Int, String)] = {
+    Some((inst.number, inst.status))
+  }
 }
 
 
