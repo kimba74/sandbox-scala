@@ -43,12 +43,13 @@ object Analyzer {
    * @param prefix A prefix to prepend the output with
    */
   def infos(typ: ru.Type, prefix: String = ""): Unit = {
-    println(s"$prefix               = $typ")
-    println(s"$prefix - baseClasses = ${typ.baseClasses}")
-    println(s"$prefix - dealias     = ${typ.dealias}")
-    println(s"$prefix - decls       = ${typ.decls}")
-    println(s"$prefix - erasure     = ${typ.erasure}")
-    println(s"$prefix - etaExpand   = ${typ.etaExpand}")
+    println(s"$prefix                   = $typ")
+    println(s"$prefix - baseClasses     = ${typ.baseClasses}")
+    println(s"$prefix - dealias         = ${typ.dealias}")
+    println(s"$prefix - decls           = ${typ.decls}")
+    println(s"$prefix - erasure         = ${typ.erasure}")
+    println(s"$prefix - etaExpand       = ${typ.etaExpand}")
+    println(s"$prefix - finalResultType = ${typ.finalResultType}")
   }
 
   /**
