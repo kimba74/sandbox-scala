@@ -45,6 +45,7 @@ object Analyzer {
   def infos(typ: ru.Type, prefix: String = ""): Unit = {
     println(s"$prefix                   = $typ")
     println(s"$prefix - baseClasses     = ${typ.baseClasses}")
+    println(s"$prefix - companion       = ${typ.companion}")
     println(s"$prefix - dealias         = ${typ.dealias}")
     println(s"$prefix - decls           = ${typ.decls}")
     println(s"$prefix - erasure         = ${typ.erasure}")
