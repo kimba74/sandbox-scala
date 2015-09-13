@@ -20,6 +20,8 @@ class TestClass(name: String, id: Int) extends TestTrait {
 
   def intTest(num: Int): String = s"number was $num"
 
+  def defaultValueTest(id: Int = -1, name: String = "unknown"): Unit = {}
+
   def callByNameTest(num: => Int): String = s"number was $num"
 
   def curryingTest(name: String)(id: Int = -1): Unit = {}
