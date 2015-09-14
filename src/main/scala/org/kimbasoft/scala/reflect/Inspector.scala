@@ -16,7 +16,7 @@ object Inspector {
    * @param indent
    */
   def inspect(sym: ru.Symbol, indent: String = "") = {
-    println(s"$indent//is method? ${sym.isMethod}")
+    println(s"$indent//position: ${sym.pos}")
     sym match {
       case c: ru.ClassSymbol  => inspectClass(c, indent)
       case m: ru.ModuleSymbol => inspectModule(m, indent)
