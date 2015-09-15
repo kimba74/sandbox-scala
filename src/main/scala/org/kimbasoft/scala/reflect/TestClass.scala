@@ -12,6 +12,14 @@ class TestClass(name: String, id: Int) extends TestTrait {
 
   var status = "ALIVE"
 
+  private val privateValue = -1
+
+  private[reflect] val privateScope = -2
+
+  protected val protectedValue = -3
+
+  protected[reflect] val protectedScope = -4
+
   def this(name: String){
     this(name, -1)
   }
