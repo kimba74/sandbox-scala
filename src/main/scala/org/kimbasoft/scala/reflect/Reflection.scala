@@ -44,13 +44,6 @@ object Reflection extends App {
   println("Calling toString()")
   println(s"  > $objTestClass")
 
-  // Inspecting the parameter list of the MethodSymbol of the default constructor
-  println("Inspecting constructor parameters")
-  for(symList <- symConstruct.info.paramLists) {
-    for(symbol <- symList)
-    println(s"  > ${symbol.name}: ${symbol.info}")
-  }
-
   // Inspecting the base classes of the ClassSymbol
   println("Inspecting base classes")
   for (tsym <- symTestClass.baseClasses)
