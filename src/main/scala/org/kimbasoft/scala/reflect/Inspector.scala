@@ -142,7 +142,7 @@ object Inspector {
       case _ => println("unknown")
     }
 
-    // Determine type
+    // Inspect type descriptors
     println(s"${nIndent}signature    = ${sym.typeSignature}")
     println(s"${nIndent}stable       = ${sym.isStable}")
     println(s"${nIndent}lazy         = ${sym.isLazy}")
