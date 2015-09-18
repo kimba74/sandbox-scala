@@ -16,7 +16,6 @@ object Inspector {
    * @param indent
    */
   def inspect(sym: ru.Symbol, indent: String = "") = {
-    println(s"$indent//position: ${sym.pos}")
     sym match {
       case c: ru.ClassSymbol  => inspectClass(c, indent)
       case m: ru.ModuleSymbol => inspectModule(m, indent)
@@ -33,7 +32,10 @@ object Inspector {
    * @param indent
    */
   private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
+    val nIndent = indent + "  "
     println(s"${indent}class.${sym.name} {")
+    println(s"${nIndent}alternatives = ${sym.alternatives}")
+    println(s"${nIndent}baseClasses  = ${sym.baseClasses}")
     for (member <- sym.info.decls) {
       inspect(member, indent + "  ")
     }
