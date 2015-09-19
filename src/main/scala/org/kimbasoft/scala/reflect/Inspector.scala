@@ -34,8 +34,14 @@ object Inspector {
   private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
     val nIndent = indent + "  "
     println(s"${indent}class.${sym.name} {")
-    println(s"${nIndent}alternatives = ${sym.alternatives}")
-    println(s"${nIndent}baseClasses  = ${sym.baseClasses}")
+    println(s"${nIndent}alternatives        = ${sym.alternatives}")
+    println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
+    println(s"${nIndent}isAbstract          = ${sym.isAbstract}")
+    println(s"${nIndent}isAliasType         = ${sym.isAliasType}")
+    println(s"${nIndent}isCaseClass         = ${sym.isCaseClass}")
+    println(s"${nIndent}isDerivedValueClass = ${sym.isDerivedValueClass}")
+    println(s"${nIndent}isExistential       = ${sym.isExistential}")
+    println(s"${nIndent}isFinal             = ${sym.isFinal}")
     for (member <- sym.info.decls) {
       inspect(member, indent + "  ")
     }
