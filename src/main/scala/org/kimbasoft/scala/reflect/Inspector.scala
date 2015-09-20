@@ -42,6 +42,7 @@ object Inspector {
     println(s"${nIndent}isDerivedValueClass = ${sym.isDerivedValueClass}")
     println(s"${nIndent}isExistential       = ${sym.isExistential}")
     println(s"${nIndent}isFinal             = ${sym.isFinal}")
+    println(s"${nIndent}isModuleClass       = ${sym.isModuleClass}")
     for (member <- sym.info.decls) {
       inspect(member, indent + "  ")
     }
