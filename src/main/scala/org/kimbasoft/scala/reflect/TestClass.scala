@@ -24,6 +24,8 @@ class TestClass(name: String, id: Int) extends TestTrait {
     this(name, -1)
   }
 
+  override def traitMethod(str: String): Unit = {}
+
   override def toString: String = s"This is TestClass($name)"
 
   def intTest(num: Int): String = s"number was $num"
@@ -70,7 +72,10 @@ case class TestCase(name: String) {
 }
 
 
-trait TestTrait extends UberTestTrait
+trait TestTrait extends UberTestTrait {
+
+  def traitMethod(str: String): Unit
+}
 
 
 trait UberTestTrait

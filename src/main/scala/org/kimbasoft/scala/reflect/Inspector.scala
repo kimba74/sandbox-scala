@@ -37,6 +37,7 @@ object Inspector {
     println(s"${nIndent}alternatives        = ${sym.alternatives}")
     println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
     println(s"${nIndent}isAbstract          = ${sym.isAbstract}")
+    println(s"${nIndent}isAbstractOverride  = ${sym.isAbstractOverride}")
     println(s"${nIndent}isAliasType         = ${sym.isAliasType}")
     println(s"${nIndent}isCaseClass         = ${sym.isCaseClass}")
     println(s"${nIndent}isDerivedValueClass = ${sym.isDerivedValueClass}")
@@ -74,7 +75,7 @@ object Inspector {
     println(s"${indent}method.${sym.name} {")
 
     // Determine visibility
-    print(s"${nIndent}visibility   = ")
+    print(s"${nIndent}visibility         = ")
     sym match {
       case p if p.isPrivate   => println("private")
       case p if p.isProtected => println("protected")
@@ -83,13 +84,13 @@ object Inspector {
     }
 
     // Determine method type
-    print(s"${nIndent}type         = ")
+    print(s"${nIndent}type               = ")
     sym match {
       // Check if method is a constructor
       case cst if cst.isConstructor => {
         cst match {
           case p if p.isPrimaryConstructor => println("primary constructor")
-          case c if c.isConstructor => println("constructor")
+          case c if c.isConstructor => println("coParamAccessornstructor")
         }
       }
       // Check if method is an accessor
@@ -100,21 +101,23 @@ object Inspector {
           case g if g.isGetter => println("getter")
         }
         // Check field accessed
-        println(s"${nIndent}accessed     = ${sym.accessed}")
+        println(s"${nIndent}accessed           = ${sym.accessed}")
       }
       // Default check, method is just regular method
       case _ => println("def")
     }
 
     // Inspect MethodSymbol information
-    println(s"${nIndent}param access = ${sym.isParamAccessor}")
-    println(s"${nIndent}overloaded   = ${sym.isOverloaded}")  // Does not seem to recognize an overloaded method
-    println(s"${nIndent}synthetic    = ${sym.isSynthetic}")
-    println(s"${nIndent}varargs      = ${sym.isVarargs}")
-    println(s"${nIndent}returns      = ${sym.returnType}")
+    println(s"${nIndent}isAbstract         = ${sym.isAbstract}")
+    println(s"${nIndent}isAbstractOverride = ${sym.isAbstractOverride}")
+    println(s"${nIndent}param access       = ${sym.isParamAccessor}")
+    println(s"${nIndent}overloaded         = ${sym.isOverloaded}")  // Does not seem to recognize an overloaded method
+    println(s"${nIndent}synthetic          = ${sym.isSynthetic}")
+    println(s"${nIndent}varargs            = ${sym.isVarargs}")
+    println(s"${nIndent}returns            = ${sym.returnType}")
 
     if (sym.alternatives.nonEmpty)
-      println(s"${nIndent}alternatives = ${sym.alternatives}")
+      println(s"${nIndent}alternatives       = ${sym.alternatives}")
 
     for (paramList <- sym.info.paramLists) {
       println(s"${nIndent}parameter-list {")
