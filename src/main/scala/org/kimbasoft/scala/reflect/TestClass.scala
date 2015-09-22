@@ -6,7 +6,7 @@ package org.kimbasoft.scala.reflect
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
  */
-class TestClass(name: String, id: Int) extends TestTrait {
+class TestClass(name: String, id: Int) extends AbstractTestClass with TestTrait {
 
   val number = 1234
 
@@ -25,6 +25,8 @@ class TestClass(name: String, id: Int) extends TestTrait {
   }
 
   override def traitMethod(str: String): Unit = {}
+
+  override def abstractMethod(str: String): String = s"Default Implementation with '$str'"
 
   override def toString: String = s"This is TestClass($name)"
 
@@ -60,6 +62,17 @@ object TestClass {
 }
 
 
+abstract class AbstractTestClass {
+
+  def abstractMethod(str: String): String
+}
+
+trait MixinTestClass extends AbstractTestClass {
+
+  abstract override def abstractMethod(str: String): String = s">>>${super.abstractMethod(str)}<<<"
+}
+
+
 object TestObject {
 
   override def toString: String = "This is TestObject"
@@ -77,5 +90,4 @@ trait TestTrait extends UberTestTrait {
   def traitMethod(str: String): Unit
 }
 
-
-trait UberTestTrait
+trait UberTestTrait { }
