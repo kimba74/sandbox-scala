@@ -56,6 +56,10 @@ object Reflection extends App {
   println("\n-- Inspection --------------------------------------------")
   // Using Inspector to inspect ClassSymbol
   Inspector.inspect(symTestClass)
+  // Using Inspector to inspect Trait
+  Inspector.inspect(mirClassLoader.staticClass("org.kimbasoft.scala.reflect.MixinTestClass"))
+  // Using Inspector to inspect CaseClass
+  Inspector.inspect(mirClassLoader.staticClass("org.kimbasoft.scala.reflect.TestCase"))
 
   println("\n-- Analysis ----------------------------------------------")
   // Using Analyzer to analyze ClassSymbol
