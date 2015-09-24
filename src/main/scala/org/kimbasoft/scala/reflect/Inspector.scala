@@ -35,15 +35,15 @@ object Inspector {
     val nIndent = indent + "  "
     println(s"$indent")
     sym match {
-      case c if c.isCaseClass => print("caseClass")
-      case t if t.isTrait     => print("trait")
+      case c if c.isCaseClass         => print("caseClass")
+      case c if c.isDerivedValueClass => print("customValueClass")
+      case t if t.isTrait             => print("trait")
       case _ => print("class")
     }
     println(s".${sym.name} {")
     println(s"${nIndent}alternatives        = ${sym.alternatives}")
     println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
     println(s"${nIndent}isAbstract          = ${sym.isAbstract}")
-    println(s"${nIndent}isAbstractOverride  = ${sym.isAbstractOverride}")
     println(s"${nIndent}isAliasType         = ${sym.isAliasType}")
     println(s"${nIndent}isDerivedValueClass = ${sym.isDerivedValueClass}")
     println(s"${nIndent}isExistential       = ${sym.isExistential}")
