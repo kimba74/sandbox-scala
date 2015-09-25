@@ -47,6 +47,11 @@ class TestClass(name: String, id: Int) extends AbstractTestClass with TestTrait 
   def overloadTest(str: String, int: Int) = int + str.length
 
   def varargsTest(num: Int, str: String, bol: Boolean*): Unit = {}
+
+  private class InnerTestClass {
+
+    def innerMethod(int: Int): Boolean = int % 2 != 0
+  }
 }
 
 

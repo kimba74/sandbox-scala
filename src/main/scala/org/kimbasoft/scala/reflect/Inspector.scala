@@ -33,7 +33,7 @@ object Inspector {
    */
   private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
     val nIndent = indent + "  "
-    println(s"$indent")
+    print(s"$indent")
     sym match {
       case c if c.isCaseClass         => print("caseClass")
       case c if c.isDerivedValueClass => print("customValueClass")
@@ -50,7 +50,7 @@ object Inspector {
     println(s"${nIndent}isFinal             = ${sym.isFinal}")
     println(s"${nIndent}isModuleClass       = ${sym.isModuleClass}")
     for (member <- sym.info.decls) {
-      inspect(member, indent + "  ")
+      inspect(member, nIndent)
     }
     println(s"$indent}")
     // Inspect Companion Object if existing
