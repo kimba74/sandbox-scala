@@ -41,6 +41,7 @@ object Inspector {
       case _ => print("class")
     }
     println(s".${sym.name} {")
+
     println(s"${nIndent}alternatives        = ${sym.alternatives}")
     println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
     println(s"${nIndent}isAbstract          = ${sym.isAbstract}")
@@ -140,24 +141,24 @@ object Inspector {
    */
   private def inspectTerm(sym: ru.TermSymbol, indent: String = ""): Unit = {
     val nIndent = indent + "  "
-    println(s"${indent}term.${sym.name} {")
-
-    // Determine visibility
-    print(s"${nIndent}visibility   = ")
-    sym match {
-      case p if p.isPrivate   => println("private")
-      case p if p.isProtected => println("protected")
-      case p if p.isPublic    => println("public")
-      case _ => println("unknown")
-    }
 
     // Determine type
-    print(s"${nIndent}writability  = ")
+    print(s"$indent")
     sym match {
-      case v if sym.isVal => println("val")
-      case v if sym.isVar => println("var")
-      case _ => println("unknown")
+      case v if sym.isVal => print("val")
+      case v if sym.isVar => print("var")
+      case _ => print("term")
     }
+
+    // Determine visibility
+    print(s"[")
+    sym match {
+      case p if p.isPrivate   => print("private")
+      case p if p.isProtected => print("protected")
+      case p if p.isPublic    => print("public")
+      case _ => print("unknown")
+    }
+    println(s"].${sym.name} {")
 
     // Inspect type descriptors
     println(s"${nIndent}signature    = ${sym.typeSignature}")
