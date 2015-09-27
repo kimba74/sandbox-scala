@@ -78,7 +78,31 @@ object Inspector {
    */
   private def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
     val nIndent = indent + "  "
-    println(s"${indent}method.${sym.name} {")
+    print(s"${indent}")
+
+    // Determine method type
+    sym match {
+      // Check if method is a constructor
+      case cst if cst.isConstructor => {
+        cst match {
+          case p if p.isPrimaryConstructor => print("constructor.primary")
+          case c if c.isConstructor => print("constructor")
+        }
+      }
+      // Check if method is an accessor
+      case acs if acs.isAccessor  => {
+        // Check type of accessor
+        acs match {
+          case s if s.isSetter => print("setter")
+          case g if g.isGetter => print("getter")
+        }
+        // Check field accessed
+//        println(s"${nIndent}accessed           = ${sym.accessed}")
+      }
+      // Default check, method is just regular method
+      case _ => print("def")
+    }
+    println(s".${sym.name} {")
 
     // Determine visibility
     print(s"${nIndent}visibility         = ")
@@ -87,30 +111,6 @@ object Inspector {
       case p if p.isProtected => println("protected")
       case p if p.isPublic    => println("public")
       case _ => println("unknown")
-    }
-
-    // Determine method type
-    print(s"${nIndent}type               = ")
-    sym match {
-      // Check if method is a constructor
-      case cst if cst.isConstructor => {
-        cst match {
-          case p if p.isPrimaryConstructor => println("primary constructor")
-          case c if c.isConstructor => println("coParamAccessornstructor")
-        }
-      }
-      // Check if method is an accessor
-      case acs if acs.isAccessor  => {
-        // Check type of accessor
-        acs match {
-          case s if s.isSetter => println("setter")
-          case g if g.isGetter => println("getter")
-        }
-        // Check field accessed
-        println(s"${nIndent}accessed           = ${sym.accessed}")
-      }
-      // Default check, method is just regular method
-      case _ => println("def")
     }
 
     // Inspect MethodSymbol information
