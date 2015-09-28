@@ -102,16 +102,16 @@ object Inspector {
       // Default check, method is just regular method
       case _ => print("def")
     }
-    println(s".${sym.name} {")
 
     // Determine visibility
-    print(s"${nIndent}visibility         = ")
+    print("[")
     sym match {
-      case p if p.isPrivate   => println("private")
-      case p if p.isProtected => println("protected")
-      case p if p.isPublic    => println("public")
-      case _ => println("unknown")
+      case p if p.isPrivate   => print("private")
+      case p if p.isProtected => print("protected")
+      case p if p.isPublic    => print("public")
+      case _ => print("unknown")
     }
+    println(s"].${sym.name} {")
 
     // Inspect MethodSymbol information
     println(s"${nIndent}isAbstract         = ${sym.isAbstract}")
@@ -151,7 +151,7 @@ object Inspector {
     }
 
     // Determine visibility
-    print(s"[")
+    print("[")
     sym match {
       case p if p.isPrivate   => print("private")
       case p if p.isProtected => print("protected")
