@@ -10,6 +10,9 @@ import scala.reflect.runtime.{universe => ru}
  */
 object Inspector {
 
+
+  val increment = "  "
+
   /**
    *
    * @param sym
@@ -31,16 +34,27 @@ object Inspector {
    * @param sym
    * @param indent
    */
-  private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
-    val nIndent = indent + "  "
+  private def inspectClass(sym: ru.ClassSymbol, indent: String = "", increment: String = increment): Unit = {
+    val nIndent = indent + increment
     print(s"$indent")
+
+    // Determine class type
     sym match {
       case c if c.isCaseClass         => print("caseClass")
       case c if c.isDerivedValueClass => print("customValueClass")
       case t if t.isTrait             => print("trait")
       case _ => print("class")
     }
-    println(s".${sym.name} {")
+
+    // Determine visibility
+    print("[")
+    sym match {
+      case p if p.isPrivate   => print("private")
+      case p if p.isProtected => print("protected")
+      case p if p.isPublic    => print("public")
+      case _ => print("unknown")
+    }
+    println(s"].${sym.name} {")
 
     println(s"${nIndent}alternatives        = ${sym.alternatives}")
     println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
@@ -76,8 +90,8 @@ object Inspector {
    * @param sym
    * @param indent
    */
-  private def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
-    val nIndent = indent + "  "
+  private def inspectMethod(sym: ru.MethodSymbol, indent: String = "", increment: String = increment): Unit = {
+    val nIndent = indent + increment
     print(s"${indent}")
 
     // Determine method type
@@ -139,8 +153,8 @@ object Inspector {
    * @param sym
    * @param indent
    */
-  private def inspectTerm(sym: ru.TermSymbol, indent: String = ""): Unit = {
-    val nIndent = indent + "  "
+  private def inspectTerm(sym: ru.TermSymbol, indent: String = "", increment: String = increment): Unit = {
+    val nIndent = indent + increment
 
     // Determine type
     print(s"$indent")
