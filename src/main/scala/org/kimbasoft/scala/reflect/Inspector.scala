@@ -34,11 +34,11 @@ object Inspector {
    * @param sym
    * @param indent
    */
-  private def inspectClass(sym: ru.ClassSymbol, indent: String = "", increment: String = increment): Unit = {
-    val nIndent = indent + increment
-    print(s"$indent")
+  private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
+    val nIndent = incrementIndent(indent)
 
     // Determine class type
+    print(s"$indent")
     sym match {
       case c if c.isCaseClass         => print("caseClass")
       case c if c.isDerivedValueClass => print("customValueClass")
@@ -47,14 +47,7 @@ object Inspector {
     }
 
     // Determine visibility
-    print("[")
-    sym match {
-      case p if p.isPrivate   => print("private")
-      case p if p.isProtected => print("protected")
-      case p if p.isPublic    => print("public")
-      case _ => print("unknown")
-    }
-    println(s"].${sym.name} {")
+    println(s"[${resolveVisibility(sym)}].${sym.name} {")
 
     println(s"${nIndent}alternatives        = ${sym.alternatives}")
     println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
@@ -90,11 +83,11 @@ object Inspector {
    * @param sym
    * @param indent
    */
-  private def inspectMethod(sym: ru.MethodSymbol, indent: String = "", increment: String = increment): Unit = {
-    val nIndent = indent + increment
-    print(s"${indent}")
+  private def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
+    val nIndent = incrementIndent(indent)
 
     // Determine method type
+    print(s"${indent}")
     sym match {
       // Check if method is a constructor
       case cst if cst.isConstructor => {
@@ -118,14 +111,7 @@ object Inspector {
     }
 
     // Determine visibility
-    print("[")
-    sym match {
-      case p if p.isPrivate   => print("private")
-      case p if p.isProtected => print("protected")
-      case p if p.isPublic    => print("public")
-      case _ => print("unknown")
-    }
-    println(s"].${sym.name} {")
+    println(s"[${resolveVisibility(sym)}].${sym.name} {")
 
     // Inspect MethodSymbol information
     println(s"${nIndent}isAbstract         = ${sym.isAbstract}")
@@ -153,8 +139,8 @@ object Inspector {
    * @param sym
    * @param indent
    */
-  private def inspectTerm(sym: ru.TermSymbol, indent: String = "", increment: String = increment): Unit = {
-    val nIndent = indent + increment
+  private def inspectTerm(sym: ru.TermSymbol, indent: String = ""): Unit = {
+    val nIndent = incrementIndent(indent)
 
     // Determine type
     print(s"$indent")
@@ -165,14 +151,7 @@ object Inspector {
     }
 
     // Determine visibility
-    print("[")
-    sym match {
-      case p if p.isPrivate   => print("private")
-      case p if p.isProtected => print("protected")
-      case p if p.isPublic    => print("public")
-      case _ => print("unknown")
-    }
-    println(s"].${sym.name} {")
+    println(s"[${resolveVisibility(sym)}].${sym.name} {")
 
     // Inspect type descriptors
     println(s"${nIndent}signature    = ${sym.typeSignature}")
@@ -191,5 +170,27 @@ object Inspector {
    */
   private def inspectType(sym: ru.TypeSymbol, indent: String = ""): Unit = {
     println(s"${indent}type.${sym.name}")
+  }
+
+  /**
+   *
+   * @param indent
+   * @param increment
+   * @return
+   */
+  private def incrementIndent(indent: String, increment: String = increment): String = indent + increment
+
+  /**
+   *
+   * @param sym
+   * @return
+   */
+  private def resolveVisibility(sym: ru.Symbol): String = {
+    sym match {
+      case p if p.isPrivate   => "private"
+      case p if p.isProtected => "protected"
+      case p if p.isPublic    => "public"
+      case _ => "unknown"
+    }
   }
 }
