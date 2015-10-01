@@ -38,16 +38,13 @@ object Inspector {
     val nIndent = incrementIndent(indent)
 
     // Determine class type
-    print(s"$indent")
-    sym match {
-      case c if c.isCaseClass         => print("caseClass")
-      case c if c.isDerivedValueClass => print("customValueClass")
-      case t if t.isTrait             => print("trait")
-      case _ => print("class")
+    val classType = sym match {
+      case c if c.isCaseClass         => "caseClass"
+      case c if c.isDerivedValueClass => "customValueClass"
+      case t if t.isTrait             => "trait"
+      case _ => "class"
     }
-
-    // Determine visibility
-    println(s"[${resolveVisibility(sym)}].${sym.name} {")
+    println(s"*$indent${formatName(classType, sym)} {")
 
     println(s"${nIndent}alternatives        = ${sym.alternatives}")
     println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
@@ -143,15 +140,12 @@ object Inspector {
     val nIndent = incrementIndent(indent)
 
     // Determine type
-    print(s"$indent")
-    sym match {
-      case v if sym.isVal => print("val")
-      case v if sym.isVar => print("var")
-      case _ => print("term")
+    val termType = sym match {
+      case v if sym.isVal => "val"
+      case v if sym.isVar => "var"
+      case _ => "term"
     }
-
-    // Determine visibility
-    println(s"[${resolveVisibility(sym)}].${sym.name} {")
+    println(s"$indent${formatName(termType, sym)} {")
 
     // Inspect type descriptors
     println(s"${nIndent}signature    = ${sym.typeSignature}")
@@ -171,6 +165,14 @@ object Inspector {
   private def inspectType(sym: ru.TypeSymbol, indent: String = ""): Unit = {
     println(s"${indent}type.${sym.name}")
   }
+
+  /**
+   *
+   * @param typ
+   * @param sym
+   * @return
+   */
+  private def formatName(typ: String, sym: ru.Symbol): String = s"$typ[${resolveVisibility(sym)}].${sym.name}"
 
   /**
    *
