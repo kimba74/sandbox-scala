@@ -44,7 +44,7 @@ object Inspector {
       case t if t.isTrait             => "trait"
       case _ => "class"
     }
-    println(s"*$indent${formatName(classType, sym)} {")
+    println(s"$indent${formatName(classType, sym)} {")
 
     println(s"${nIndent}alternatives        = ${sym.alternatives}")
     println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
@@ -84,31 +84,26 @@ object Inspector {
     val nIndent = incrementIndent(indent)
 
     // Determine method type
-    print(s"${indent}")
-    sym match {
+    val defType = sym match {
       // Check if method is a constructor
       case cst if cst.isConstructor => {
         cst match {
-          case p if p.isPrimaryConstructor => print("constructor.primary")
-          case c if c.isConstructor => print("constructor")
+          case p if p.isPrimaryConstructor => "constructor.primary"
+          case c if c.isConstructor => "constructor"
         }
       }
       // Check if method is an accessor
       case acs if acs.isAccessor  => {
         // Check type of accessor
         acs match {
-          case s if s.isSetter => print("setter")
-          case g if g.isGetter => print("getter")
+          case s if s.isSetter => "setter"
+          case g if g.isGetter => "getter"
         }
-        // Check field accessed
-//        println(s"${nIndent}accessed           = ${sym.accessed}")
       }
       // Default check, method is just regular method
-      case _ => print("def")
+      case _ => "def"
     }
-
-    // Determine visibility
-    println(s"[${resolveVisibility(sym)}].${sym.name} {")
+    println(s"$indent${formatName(defType, sym)} {")
 
     // Inspect MethodSymbol information
     println(s"${nIndent}isAbstract         = ${sym.isAbstract}")
