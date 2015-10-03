@@ -37,14 +37,14 @@ object Inspector {
   private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
 
-    // Determine class type
-    val classType = sym match {
+    val classType: PartialFunction[ru.ClassSymbol, String] = {
       case c if c.isCaseClass         => "caseClass"
       case c if c.isDerivedValueClass => "customValueClass"
       case t if t.isTrait             => "trait"
       case _ => "class"
     }
-    println(s"$indent${formatName(classType, sym)} {")
+
+    formatName(sym, classType, indent)
 
     println(s"${nIndent}alternatives        = ${sym.alternatives}")
     println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
@@ -84,7 +84,7 @@ object Inspector {
     val nIndent = incrementIndent(indent)
 
     // Determine method type
-    val defType = sym match {
+    val defType: PartialFunction[ru.MethodSymbol, String] = {
       // Check if method is a constructor
       case cst if cst.isConstructor => {
         cst match {
@@ -103,7 +103,7 @@ object Inspector {
       // Default check, method is just regular method
       case _ => "def"
     }
-    println(s"$indent${formatName(defType, sym)} {")
+    formatName(sym, defType, indent)
 
     // Inspect MethodSymbol information
     println(s"${nIndent}isAbstract         = ${sym.isAbstract}")
@@ -135,12 +135,13 @@ object Inspector {
     val nIndent = incrementIndent(indent)
 
     // Determine type
-    val termType = sym match {
+    val termType: PartialFunction[ru.TermSymbol, String] = {
       case v if sym.isVal => "val"
       case v if sym.isVar => "var"
       case _ => "term"
     }
-    println(s"$indent${formatName(termType, sym)} {")
+
+    formatName(sym, termType, indent)
 
     // Inspect type descriptors
     println(s"${nIndent}signature    = ${sym.typeSignature}")
@@ -163,14 +164,6 @@ object Inspector {
 
   /**
    *
-   * @param typ
-   * @param sym
-   * @return
-   */
-  private def formatName(typ: String, sym: ru.Symbol): String = s"$typ[${resolveVisibility(sym)}].${sym.name}"
-
-  /**
-   *
    * @param indent
    * @param increment
    * @return
@@ -189,5 +182,10 @@ object Inspector {
       case p if p.isPublic    => "public"
       case _ => "unknown"
     }
+  }
+
+  private def formatName[A<:ru.Symbol](sym: A, typ: PartialFunction[A, String], indent: String): Unit = {
+    val symType: PartialFunction[A, String] = typ orElse { case _ => "unknown" }
+    println(s">>$indent${symType(sym)}[${resolveVisibility(sym)}].${sym.name} {")
   }
 }
