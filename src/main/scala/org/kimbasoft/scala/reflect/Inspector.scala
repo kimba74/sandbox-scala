@@ -159,7 +159,13 @@ object Inspector {
    * @param indent
    */
   private def inspectType(sym: ru.TypeSymbol, indent: String = ""): Unit = {
-    println(s"${indent}type.${sym.name}")
+    val nIndent = incrementIndent(indent)
+
+    val typeType: PartialFunction[ru.TypeSymbol, String] = {
+      case _ => "type"
+    }
+
+    formatName(sym, typeType, indent)
   }
 
   /**
