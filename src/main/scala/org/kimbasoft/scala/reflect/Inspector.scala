@@ -69,7 +69,10 @@ object Inspector {
    * @param indent
    */
   private def inspectModule(sym: ru.ModuleSymbol, indent: String = ""): Unit = {
-    println(s"${indent}object.${sym.name} {")
+    val nIndent = incrementIndent(indent)
+
+    formatName(sym, PartialFunction[ru.ModuleSymbol,String](_ => "object"), indent)
+
     for (member <- sym.info.decls)
       inspect(member, indent + "  ")
     println(s"$indent}")
@@ -161,11 +164,7 @@ object Inspector {
   private def inspectType(sym: ru.TypeSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
 
-    val typeType: PartialFunction[ru.TypeSymbol, String] = {
-      case _ => "type"
-    }
-
-    formatName(sym, typeType, indent)
+    formatName(sym, PartialFunction[ru.TypeSymbol, String](_ => "type"), indent)
   }
 
   /**
@@ -192,6 +191,6 @@ object Inspector {
 
   private def formatName[A<:ru.Symbol](sym: A, typ: PartialFunction[A, String], indent: String): Unit = {
     val symType: PartialFunction[A, String] = typ orElse { case _ => "unknown" }
-    println(s">>$indent${symType(sym)}[${resolveVisibility(sym)}].${sym.name} {")
+    println(s"$indent${symType(sym)}[${resolveVisibility(sym)}].${sym.name} {")
   }
 }
