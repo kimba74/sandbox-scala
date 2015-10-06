@@ -8,6 +8,8 @@ package org.kimbasoft.scala.reflect
  */
 class TestClass(name: String, id: Int) extends AbstractTestClass with TestTrait {
 
+  type MyType = String
+
   val number = 1234
 
   var status = "ALIVE"

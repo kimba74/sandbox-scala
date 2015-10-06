@@ -165,6 +165,8 @@ object Inspector {
     val nIndent = incrementIndent(indent)
 
     formatName(sym, PartialFunction[ru.TypeSymbol, String](_ => "type"), indent)
+
+    println(s"$indent}")
   }
 
   /**
