@@ -10,6 +10,10 @@ class TestClass(name: String, id: Int) extends AbstractTestClass with TestTrait 
 
   type MyType = String
 
+  type StructuralType = { def doThis(str: String): Boolean }
+
+  val myType: MyType = "a String"
+
   val number = 1234
 
   var status = "ALIVE"

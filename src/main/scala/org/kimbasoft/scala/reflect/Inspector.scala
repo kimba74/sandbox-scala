@@ -166,6 +166,8 @@ object Inspector {
 
     formatName(sym, PartialFunction[ru.TypeSymbol, String](_ => "type"), indent)
 
+    println(s"${nIndent}has members = ${sym.info.decls != ru.NoSymbol}")
+
     println(s"$indent}")
   }
 
