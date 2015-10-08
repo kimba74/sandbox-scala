@@ -54,9 +54,9 @@ object Inspector {
     println(s"${nIndent}isExistential       = ${sym.isExistential}")
     println(s"${nIndent}isFinal             = ${sym.isFinal}")
     println(s"${nIndent}isModuleClass       = ${sym.isModuleClass}")
-    for (member <- sym.info.decls) {
-      inspect(member, nIndent)
-    }
+
+    for (member <- sym.info.decls) inspect(member, nIndent)
+
     println(s"$indent}")
     // Inspect Companion Object if existing
     if (sym.companion != ru.NoSymbol)
@@ -166,7 +166,7 @@ object Inspector {
 
     formatName(sym, PartialFunction[ru.TypeSymbol, String](_ => "type"), indent)
 
-    println(s"${nIndent}has members = ${sym.info.decls != ru.NoSymbol}")
+    for(member <- sym.info.decls) inspect(member, nIndent)
 
     println(s"$indent}")
   }
