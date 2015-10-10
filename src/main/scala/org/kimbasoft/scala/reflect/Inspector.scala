@@ -166,7 +166,8 @@ object Inspector {
 
     formatName(sym, PartialFunction[ru.TypeSymbol, String](_ => "type"), indent)
 
-    println(s"${nIndent}base Type = ${sym.info.finalResultType}")
+    println(s"${nIndent}base Type    = ${sym.info.finalResultType}")
+    println(s"${nIndent}base Classes = ${sym.info.baseClasses}")
 
     for(member <- sym.info.decls) inspect(member, nIndent)
 
