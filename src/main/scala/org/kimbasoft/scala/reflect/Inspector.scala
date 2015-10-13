@@ -168,6 +168,7 @@ object Inspector {
 
     println(s"${nIndent}base type    = ${sym.info.resultType}")
     println(s"${nIndent}base classes = ${sym.info.baseClasses}")
+    println(s"${nIndent}alias type   = ${sym.isAliasType}")
 
     for(member <- sym.info.decls) inspect(member, nIndent)
 
