@@ -166,9 +166,11 @@ object Inspector {
 
     formatName(sym, PartialFunction[ru.TypeSymbol, String](_ => "type"), indent)
 
-    println(s"${nIndent}base type    = ${sym.info.resultType}")
-    println(s"${nIndent}base classes = ${sym.info.baseClasses}")
-    println(s"${nIndent}alias type   = ${sym.isAliasType}")
+    println(s"${nIndent}base type     = ${sym.info.resultType}")
+    println(s"${nIndent}base classes  = ${sym.info.baseClasses}")
+    println(s"${nIndent}alias type    = ${sym.isAliasType}")
+    println(s"${nIndent}covariant     = ${sym.isCovariant}")
+    println(s"${nIndent}contravariant = ${sym.isContravariant}")
 
     for(member <- sym.info.decls) inspect(member, nIndent)
 
