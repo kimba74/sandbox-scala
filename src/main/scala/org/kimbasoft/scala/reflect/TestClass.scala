@@ -26,9 +26,11 @@ class TestClass(name: String, id: Int) extends AbstractTestClass with TestTrait 
 
   protected[reflect] val protectedScope = -4
 
-  def this(name: String){
+
+  def this(name: String) {
     this(name, -1)
   }
+
 
   override def traitMethod(str: String): Unit = {}
 
@@ -36,15 +38,16 @@ class TestClass(name: String, id: Int) extends AbstractTestClass with TestTrait 
 
   override def toString: String = s"This is TestClass($name)"
 
-  def intTest(num: Int): String = s"number was $num"
-
-  def defaultValueTest(id: Int = -1, name: String = "unknown"): Unit = {}
 
   def callByNameTest(num: => Int): String = s"number was $num"
 
   def curryingTest(name: String)(id: Int = -1): Unit = {}
 
+  def defaultValueTest(id: Int = -1, name: String = "unknown"): Unit = {}
+
   def functionTest(f: (String) => Boolean): Boolean = f("Hello")
+
+  def intTest(num: Int): String = s"number was $num"
 
   def overloadTest(str: String): Int = overloadTest(str, 0)
 
