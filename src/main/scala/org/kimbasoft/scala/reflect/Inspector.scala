@@ -107,8 +107,8 @@ object Inspector {
       case _ => "def"
     }
     formatName(sym, defType, indent)
-
     // Inspect MethodSymbol information
+    println(s"${nIndent}type parameters    = ${sym.typeParams}")
     println(s"${nIndent}isAbstract         = ${sym.isAbstract}")
     println(s"${nIndent}isAbstractOverride = ${sym.isAbstractOverride}")
     println(s"${nIndent}param access       = ${sym.isParamAccessor}")
