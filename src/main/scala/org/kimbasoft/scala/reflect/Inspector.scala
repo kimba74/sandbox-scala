@@ -46,6 +46,7 @@ object Inspector {
 
     formatName(sym, classType, indent)
 
+    println(s"${nIndent}type parameters     = ${sym.typeParams}")
     println(s"${nIndent}alternatives        = ${sym.alternatives}")
     println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
     println(s"${nIndent}isAbstract          = ${sym.isAbstract}")
