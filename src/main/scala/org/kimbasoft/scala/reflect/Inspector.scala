@@ -46,7 +46,8 @@ object Inspector {
 
     formatName(sym, classType, indent)
 
-    println(s"${nIndent}type parameters     = ${sym.typeParams}")
+    formatTypeParams(sym.typeParams, nIndent)
+
     println(s"${nIndent}alternatives        = ${sym.alternatives}")
     println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
     println(s"${nIndent}isAbstract          = ${sym.isAbstract}")
@@ -107,9 +108,12 @@ object Inspector {
       // Default check, method is just regular method
       case _ => "def"
     }
+
     formatName(sym, defType, indent)
+
+    formatTypeParams(sym.typeParams, nIndent)
+
     // Inspect MethodSymbol information
-    println(s"${nIndent}type parameters    = ${sym.typeParams}")
     println(s"${nIndent}isAbstract         = ${sym.isAbstract}")
     println(s"${nIndent}isAbstractOverride = ${sym.isAbstractOverride}")
     println(s"${nIndent}param access       = ${sym.isParamAccessor}")
@@ -203,5 +207,15 @@ object Inspector {
   private def formatName[A<:ru.Symbol](sym: A, typ: PartialFunction[A, String], indent: String): Unit = {
     val symType: PartialFunction[A, String] = typ orElse { case _ => "unknown" }
     println(s"$indent${symType(sym)}[${resolveVisibility(sym)}].${sym.name} {")
+  }
+
+  private def formatTypeParams(params: List[ru.Symbol], indent: String = ""): Unit = {
+    if (!params.isEmpty) {
+      val nIndent = incrementIndent(indent)
+      println(s"${indent}type.params {")
+      for (sym <- params)
+        println(s"${nIndent}type = ${sym.name}")
+      println(s"$indent}")
+    }
   }
 }
