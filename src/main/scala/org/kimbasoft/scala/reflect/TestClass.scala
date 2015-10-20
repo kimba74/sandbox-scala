@@ -55,7 +55,7 @@ class TestClass(name: String, id: Int) extends AbstractTestClass with TestTrait 
 
   def overloadTest(str: String, int: Int) = int + str.length
 
-  def parameterTest[T](t: T): Unit = { println(s"param: $t") }
+  def parameterTest[T, U](t: T, u: U): Unit = { println(s"param: $t, $u") }
 
   def varargsTest(num: Int, str: String, bol: Boolean*): Unit = {}
 
