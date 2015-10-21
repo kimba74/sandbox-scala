@@ -177,7 +177,7 @@ object Inspector {
     println(s"${nIndent}covariant     = ${sym.isCovariant}")
     println(s"${nIndent}contravariant = ${sym.isContravariant}")
 
-    for(member <- sym.info.decls) inspect(member, nIndent)
+//    for(member <- sym.info.decls) println(s"${nIndent}decl: ${member}") //inspect(member, nIndent)
 
     println(s"$indent}")
   }
@@ -210,11 +210,11 @@ object Inspector {
   }
 
   private def formatTypeParams(params: List[ru.Symbol], indent: String = ""): Unit = {
-    if (!params.isEmpty) {
+    if (params.nonEmpty) {
       val nIndent = incrementIndent(indent)
       println(s"${indent}type.params {")
       for (sym <- params)
-        println(s"${nIndent}type = ${sym.name}")
+        inspect(sym.asType, nIndent)
       println(s"$indent}")
     }
   }
