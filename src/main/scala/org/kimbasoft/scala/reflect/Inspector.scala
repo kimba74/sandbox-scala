@@ -177,7 +177,7 @@ object Inspector {
     println(s"${nIndent}covariant     = ${sym.isCovariant}")
     println(s"${nIndent}contravariant = ${sym.isContravariant}")
 
-//    for(member <- sym.info.decls) println(s"${nIndent}decl: ${member}") //inspect(member, nIndent)
+    for(member <- sym.info.decls) println(s"${nIndent}member.${member.name} : ${member.typeSignature}") //inspect(member, nIndent)
 
     println(s"$indent}")
   }
