@@ -177,6 +177,7 @@ object Inspector {
     println(s"${nIndent}covariant     = ${sym.isCovariant}")
     println(s"${nIndent}contravariant = ${sym.isContravariant}")
 
+    // Leaving this in for now since using inspect() will cause an infinite loop with type parameters
     for(member <- sym.info.decls) println(s"${nIndent}member.${member.name} : ${member.typeSignature}") //inspect(member, nIndent)
 
     println(s"$indent}")
