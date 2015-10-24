@@ -178,7 +178,8 @@ object Inspector {
     println(s"${nIndent}contravariant = ${sym.isContravariant}")
 
     // Leaving this in for now since using inspect() will cause an infinite loop with type parameters
-    for(member <- sym.info.decls) println(s"${nIndent}member.${member.name} : ${member.typeSignature}") //inspect(member, nIndent)
+    //inspect(member, nIndent)
+    sym.info.decls.foreach(member => println(s"${nIndent}member.${member.name} : ${member.typeSignature}"))
 
     println(s"$indent}")
   }
