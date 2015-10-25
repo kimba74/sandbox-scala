@@ -125,12 +125,12 @@ object Inspector {
     if (sym.alternatives.nonEmpty)
       println(s"${nIndent}alternatives       = ${sym.alternatives}")
 
-    for (paramList <- sym.info.paramLists) {
+    sym.info.paramLists foreach { pl =>
       println(s"${nIndent}parameter-list {")
-      for (param <- paramList)
-        inspect(param, nIndent + "  ")
+      pl foreach { p => inspect(p, nIndent + "  ") }
       println(s"$nIndent}")
     }
+
     println(s"$indent}")
   }
 
