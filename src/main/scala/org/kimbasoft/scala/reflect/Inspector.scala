@@ -75,8 +75,8 @@ object Inspector {
 
     formatName(sym, PartialFunction[ru.ModuleSymbol,String](_ => "object"), indent)
 
-    for (member <- sym.info.decls)
-      inspect(member, indent + "  ")
+    sym.info.decls foreach { member => inspect(member, nIndent) }
+
     println(s"$indent}")
   }
 
