@@ -215,8 +215,7 @@ object Inspector {
     if (params.nonEmpty) {
       val nIndent = incrementIndent(indent)
       println(s"${indent}type.params {")
-      for (sym <- params)
-        inspect(sym.asType, nIndent)
+      params foreach { sym => inspect(sym.asType, nIndent) }
       println(s"$indent}")
     }
   }
