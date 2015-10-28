@@ -57,7 +57,7 @@ object Inspector {
     println(s"${nIndent}isFinal             = ${sym.isFinal}")
     println(s"${nIndent}isModuleClass       = ${sym.isModuleClass}")
 
-    for (member <- sym.info.decls) inspect(member, nIndent)
+    sym.info.decls foreach { member => inspect(member, nIndent) }
 
     println(s"$indent}")
     // Inspect Companion Object if existing
@@ -179,7 +179,7 @@ object Inspector {
 
     // Leaving this in for now since using inspect() will cause an infinite loop with type parameters
     //inspect(member, nIndent)
-    sym.info.decls.foreach(member => println(s"${nIndent}member.${member.name} : ${member.typeSignature}"))
+    sym.info.decls foreach { member => println(s"${nIndent}member.${member.name} : ${member.typeSignature}") }
 
     println(s"$indent}")
   }
