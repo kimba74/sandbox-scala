@@ -127,7 +127,7 @@ object Inspector {
 
     sym.info.paramLists foreach { pl =>
       println(s"${nIndent}parameter-list {")
-      pl foreach { p => inspect(p, nIndent + "  ") }
+      pl foreach { p => inspect(p, incrementIndent(nIndent)) }
       println(s"$nIndent}")
     }
 
