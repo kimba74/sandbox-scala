@@ -15,8 +15,6 @@ object Inspector {
 
   /**
    *
-   * @param sym
-   * @param indent
    */
   def inspect(sym: ru.Symbol, indent: String = "") = {
     sym match {
@@ -31,8 +29,6 @@ object Inspector {
 
   /**
    *
-   * @param sym
-   * @param indent
    */
   private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
@@ -67,8 +63,6 @@ object Inspector {
 
   /**
    *
-   * @param sym
-   * @param indent
    */
   private def inspectModule(sym: ru.ModuleSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
@@ -82,8 +76,6 @@ object Inspector {
 
   /**
    *
-   * @param sym
-   * @param indent
    */
   private def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
@@ -91,20 +83,18 @@ object Inspector {
     // Determine method type
     val defType: PartialFunction[ru.MethodSymbol, String] = {
       // Check if method is a constructor
-      case cst if cst.isConstructor => {
+      case cst if cst.isConstructor =>
         cst match {
           case p if p.isPrimaryConstructor => "constructor.primary"
           case c if c.isConstructor => "constructor"
         }
-      }
       // Check if method is an accessor
-      case acs if acs.isAccessor  => {
+      case acs if acs.isAccessor  =>
         // Check type of accessor
         acs match {
           case s if s.isSetter => "setter"
           case g if g.isGetter => "getter"
         }
-      }
       // Default check, method is just regular method
       case _ => "def"
     }
@@ -136,8 +126,6 @@ object Inspector {
 
   /**
    *
-   * @param sym
-   * @param indent
    */
   private def inspectTerm(sym: ru.TermSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
@@ -163,8 +151,6 @@ object Inspector {
 
   /**
    *
-   * @param sym
-   * @param indent
    */
   private def inspectType(sym: ru.TypeSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
@@ -186,15 +172,12 @@ object Inspector {
 
   /**
    *
-   * @param indent
-   * @param increment
    * @return
    */
   private def incrementIndent(indent: String, increment: String = increment): String = indent + increment
 
   /**
    *
-   * @param sym
    * @return
    */
   private def resolveVisibility(sym: ru.Symbol): String = {
