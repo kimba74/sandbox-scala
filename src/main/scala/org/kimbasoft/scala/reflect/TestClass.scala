@@ -18,7 +18,7 @@ class TestClass(name: String, id: Int) extends AbstractTestClass with TestTrait 
 
   var status = "ALIVE"
 
-  val function = (s: String) => "<<" + s + ">>"
+  val function = (s: String, i: Int) => s"<<$i. $s>>"
 
   private val privateValue = -1
 
