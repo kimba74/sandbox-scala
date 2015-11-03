@@ -12,15 +12,16 @@ class TestClass(name: String, id: Int) extends AbstractTestClass with TestTrait 
 
   type StructuralType = { def doThis(str: String): Boolean }
 
+  val function = (s: String, i: Int) => s"<<$i. $s>>"
+
   val myType: MyType = "a String"
 
   val number = 1234
 
-  var status = "ALIVE"
-
   val tuple = (2 , "hello", true)
 
-  val function = (s: String, i: Int) => s"<<$i. $s>>"
+  var status = "ALIVE"
+
 
   private val privateValue = -1
 
