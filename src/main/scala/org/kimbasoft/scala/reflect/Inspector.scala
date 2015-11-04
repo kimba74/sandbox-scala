@@ -157,6 +157,7 @@ object Inspector {
 
     formatName(sym, PartialFunction[ru.TypeSymbol, String](_ => "type"), indent)
 
+    // Inspect key aspects of Type
     println(s"${nIndent}base type     = ${sym.info.resultType}")
     println(s"${nIndent}base classes  = ${sym.info.baseClasses}")
     println(s"${nIndent}alias type    = ${sym.isAliasType}")
