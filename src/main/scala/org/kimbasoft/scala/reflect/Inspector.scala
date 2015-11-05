@@ -112,6 +112,7 @@ object Inspector {
     println(s"${nIndent}varargs            = ${sym.isVarargs}")
     println(s"${nIndent}returns            = ${sym.returnType}")
 
+    // Print out alternatives to the method being inspected
     if (sym.alternatives.nonEmpty)
       println(s"${nIndent}alternatives       = ${sym.alternatives}")
 
