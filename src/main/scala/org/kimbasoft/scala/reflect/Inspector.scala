@@ -33,6 +33,7 @@ object Inspector {
   private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
 
+    // Determine Class type
     val classType: PartialFunction[ru.ClassSymbol, String] = {
       case c if c.isCaseClass         => "caseClass"
       case c if c.isDerivedValueClass => "customValueClass"
