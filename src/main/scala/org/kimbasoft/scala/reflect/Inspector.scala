@@ -17,6 +17,7 @@ object Inspector {
    *
    */
   def inspect(sym: ru.Symbol, indent: String = "") = {
+    // Determine type of Symbol
     sym match {
       case c: ru.ClassSymbol  => inspectClass(c, indent)
       case m: ru.ModuleSymbol => inspectModule(m, indent)
