@@ -34,7 +34,7 @@ object Inspector {
   private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
 
-    // Determine Class type
+    // Determine type of Class
     val classType: PartialFunction[ru.ClassSymbol, String] = {
       case c if c.isCaseClass         => "caseClass"
       case c if c.isDerivedValueClass => "customValueClass"
@@ -82,7 +82,7 @@ object Inspector {
   private def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
 
-    // Determine method type
+    // Determine type of Method
     val defType: PartialFunction[ru.MethodSymbol, String] = {
       // Check if method is a constructor
       case cst if cst.isConstructor =>
@@ -133,7 +133,7 @@ object Inspector {
   private def inspectTerm(sym: ru.TermSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
 
-    // Determine type
+    // Determine type of Term
     val termType: PartialFunction[ru.TermSymbol, String] = {
       case v if sym.isVal => "val"
       case v if sym.isVar => "var"
