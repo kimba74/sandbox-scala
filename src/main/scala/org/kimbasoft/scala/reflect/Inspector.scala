@@ -46,6 +46,7 @@ object Inspector {
 
     formatTypeParams(sym.typeParams, nIndent)
 
+    // Inspect ClassSymbol information
     println(s"${nIndent}alternatives        = ${sym.alternatives}")
     println(s"${nIndent}baseClasses         = ${sym.baseClasses}")
     println(s"${nIndent}isAbstract          = ${sym.isAbstract}")
