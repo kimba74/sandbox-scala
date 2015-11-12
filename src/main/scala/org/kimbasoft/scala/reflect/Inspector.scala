@@ -184,6 +184,7 @@ object Inspector {
    *
    */
   private def resolveVisibility(sym: ru.Symbol): String = {
+    // Determine Symbol's visibility
     sym match {
       case p if p.isPrivate   => "private"
       case p if p.isProtected => "protected"
