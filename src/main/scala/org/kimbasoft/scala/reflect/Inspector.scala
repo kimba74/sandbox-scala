@@ -194,8 +194,8 @@ object Inspector {
   }
 
   /**
-    *
-    */
+   * Method for formatting the Symbol's name in a standard fashion
+   */
   private def formatName[A<:ru.Symbol](sym: A, typ: PartialFunction[A, String], indent: String): Unit = {
     val symType: PartialFunction[A, String] = typ orElse { case _ => "unknown" }
     println(s"$indent${symType(sym)}[${resolveVisibility(sym)}].${sym.name} {")
