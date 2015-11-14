@@ -194,7 +194,7 @@ object Inspector {
   }
 
   /**
-   * Method for formatting the Symbol's name in a standard fashion
+   * Formats the Symbol's name in a standard pattern
    */
   private def formatName[A<:ru.Symbol](sym: A, typ: PartialFunction[A, String], indent: String): Unit = {
     val symType: PartialFunction[A, String] = typ orElse { case _ => "unknown" }
@@ -202,8 +202,8 @@ object Inspector {
   }
 
   /**
-    *
-    */
+   * Formats the list of Symbols in a standard pattern.
+   */
   private def formatTypeParams(params: List[ru.Symbol], indent: String = ""): Unit = {
     if (params.nonEmpty) {
       val nIndent = incrementIndent(indent)
