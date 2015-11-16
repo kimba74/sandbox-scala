@@ -181,7 +181,9 @@ object Inspector {
   private def incrementIndent(indent: String, increment: String = increment): String = indent + increment
 
   /**
-   *
+   * Helper method resolving the visibility of the provided symbol and returns it as a String.
+   * @param sym The Symbol for which the visibility is retrieved.
+   * @return The Symbol's visibility as String.
    */
   private def resolveVisibility(sym: ru.Symbol): String = {
     // Determine Symbol's visibility
@@ -194,7 +196,7 @@ object Inspector {
   }
 
   /**
-   * Formats the Symbol's name in a standard pattern
+   * Helper method formatting the Symbol's name in a standard pattern
    * @param sym The symbol for which to format the name
    * @param typ The partial function used to determine the symbol's type
    * @param indent The indent to use for the formatted name print-out
@@ -205,7 +207,7 @@ object Inspector {
   }
 
   /**
-   * Formats the list of Symbols in a standard pattern.
+   * Helper method formatting the list of Symbols in a standard pattern.
    * @param params The list of parameters (Symbol's) to format
    * @param indent The indent t use for the formatted print-out
    */
