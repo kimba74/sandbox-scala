@@ -176,8 +176,13 @@ object Inspector {
   }
 
   /**
-   *
-   */
+    * Helper method that prepends a provided String with a second provided String. This method is
+    * being used to increment the provided indent space with a pre-prepared amount of spaces. If
+    * no 'increment' String is provided a default one will be used.
+    * @param indent The String that is being prefixed
+    * @param increment The String that is being prepended to the first String
+    * @return The resulting String of the concatenation
+    */
   private def incrementIndent(indent: String, increment: String = increment): String = indent + increment
 
   /**
