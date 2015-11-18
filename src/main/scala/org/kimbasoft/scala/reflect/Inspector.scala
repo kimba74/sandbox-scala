@@ -154,7 +154,9 @@ object Inspector {
   }
 
   /**
-   *
+   * Helper method that inspects a standard TypeSymbol object.
+   * @param sym The TypeSymbol to inspect
+   * @param indent The indent prefix to use for all printed output.
    */
   private def inspectType(sym: ru.TypeSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
