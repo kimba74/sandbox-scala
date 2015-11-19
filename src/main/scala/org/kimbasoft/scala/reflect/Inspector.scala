@@ -129,7 +129,9 @@ object Inspector {
   }
 
   /**
-   *
+   * Helper method that inspects a TermSymbol object.
+   * @param sym The TermSymbol to inspect
+   * @param indent The indent prefix to use for all printed output.
    */
   private def inspectTerm(sym: ru.TermSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
