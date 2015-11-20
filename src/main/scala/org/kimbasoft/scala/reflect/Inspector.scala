@@ -78,7 +78,9 @@ object Inspector {
   }
 
   /**
-   *
+   * Helper method that inspects a MethodSymbol object.
+   * @param sym The MethodSymbol to inspect
+   * @param indent The indent prefix to use for all printed output.
    */
   private def inspectMethod(sym: ru.MethodSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
