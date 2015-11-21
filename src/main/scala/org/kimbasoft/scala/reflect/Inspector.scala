@@ -65,7 +65,9 @@ object Inspector {
   }
 
   /**
-   *
+   * Helper method that inspects a ModuleSymbol object.
+   * @param sym The ModuleSymbol to inspect
+   * @param indent The indent prefix to use for all printed output.
    */
   private def inspectModule(sym: ru.ModuleSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
