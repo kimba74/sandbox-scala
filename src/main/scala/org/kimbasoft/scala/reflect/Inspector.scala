@@ -29,7 +29,9 @@ object Inspector {
   }
 
   /**
-   *
+   * Helper method that inspects a ClassSymbol object.
+   * @param sym The ClassSymbol to inspect
+   * @param indent The indent prefix to use for all printed output.
    */
   private def inspectClass(sym: ru.ClassSymbol, indent: String = ""): Unit = {
     val nIndent = incrementIndent(indent)
