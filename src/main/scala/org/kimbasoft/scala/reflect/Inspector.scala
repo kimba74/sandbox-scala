@@ -14,8 +14,11 @@ object Inspector {
   val increment = "  "
 
   /**
-   *
-   */
+    * Facade method that determines which helper method will inspect
+    * the provided Symbol.
+    * @param sym The Symbol to inspect
+    * @param indent The indent prefix to use for all printed output.
+    */
   def inspect(sym: ru.Symbol, indent: String = "") = {
     // Determine type of Symbol
     sym match {
