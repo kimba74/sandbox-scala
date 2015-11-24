@@ -18,7 +18,7 @@ class GroupRouter extends Actor {
   /* Creating Router Group from configuration settings */
   val workersConf = context.actorOf(FromConfig.props(), "worker-conf")
 
-  /* Creating Router Group from configuration settings */
+  /* Creating Router Group from programmatic configuration */
   val paths = Vector("/user/super/worker1", "/user/super/worker2", "/user/super/worker3")
   val workersProg = context.actorOf(RoundRobinGroup(paths).props(), "worker-prog")
 
