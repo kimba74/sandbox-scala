@@ -3,7 +3,7 @@ package org.kimbasoft.scala.reflect
 import scala.reflect.runtime.{universe => ru}
 
 /**
- * Missing documentation. 
+ * Inspector class that takes a given Symbol and analyzes it recursively.
  *
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
