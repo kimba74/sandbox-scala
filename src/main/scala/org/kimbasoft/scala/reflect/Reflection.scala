@@ -3,7 +3,7 @@ package org.kimbasoft.scala.reflect
 import scala.reflect.runtime.{universe => ru}
 
 /**
- * Missing documentation. 
+ * Simple class that demonstrates some simple reflection operations in Scala.
  *
  * @author <a href="steffen.krause@soabridge.com">Steffen Krause</a>
  * @since 1.0
