@@ -2,11 +2,11 @@ package org.kimbasoft.akka.eventbus
 
 import akka.actor.{ActorSystem, DeadLetter}
 import com.typesafe.config.ConfigFactory
-import org.kimbasoft.akka.eventbus.ActorBus.{ActorBusImpl, ActorEvent}
-import org.kimbasoft.akka.eventbus.EventBusMessages.{BusPublication, BusPublicationRequest, BusMessage, BusRequestMessage}
-import org.kimbasoft.akka.eventbus.LookupBus.{LookupBusImpl, LookupEvent}
-import org.kimbasoft.akka.eventbus.ScanningBus.{ScanningBusImpl, ScanningEvent}
-import org.kimbasoft.akka.eventbus.SubchannelBus.{SubchannelBusImpl, SubchannelEvent}
+import org.kimbasoft.akka.eventbus.bustype.LookupBus.{LookupBusImpl, LookupEvent}
+import org.kimbasoft.akka.eventbus.bustype.SubchannelBus.{SubchannelBusImpl, SubchannelEvent}
+import org.kimbasoft.akka.eventbus.EventBusMessages.{BusMessage, BusPublication, BusPublicationRequest, BusRequestMessage}
+import org.kimbasoft.akka.eventbus.bustype.ActorBus.{ActorBusImpl, ActorEvent}
+import org.kimbasoft.akka.eventbus.bustype.ScanningBus.{ScanningBusImpl, ScanningEvent}
 
 /**
  * Missing documentation. 

@@ -1,7 +1,7 @@
-package org.kimbasoft.akka.eventbus
+package org.kimbasoft.akka.eventbus.bustype
 
 import akka.actor.ActorRef
-import akka.event.{LookupClassification, EventBus}
+import akka.event.{EventBus, LookupClassification}
 
 /**
  * Missing documentation. 

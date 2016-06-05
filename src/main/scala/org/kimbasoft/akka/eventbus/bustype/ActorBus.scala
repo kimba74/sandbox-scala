@@ -1,4 +1,4 @@
-package org.kimbasoft.akka.eventbus
+package org.kimbasoft.akka.eventbus.bustype
 
 import akka.actor.ActorRef
 import akka.event.{ActorClassification, ActorClassifier, ActorEventBus}
